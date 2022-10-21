@@ -2,7 +2,7 @@ package com.example.managerfeedback.entity;
 
 
 import com.example.managerfeedback.entity.basic.BasicEntity;
-import com.example.managerfeedback.util.ERole;
+import com.example.managerfeedback.util.Enums;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class Role extends BasicEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private ERole name;
+    private Enums.Role name;
 
 
 }

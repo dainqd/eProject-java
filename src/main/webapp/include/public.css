@@ -1,0 +1,14 @@
+#header{
+    background-color: #1c2034;
+    width: 100%;
+}
+@media (min-width: 992px) {
+    .nav-menu.tablet-mobile {
+       display: none;
+    }
+}
+@media (max-width: 991px) {
+    .nav-menu.laptop {
+       display: none;
+    }
+}

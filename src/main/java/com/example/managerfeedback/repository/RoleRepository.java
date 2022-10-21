@@ -2,7 +2,7 @@ package com.example.managerfeedback.repository;
 
 
 import com.example.managerfeedback.entity.Role;
-import com.example.managerfeedback.util.ERole;
+import com.example.managerfeedback.util.Enums;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +15,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
      * @param name
      * return role
      * */
-    Optional<Role> findByName(ERole name);
+    Optional<Role> findByName(Enums.Role name);
 }

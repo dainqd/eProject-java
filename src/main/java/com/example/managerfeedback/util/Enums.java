@@ -1,6 +1,10 @@
 package com.example.managerfeedback.util;
 
 public class Enums {
+	public static enum Role {
+		USER, MODERATOR, ADMIN
+	}
+
 	public static enum AccountStatus{
 		ACTIVE, DELETED, DEACTIVE, BLOCKED
 	}

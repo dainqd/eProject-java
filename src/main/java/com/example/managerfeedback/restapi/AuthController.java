@@ -9,7 +9,7 @@ import com.example.managerfeedback.entity.User;
 import com.example.managerfeedback.repository.RoleRepository;
 import com.example.managerfeedback.repository.UserRepository;
 import com.example.managerfeedback.service.UserDetailsIpmpl;
-import com.example.managerfeedback.util.ERole;
+import com.example.managerfeedback.util.Enums;
 import com.example.managerfeedback.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -102,24 +102,24 @@ public class AuthController {
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null){
-            Role userRole = roleRepository.findByName(ERole.USER)
+            Role userRole = roleRepository.findByName(Enums.Role.USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         }else {
             strRoles.forEach(role -> {
                 switch (role){
                     case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ADMIN)
+                        Role adminRole = roleRepository.findByName(Enums.Role.ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
                         break;
                     case "mod":
-                        Role modRole = roleRepository.findByName(ERole.MODERATOR)
+                        Role modRole = roleRepository.findByName(Enums.Role.MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
                         break;
                     default:
-                        Role userRole = roleRepository.findByName(ERole.USER)
+                        Role userRole = roleRepository.findByName(Enums.Role.USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }

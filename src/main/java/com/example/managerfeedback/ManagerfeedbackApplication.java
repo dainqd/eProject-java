@@ -4,15 +4,20 @@ import com.example.managerfeedback.entity.News;
 import com.example.managerfeedback.entity.Role;
 import com.example.managerfeedback.service.NewsService;
 import com.example.managerfeedback.service.RoleService;
-import com.example.managerfeedback.util.ERole;
 import com.example.managerfeedback.util.Enums;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import java.util.Locale;
 
 
 @SpringBootApplication
@@ -20,16 +25,21 @@ public class ManagerfeedbackApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(ManagerfeedbackApplication.class, args);
     }
+
     @Bean
     @Qualifier("restTemplate")
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
     @Autowired
     NewsService newsService;
 
     @Autowired
     RoleService roleService;
+
+    @Value("${default.language}")
+    private String localeLanguage;
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -122,18 +132,34 @@ public class ManagerfeedbackApplication implements CommandLineRunner {
 
         Role role1 = new Role();
         role1.setId(1);
-        role1.setName(ERole.USER);
+        role1.setName(Enums.Role.USER);
 
         Role role2 = new Role();
         role2.setId(2);
-        role2.setName(ERole.MODERATOR);
+        role2.setName(Enums.Role.MODERATOR);
 
         Role role3 = new Role();
         role3.setId(3);
-        role3.setName(ERole.ADMIN);
+        role3.setName(Enums.Role.ADMIN);
 
         roleService.save(role1);
         roleService.save(role2);
         roleService.save(role3);
     }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(new Locale(localeLanguage));
+        return slr;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
+   
 }

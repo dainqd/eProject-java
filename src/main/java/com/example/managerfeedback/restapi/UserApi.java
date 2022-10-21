@@ -1,22 +1,17 @@
 package com.example.managerfeedback.restapi;
 
-import com.example.managerfeedback.entity.News;
-import com.example.managerfeedback.entity.Role;
 import com.example.managerfeedback.entity.User;
 import com.example.managerfeedback.repository.RoleRepository;
 import com.example.managerfeedback.service.UserDetailsServiceImpl;
 
-import com.example.managerfeedback.util.ERole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
