@@ -1,4 +1,4 @@
-package com.example.managerfeedback.restapi.admin;
+package com.example.managerfeedback.restapi.teacher;
 
 import com.example.managerfeedback.entity.User;
 import com.example.managerfeedback.repository.RoleRepository;
@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("admin/api/user")
-public class AdminUserApi {
+@RequestMapping("mod/api/user")
+public class ModUserApi {
     @Autowired
     UserDetailsServiceImpl userDetailsServiceimpl;
 
@@ -102,14 +102,5 @@ public class AdminUserApi {
             new RuntimeException("Error: keyword not true");
         }
         return ResponseEntity.ok(userDetailsServiceimpl.save(existUser));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        if ((!userDetailsServiceimpl.findById(id).isPresent())){
-            ResponseEntity.badRequest().build();
-        }
-        userDetailsServiceimpl.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 }

@@ -51,7 +51,7 @@ public class NewsService {
         return newsRepository.findAllByStatus(status);
     }
 
-    public Optional<News> getListByIdAndStatus(Integer id, Enums.NewsStatus status) {
+    public Optional<News> getListByIdAndStatus(long id, Enums.NewsStatus status) {
         return newsRepository.findAllByIdAndStatus(id, status);
     }
 }

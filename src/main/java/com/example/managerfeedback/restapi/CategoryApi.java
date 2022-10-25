@@ -12,20 +12,18 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/v1/category")
 public class CategoryApi {
 
     @Autowired
     CategoryService categoryService;
 
     @GetMapping()
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Category>> getListt(){
         return ResponseEntity.ok(categoryService.findAll());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getDetail(@PathVariable Integer id){
         Optional<Category> optionalCategory = categoryService.findById(id);
         if (!optionalCategory.isPresent()){

@@ -29,13 +29,11 @@ public class AdminNewApi {
     CategoryRepository categoryRepository;
 
     @GetMapping()
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<List<News>> getLists(){
         return ResponseEntity.ok(newsService.findAll());
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getDetails(@PathVariable Integer id){
         Optional<News> optionalNews = newsService.findById(id);
         if (!optionalNews.isPresent()){
@@ -47,7 +45,6 @@ public class AdminNewApi {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> create(@RequestBody NewsDto newsDto, Authentication principal) {
         long adminId = Long.parseLong(principal.getName());
         newsService.create(newsDto, adminId);
@@ -55,7 +52,6 @@ public class AdminNewApi {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<News> update(@PathVariable Integer id, @RequestBody News news){
         Optional<News> optionalNews = newsService.findById(id);
         if ((!optionalNews.isPresent())){
@@ -75,7 +71,6 @@ public class AdminNewApi {
     }
 
     @PutMapping("/{id}/{keyword}")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<News> updated(@PathVariable Integer id,@PathVariable String keyword , @RequestBody News news){
         Optional<News> optionalNews = newsService.findById(id);
         if ((!optionalNews.isPresent())){
@@ -107,7 +102,6 @@ public class AdminNewApi {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable Integer id){
         if ((!newsService.findById(id).isPresent())){
             ResponseEntity.badRequest().build();

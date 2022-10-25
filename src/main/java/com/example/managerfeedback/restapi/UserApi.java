@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/v1/user")
 public class UserApi {
     @Autowired
     UserDetailsServiceImpl userDetailsServiceimpl;
@@ -26,14 +26,12 @@ public class UserApi {
     @Autowired
     RoleRepository roleRepository;
 
-    @GetMapping("/views/list")
-    @PreAuthorize("hasRole('USER')")
+    @GetMapping()
     public ResponseEntity<List<User>> getList(){
         return ResponseEntity.ok(userDetailsServiceimpl.findAll());
     }
 
-    @GetMapping("/views/list/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getDetail(@PathVariable Long id) {
         Optional<User> optionalUser = userDetailsServiceimpl.findById(id);
         if (!optionalUser.isPresent()) {

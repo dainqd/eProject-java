@@ -18,7 +18,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/news")
+@RequestMapping("/api/v1/news")
 public class NewsApi {
     @Autowired
     NewsService newsService;
@@ -30,14 +30,12 @@ public class NewsApi {
     CategoryRepository categoryRepository;
 
     @GetMapping()
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<News>> getList(){
         return ResponseEntity.ok(newsService.getListByStatus(Enums.NewsStatus.ACTIVE));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> getDetail(@PathVariable Integer id){
+    public ResponseEntity<?> getDetail(@PathVariable long id){
         Optional<News> optionalNews = newsService.getListByIdAndStatus(id,Enums.NewsStatus.ACTIVE);
         if (!optionalNews.isPresent()){
             ResponseEntity.badRequest().build();

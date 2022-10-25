@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/request/no/roles/create")
-public class CreateApi {
+public class AdminCreateApi {
     @Autowired
     RoleService roleService;
 

@@ -1,4 +1,4 @@
-package com.example.managerfeedback.restapi.admin;
+package com.example.managerfeedback.restapi.teacher;
 
 import com.example.managerfeedback.entity.Feedbacks;
 import com.example.managerfeedback.service.FeedbackService;
@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("admin/api/feedbacks")
-public class AdminFeedbackApi {
+@RequestMapping("mod/api/feedbacks")
+public class ModFeedbackApi {
 
     @Autowired
     FeedbackService feedbackService;
@@ -57,14 +57,5 @@ public class AdminFeedbackApi {
         existFeedbacks.setContent(feedbacks.getContent());
         existFeedbacks.setStatus(feedbacks.getStatus());
         return ResponseEntity.ok(feedbackService.save(existFeedbacks, idM));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id){
-        if ((!feedbackService.findById(id).isPresent())){
-            ResponseEntity.badRequest().build();
-        }
-        feedbackService.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 }

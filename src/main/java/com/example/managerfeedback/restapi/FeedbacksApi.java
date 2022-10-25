@@ -14,20 +14,18 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/feedbacks")
+@RequestMapping("/api/v1/feedbacks")
 public class FeedbacksApi {
 
     @Autowired
     FeedbackService feedbackService;
 
     @GetMapping()
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Feedbacks>> getList(){
         return ResponseEntity.ok(feedbackService.getListByStatus(true));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getDetail(@PathVariable Integer id){
         Optional<Feedbacks> optionalFeedbacks = feedbackService.getListByIdAndStatus(id, true);
         if (!optionalFeedbacks.isPresent()){
@@ -37,14 +35,12 @@ public class FeedbacksApi {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Feedbacks> create(@RequestBody Feedbacks feedbacks,  Authentication principal){
         long id = Long.parseLong(principal.getName());
         return ResponseEntity.ok(feedbackService.save(feedbacks, id));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Feedbacks> update(@PathVariable Integer id, @RequestBody Feedbacks feedbacks, Authentication principal){
         long idM = Long.parseLong(principal.getName());
         Optional<Feedbacks> optionalFeedbacks = feedbackService.findById(id);
