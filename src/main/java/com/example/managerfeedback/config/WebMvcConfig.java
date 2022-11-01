@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor);
     }
-    @Value("*")
+    @Value("${app.cors.allowed-origins}")
     private String[] allowedOrigins;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -29,7 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns(allowedOrigins)
                 .allowedMethods(ALLOWED_METHODS)
                 .allowedHeaders(ALLOWED_HEADER)
-                .allowCredentials(true)
+                .allowCredentials(false)
                 .maxAge(MAX_AGE_SECS);
     }
 }
