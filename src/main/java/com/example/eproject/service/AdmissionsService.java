@@ -2,6 +2,7 @@ package com.example.eproject.service;
 
 import com.example.eproject.dto.AdmissionsDto;
 import com.example.eproject.entity.Admissions;
+import com.example.eproject.entity.User;
 import com.example.eproject.repository.AdmissionsRepository;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +36,10 @@ public class AdmissionsService {
         return admissionsRepository.findById(id);
     }
 
-    public Admissions save(AdmissionsDto admissionsDto, long id) {
+    public Admissions save(AdmissionsDto admissionsDto, long adminId) {
         Admissions admissions = new Admissions(admissionsDto);
         admissions.setCreatedAt(LocalDateTime.now());
-        admissions.setCreatedBy(id);
+        admissions.setCreatedBy(adminId);
         return admissionsRepository.save(admissions);
     }
 

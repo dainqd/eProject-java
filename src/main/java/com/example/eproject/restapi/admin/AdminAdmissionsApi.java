@@ -2,6 +2,7 @@ package com.example.eproject.restapi.admin;
 
 import com.example.eproject.dto.AdmissionsDto;
 import com.example.eproject.entity.Admissions;
+import com.example.eproject.entity.User;
 import com.example.eproject.service.AdmissionsService;
 import com.example.eproject.service.MessageResourceService;
 import com.example.eproject.util.Enums;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -48,9 +50,11 @@ public class AdminAdmissionsApi {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody AdmissionsDto recruit, Authentication principal) {
+    public ResponseEntity<?> create(@RequestBody AdmissionsDto admissionsDto, Authentication principal) {
+        System.out.println(principal.getName());
         long adminId = Long.parseLong(principal.getName());
-        return ResponseEntity.ok(new AdmissionsDto(admissionsService.save(recruit, adminId)));
+        System.out.println(adminId);
+        return ResponseEntity.ok(new AdmissionsDto(admissionsService.save(admissionsDto, adminId)));
     }
 
     @PutMapping

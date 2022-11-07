@@ -11,6 +11,9 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @AllArgsConstructor
 @Getter
@@ -25,7 +28,8 @@ public class AdmissionsDto {
 
     private String phoneNumber;
 
-    private Date birthday;
+//    private Date birthday;
+    private String strBirthday;
 
     private String gender;
 
@@ -37,6 +41,12 @@ public class AdmissionsDto {
 
     private Enums.AdmissionsStatus status = Enums.AdmissionsStatus.PENDING;
     public AdmissionsDto(Admissions admissions){
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            admissions.setBirthday((Date) df.parse(strBirthday));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         BeanUtils.copyProperties(admissions, this);
     }
 }
