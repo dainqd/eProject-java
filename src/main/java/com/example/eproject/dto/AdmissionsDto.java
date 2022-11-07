@@ -1,7 +1,6 @@
-package com.example.eproject.entity;
+package com.example.eproject.dto;
 
-import com.example.eproject.dto.AdmissionsDto;
-import com.example.eproject.entity.basic.BasicEntity;
+import com.example.eproject.entity.Admissions;
 import com.example.eproject.util.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,24 +8,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.sql.Date;
 
+@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "admissions")
-public class Admissions extends BasicEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AdmissionsDto {
     private long id;
 
     private String fullName;
 
-    @Email(message = "Incorrect email format!, Please re-enter")
     private String email;
 
     private String phoneNumber;
@@ -41,10 +35,8 @@ public class Admissions extends BasicEntity {
 
     private String phoneOfParents;
 
-    @Enumerated(EnumType.STRING)
     private Enums.AdmissionsStatus status = Enums.AdmissionsStatus.PENDING;
-
-    public Admissions(AdmissionsDto admissionsDto){
-        BeanUtils.copyProperties(admissionsDto, this);
+    public AdmissionsDto(Admissions admissions){
+        BeanUtils.copyProperties(admissions, this);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.eproject.dto;
+package com.example.eproject.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

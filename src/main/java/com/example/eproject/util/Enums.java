@@ -21,4 +21,8 @@ public class Enums {
 	public static enum FeedbackStatus{
 		ACTIVE, DELETED, DEACTIVE
 	}
+
+	public static enum AdmissionsStatus{
+		PENDING, APPROVED, DELETED
+	}
 }

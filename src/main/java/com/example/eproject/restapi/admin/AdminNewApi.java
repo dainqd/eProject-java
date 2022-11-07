@@ -1,6 +1,6 @@
 package com.example.eproject.restapi.admin;
 
-import com.example.eproject.dto.MessageResponse;
+import com.example.eproject.dto.reponse.MessageResponse;
 import com.example.eproject.dto.NewsDto;
 import com.example.eproject.entity.News;
 import com.example.eproject.repository.CategoryRepository;
