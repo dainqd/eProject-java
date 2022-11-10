@@ -5,6 +5,7 @@ import com.example.eproject.entity.Admissions;
 import com.example.eproject.entity.User;
 import com.example.eproject.service.AdmissionsService;
 import com.example.eproject.service.MessageResourceService;
+import com.example.eproject.service.UserDetailsServiceImpl;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @RequestMapping("admin/api/admission")
 public class AdminAdmissionsApi {
     final AdmissionsService admissionsService;
+    final UserDetailsServiceImpl userDetailsService;
     final MessageResourceService messageResourceService;
 
     @GetMapping
@@ -51,29 +53,46 @@ public class AdminAdmissionsApi {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody AdmissionsDto admissionsDto, Authentication principal) {
-        System.out.println(principal.getName());
-        long adminId = Long.parseLong(principal.getName());
+        String adminId = principal.getName();
+        Optional<User> op = userDetailsService.findByUsername(adminId);
+        if (!op.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, messageResourceService.getMessage("id.notfound"));
+        }
+        User user = op.get();
         System.out.println(adminId);
-        return ResponseEntity.ok(new AdmissionsDto(admissionsService.save(admissionsDto, adminId)));
+        return ResponseEntity.ok(new AdmissionsDto(admissionsService.save(admissionsDto, user.getId())));
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody AdmissionsDto request) {
-        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-        long adminId = Long.parseLong(principal.getName());
-        admissionsService.update(request, adminId);
+    public ResponseEntity<?> update(@RequestBody AdmissionsDto request, Authentication principal) {
+        String adminId = principal.getName();
+        Optional<User> op = userDetailsService.findByUsername(adminId);
+        if (!op.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, messageResourceService.getMessage("id.notfound"));
+        }
+        User user = op.get();
+        System.out.println(adminId);
+        admissionsService.update(request, user.getId());
+        System.out.println(request.getUpdatedAt());
         return new ResponseEntity<>(messageResourceService.getMessage("update.success"), HttpStatus.OK);
+
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> delete(@PathVariable("id") long id) {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-        long adminId = Long.parseLong(principal.getName());
+        String adminId = principal.getName();
+        Optional<User> op = userDetailsService.findByUsername(adminId);
+        if (!op.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, messageResourceService.getMessage("id.notfound"));
+        }
+        User user = op.get();
+        System.out.println(adminId);
         Optional<Admissions> optionalAdmissions = admissionsService.findById(id);
         if (!optionalAdmissions.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, messageResourceService.getMessage("id.notfound"));
         }
-        admissionsService.delete(optionalAdmissions.get(), adminId);
+        admissionsService.delete(optionalAdmissions.get(), user.getId());
         return new ResponseEntity<>(messageResourceService.getMessage("delete.success"), HttpStatus.OK);
     }
 }

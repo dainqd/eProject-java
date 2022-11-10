@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -20,10 +24,31 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 
+@EnableScheduling
 @SpringBootApplication
 public class EprojectApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(EprojectApplication.class, args);
+    }
+
+    @Value("${i18n.localechange.interceptor.default}")
+    String localeChangeInterceptorParaName;
+
+    @Value("${i18n.resourcebundle.message.source.default}")
+    String resourceBundleMessageSourceBase;
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName(localeChangeInterceptorParaName);
+        return lci;
+    }
+
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename(resourceBundleMessageSourceBase);
+        return messageSource;
     }
 
     @Bean
@@ -37,9 +62,6 @@ public class EprojectApplication implements CommandLineRunner {
 
     @Autowired
     RoleService roleService;
-
-    @Value("${default.language}")
-    private String localeLanguage;
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -146,20 +168,4 @@ public class EprojectApplication implements CommandLineRunner {
         roleService.save(role2);
         roleService.save(role3);
     }
-
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(new Locale(localeLanguage));
-        return slr;
-    }
-
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-        lci.setParamName("lang");
-        return lci;
-    }
-
-   
 }

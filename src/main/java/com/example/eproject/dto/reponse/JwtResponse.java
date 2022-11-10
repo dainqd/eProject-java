@@ -1,5 +1,6 @@
 package com.example.eproject.dto.reponse;
 
+import com.example.eproject.entity.basic.BasicEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,25 +13,19 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtResponse {
-
+public class JwtResponse extends BasicEntity {
     private String message;
     private String token;
 
     private String type = "Bearer";
     private Long id;
-
     private String avt;
     private String firstName;
-
     private String lastName;
     private String username;
     private String email;
-
     private String phoneNumber;
-
     private Date birthday;
-
     private String gender;
     private String address;
     private List<String> roles;

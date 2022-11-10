@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -38,6 +39,11 @@ public class AdmissionsService {
 
     public Admissions save(AdmissionsDto admissionsDto, long adminId) {
         Admissions admissions = new Admissions(admissionsDto);
+
+        BeanUtils.copyProperties(admissionsDto, admissions);
+
+        admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
+        System.out.println(admissions.getBirthday());
         admissions.setCreatedAt(LocalDateTime.now());
         admissions.setCreatedBy(adminId);
         return admissionsRepository.save(admissions);
@@ -57,7 +63,11 @@ public class AdmissionsService {
                     messageResourceService.getMessage("admissions.notfound"));
         }
         Admissions admissions = optionalAdmissions.get();
+
         BeanUtils.copyProperties(admissionsDto, admissions);
+
+        admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
+        System.out.println(admissions.getBirthday());
         admissions.setUpdatedBy(id);
         admissions.setUpdatedAt(LocalDateTime.now());
         return admissionsRepository.save(admissions);
