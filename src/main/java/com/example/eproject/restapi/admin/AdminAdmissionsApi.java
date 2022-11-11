@@ -8,6 +8,7 @@ import com.example.eproject.service.MessageResourceService;
 import com.example.eproject.service.UserDetailsServiceImpl;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,28 +32,28 @@ public class AdminAdmissionsApi {
     final MessageResourceService messageResourceService;
 
     @GetMapping
-    public ResponseEntity<?> getList(
+    public Page<AdmissionsDto> getList(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "size", required = false, defaultValue = "10") int size,
             @RequestParam(value = "status", required = false, defaultValue = "") Enums.AdmissionsStatus status) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
         if (status != null){
-            return ResponseEntity.ok(admissionsService.findAllByStatus(status, pageable).map(AdmissionsDto::new));
+            return admissionsService.findAllByStatus(status, pageable).map(AdmissionsDto::new);
         }
-        return ResponseEntity.ok(admissionsService.findAll(pageable).map(AdmissionsDto::new));
+        return admissionsService.findAll(pageable).map(AdmissionsDto::new);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getDetail(@PathVariable("id") Long id) {
+    public AdmissionsDto getDetail(@PathVariable("id") Long id) {
         Optional<Admissions> optionalAdmissions = admissionsService.findById(id);
         if (!optionalAdmissions.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, messageResourceService.getMessage("id.notfound"));
         }
-        return ResponseEntity.ok(new AdmissionsDto(optionalAdmissions.get()));
+        return new AdmissionsDto(optionalAdmissions.get());
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody AdmissionsDto admissionsDto, Authentication principal) {
+    public AdmissionsDto create(@RequestBody AdmissionsDto admissionsDto, Authentication principal) {
         String adminId = principal.getName();
         Optional<User> op = userDetailsService.findByUsername(adminId);
         if (!op.isPresent()){
@@ -60,11 +61,12 @@ public class AdminAdmissionsApi {
         }
         User user = op.get();
         System.out.println(adminId);
-        return ResponseEntity.ok(new AdmissionsDto(admissionsService.save(admissionsDto, user.getId())));
+        Admissions admissions = new Admissions(admissionsDto);
+        return new AdmissionsDto(admissionsService.save(admissionsDto, user.getId()));
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody AdmissionsDto request, Authentication principal) {
+    public String update(@RequestBody AdmissionsDto request, Authentication principal) {
         String adminId = principal.getName();
         Optional<User> op = userDetailsService.findByUsername(adminId);
         if (!op.isPresent()){
@@ -72,10 +74,9 @@ public class AdminAdmissionsApi {
         }
         User user = op.get();
         System.out.println(adminId);
+        Admissions admissions = new Admissions(request);
         admissionsService.update(request, user.getId());
-        System.out.println(request.getUpdatedAt());
-        return new ResponseEntity<>(messageResourceService.getMessage("update.success"), HttpStatus.OK);
-
+        return messageResourceService.getMessage("update.success");
     }
 
     @DeleteMapping("{id}")

@@ -12,7 +12,4 @@ public class MessageResourceService {
     public String getMessage(String key) {
         return messageSource.getMessage(key, null, LocaleContextHolder.getLocale());
     }
-    public String getLocale() {
-        return LocaleContextHolder.getLocale().getCountry();
-    }
 }

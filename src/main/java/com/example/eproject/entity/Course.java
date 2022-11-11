@@ -1,6 +1,7 @@
 package com.example.eproject.entity;
 
 import com.example.eproject.entity.basic.BasicEntity;
+import com.example.eproject.util.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,9 +37,14 @@ public class Course extends BasicEntity {
     //    Học phí
     private Currency price;
     //    Chỗ ngồi
-    private int seat;
+    private long seat;
     //    Thời gian bắt đầu
     private Date startDate;
     //    Thời gian Kết thúc
     private Date endDate;
+    //    Chỗ trống
+    private long free;
+
+    @Enumerated(EnumType.STRING)
+    private Enums.CourseStatus status = Enums.CourseStatus.PREACTIVE;
 }

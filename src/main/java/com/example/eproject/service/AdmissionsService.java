@@ -22,8 +22,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdmissionsService {
     @Autowired
-    AdmissionsRepository admissionsRepository;
-    MessageResourceService messageResourceService;
+    final AdmissionsRepository admissionsRepository;
+    final MessageResourceService messageResourceService;
 
     public Page<Admissions> findAll(Pageable pageable){
         return admissionsRepository.findAll(pageable);
@@ -61,15 +61,16 @@ public class AdmissionsService {
         if (!optionalAdmissions.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     messageResourceService.getMessage("admissions.notfound"));
+        } else {
+            Admissions admissions = optionalAdmissions.get();
+
+            BeanUtils.copyProperties(admissionsDto, admissions);
+
+            admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
+            System.out.println(admissions.getBirthday());
+            admissions.setUpdatedAt(LocalDateTime.now());
+            admissions.setUpdatedBy(id);
+            return admissionsRepository.save(admissions);
         }
-        Admissions admissions = optionalAdmissions.get();
-
-        BeanUtils.copyProperties(admissionsDto, admissions);
-
-        admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
-        System.out.println(admissions.getBirthday());
-        admissions.setUpdatedBy(id);
-        admissions.setUpdatedAt(LocalDateTime.now());
-        return admissionsRepository.save(admissions);
     }
 }

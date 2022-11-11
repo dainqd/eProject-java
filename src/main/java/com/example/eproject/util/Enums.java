@@ -25,4 +25,8 @@ public class Enums {
 	public static enum AdmissionsStatus{
 		PENDING, APPROVED, DELETED
 	}
+
+	public static enum CourseStatus{
+		ACTIVE, DEACTIVE, PREACTIVE, FULLY,  DELETED
+	}
 }

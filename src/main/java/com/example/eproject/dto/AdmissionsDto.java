@@ -19,29 +19,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class AdmissionsDto {
     private long id;
-
     private String fullName;
-
     private String email;
-
     private String phoneNumber;
-
     private String birthday;
-
     private String gender;
-
     private String address;
-
     private String nameOfParents;
-
     private String phoneOfParents;
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
