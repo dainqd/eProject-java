@@ -26,7 +26,7 @@ public class SpringFoxConfig {
         final String swaggerToken = "";
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.managerfeedback.restapi"))
+                .apis(RequestHandlerSelectors.basePackage("com.example.eproject.restapi"))
                 .paths(PathSelectors.any())
                 .build()
                 .directModelSubstitute(ResponseEntity.class, Void.class)
