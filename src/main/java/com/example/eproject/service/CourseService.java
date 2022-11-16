@@ -30,11 +30,23 @@ public class CourseService {
         return courseRepository.findAllByStatus(status, pageable);
     }
 
+    public Page<Course> findAllByStatusNoDelete(Enums.CourseStatus status, Pageable pageable) {
+        if (status == Enums.CourseStatus.DELETED){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    messageResourceService.getMessage("course.not.found"));
+        }
+        return courseRepository.findAllByStatus(status, pageable);
+    }
+
     public Optional<Course> findById(long id) {
         return courseRepository.findById(id);
     }
 
     public Optional<Course> findByIdAndStatus(long id, Enums.CourseStatus status) {
+        if (status == Enums.CourseStatus.DELETED){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    messageResourceService.getMessage("course.not.found"));
+        }
         return courseRepository.findByIdAndStatus(id, status);
     }
 
@@ -62,7 +74,8 @@ public class CourseService {
     public Course update(CourseDto courseDto, long adminID){
         Optional<Course> optionalCourse = courseRepository.findById(courseDto.getId());
         if (!optionalCourse.isPresent()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("course.notfound"));
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    messageResourceService.getMessage("course.not.found"));
         }
         Course course = optionalCourse.get();
 

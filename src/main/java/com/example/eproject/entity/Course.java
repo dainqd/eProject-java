@@ -1,11 +1,14 @@
 package com.example.eproject.entity;
 
+import com.example.eproject.dto.AdmissionsDto;
+import com.example.eproject.dto.CourseDto;
 import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.util.Currency;
@@ -47,4 +50,8 @@ public class Course extends BasicEntity {
 
     @Enumerated(EnumType.STRING)
     private Enums.CourseStatus status = Enums.CourseStatus.PREACTIVE;
+
+    public Course(CourseDto courseDto) {
+        BeanUtils.copyProperties(courseDto, this);
+    }
 }

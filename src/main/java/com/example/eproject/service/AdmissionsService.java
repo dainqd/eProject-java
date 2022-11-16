@@ -60,7 +60,7 @@ public class AdmissionsService {
         Optional<Admissions> optionalAdmissions = admissionsRepository.findById(admissionsDto.getId());
         if (!optionalAdmissions.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    messageResourceService.getMessage("admissions.notfound"));
+                    messageResourceService.getMessage("admissions.not.found"));
         } else {
             Admissions admissions = optionalAdmissions.get();
 
