@@ -20,7 +20,7 @@ public class JwtUtils {
     @Value("${bezkoder.app.jwtExpirationMs}")
     public int jwtExpirationsMs;
 
-    public String generateJwtToken(Authentication authentication){
+    public String generateJwtToken(Authentication authentication) {
         UserDetailsIpmpl userPrincipal = (UserDetailsIpmpl) authentication.getPrincipal();
 
         return Jwts.builder()
@@ -31,23 +31,23 @@ public class JwtUtils {
                 .compact();
     }
 
-    public String getUserNameFromJwtToken(String token){
+    public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateJwtToken(String authToken){
+    public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
-        }catch (SignatureException e){
+        } catch (SignatureException e) {
             log.error("Invalid JWT signature: {}", e.getMessage());
-        }catch (MalformedJwtException e){
+        } catch (MalformedJwtException e) {
             log.error("Invalid JWT token: {}", e.getMessage());
-        }catch (ExpiredJwtException e){
+        } catch (ExpiredJwtException e) {
             log.error("JWT token is expire: {}", e.getMessage());
-        }catch (UnsupportedJwtException e){
+        } catch (UnsupportedJwtException e) {
             log.error("JWT token is unsupported: {}", e.getMessage());
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             log.error("JWT claim string is empty: {}", e.getMessage());
         }
         return false;

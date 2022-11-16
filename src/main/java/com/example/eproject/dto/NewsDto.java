@@ -26,6 +26,7 @@ public class NewsDto {
     private Enums.NewsStatus status;
     private String author;
     private Set<Category> categories = new HashSet<>();
+
     public NewsDto(News news) {
         BeanUtils.copyProperties(news, this);
         this.categories = news.getCategories();

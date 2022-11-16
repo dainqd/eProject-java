@@ -26,7 +26,7 @@ public class UserApi {
     RoleRepository roleRepository;
 
     @GetMapping()
-    public ResponseEntity<List<User>> getList(){
+    public ResponseEntity<List<User>> getList() {
         return ResponseEntity.ok(userDetailsServiceimpl.findAll());
     }
 

@@ -19,15 +19,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findById(long id){
+    public Optional<User> findById(long id) {
         return userRepository.findById(id);
     }
 
-    public Optional<User> findByUsername(String username){
+    public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public void deleteById(long id){
+    public void deleteById(long id) {
         userRepository.deleteById(id);
     }
 
@@ -43,7 +43,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: "+ username));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return UserDetailsIpmpl.build(user);
     }

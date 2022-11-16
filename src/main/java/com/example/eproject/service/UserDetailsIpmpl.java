@@ -47,24 +47,24 @@ public class UserDetailsIpmpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsIpmpl(long id,String avt, String firstname, String lastName,String username, String email,
+    public UserDetailsIpmpl(long id, String avt, String firstname, String lastName, String username, String email,
                             String phoneNumber, Date birthday, String gender, String address, String password,
-                            Collection<? extends GrantedAuthority> authorities){
-        this.id= id;
-        this.avt=avt;
-        this.firstname=firstname;
-        this.lastName=lastName;
-        this.username=username;
-        this.email=email;
-        this.phoneNumber=phoneNumber;
-        this.birthday=birthday;
-        this.gender=gender;
-        this.address=address;
-        this.password=password;
-        this.authorities=authorities;
+                            Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.avt = avt;
+        this.firstname = firstname;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.address = address;
+        this.password = password;
+        this.authorities = authorities;
     }
 
-    public static com.example.eproject.service.UserDetailsIpmpl build(User user){
+    public static com.example.eproject.service.UserDetailsIpmpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
@@ -106,7 +106,7 @@ public class UserDetailsIpmpl implements UserDetails {
     }
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())

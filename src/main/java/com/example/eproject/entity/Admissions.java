@@ -47,7 +47,7 @@ public class Admissions extends BasicEntity {
     @Enumerated(EnumType.STRING)
     private Enums.AdmissionsStatus status = Enums.AdmissionsStatus.PENDING;
 
-    public Admissions(AdmissionsDto admissionsDto){
+    public Admissions(AdmissionsDto admissionsDto) {
         BeanUtils.copyProperties(admissionsDto, this);
     }
 }

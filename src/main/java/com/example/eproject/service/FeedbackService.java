@@ -14,11 +14,11 @@ public class FeedbackService {
     @Autowired
     private FeedbacksRepository feedbacksRepository;
 
-    public List<Feedbacks> findAll(){
+    public List<Feedbacks> findAll() {
         return feedbacksRepository.findAll();
     }
 
-    public Optional<Feedbacks> findById(long id){
+    public Optional<Feedbacks> findById(long id) {
         return feedbacksRepository.findById(id);
     }
 
@@ -28,15 +28,15 @@ public class FeedbackService {
         return feedbacksRepository.save(feedbacks);
     }
 
-    public void deleteById(long id){
+    public void deleteById(long id) {
         feedbacksRepository.deleteById(id);
     }
 
-    public List<Feedbacks> getListByStatus(boolean status){
+    public List<Feedbacks> getListByStatus(boolean status) {
         return feedbacksRepository.findAllByStatus(status);
     }
 
-    public Optional<Feedbacks> getListByIdAndStatus(long id, boolean status){
+    public Optional<Feedbacks> getListByIdAndStatus(long id, boolean status) {
         return feedbacksRepository.findAllByIdAndStatus(id, status);
     }
 }

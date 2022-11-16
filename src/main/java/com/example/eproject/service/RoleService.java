@@ -10,7 +10,7 @@ public class RoleService {
     @Autowired
     RoleRepository roleRepository;
 
-    public Role save(Role srole){
+    public Role save(Role srole) {
         return roleRepository.save(srole);
     }
 }

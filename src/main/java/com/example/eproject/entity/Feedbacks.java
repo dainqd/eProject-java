@@ -23,10 +23,10 @@ public class Feedbacks extends BasicEntity {
 
     private String username;
 
-    @Max(value=5, message = "Please re-enter the number of review stars ")
+    @Max(value = 5, message = "Please re-enter the number of review stars ")
     private int star;
 
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String content;
 
     @Enumerated(EnumType.STRING)

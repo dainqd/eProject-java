@@ -37,16 +37,16 @@ public class Utils {
         return (java.sql.Date) date;
     }
 
-    public static String convertString(Date datetime){
+    public static String convertString(Date datetime) {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(datetime);
     }
 
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	public static String formatDate(LocalDateTime localDateTime){
-		return formatter.format(localDateTime);
-	}
+    public static String formatDate(LocalDateTime localDateTime) {
+        return formatter.format(localDateTime);
+    }
 
     public static String formatNumber(double value) {
         DecimalFormat myFormatter = new DecimalFormat("###############.########");

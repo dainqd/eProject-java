@@ -16,13 +16,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private static final String ADD_MAPPING = "/**";
     final long MAX_AGE_SECS = 60 * 60;
     final LocaleChangeInterceptor localeChangeInterceptor;
+
     // To change language. Example: ?lang=vi
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor);
     }
+
     @Value("${app.cors.allowed-origins}")
     private String[] allowedOrigins;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping(ADD_MAPPING)

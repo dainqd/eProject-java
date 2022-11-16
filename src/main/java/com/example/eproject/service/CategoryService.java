@@ -13,11 +13,11 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> findAll(){
+    public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
-    public Optional<Category> findById(long id){
+    public Optional<Category> findById(long id) {
         return categoryRepository.findById(id);
     }
 
@@ -25,7 +25,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void deleteById(long id){
+    public void deleteById(long id) {
         categoryRepository.deleteById(id);
     }
 

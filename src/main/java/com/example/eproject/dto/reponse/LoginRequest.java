@@ -12,18 +12,19 @@ public class LoginRequest {
     /*
      * Create an empty loginRequest object
      * */
-    public LoginRequest(){
+    public LoginRequest() {
         super();
     }
+
     /*
      * Create a LoginRequest object with full attributes
      *
      * @param username user's user name
      * @param password
      * */
-    public LoginRequest(String username, String password){
+    public LoginRequest(String username, String password) {
         super();
-        this.username=username;
-        this.password=password;
+        this.username = username;
+        this.password = password;
     }
 }

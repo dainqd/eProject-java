@@ -14,6 +14,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ImageController {
     final CloudflareService cloudflareService;
+
     @PostMapping(path = "upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     public ResponseEntity<String> imageUpload(@ModelAttribute UploadImageRequest request) throws IOException {

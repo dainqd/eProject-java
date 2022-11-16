@@ -18,14 +18,14 @@ public class CategoryApi {
     CategoryService categoryService;
 
     @GetMapping()
-    public ResponseEntity<List<Category>> getListt(){
+    public ResponseEntity<List<Category>> getListt() {
         return ResponseEntity.ok(categoryService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDetail(@PathVariable Integer id){
+    public ResponseEntity<?> getDetail(@PathVariable Integer id) {
         Optional<Category> optionalCategory = categoryService.findById(id);
-        if (!optionalCategory.isPresent()){
+        if (!optionalCategory.isPresent()) {
             ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(optionalCategory.get());

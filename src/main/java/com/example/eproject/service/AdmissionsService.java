@@ -25,7 +25,7 @@ public class AdmissionsService {
     final AdmissionsRepository admissionsRepository;
     final MessageResourceService messageResourceService;
 
-    public Page<Admissions> findAll(Pageable pageable){
+    public Page<Admissions> findAll(Pageable pageable) {
         return admissionsRepository.findAll(pageable);
     }
 
@@ -33,7 +33,7 @@ public class AdmissionsService {
         return admissionsRepository.findAllByStatus(status, pageable);
     }
 
-    public Optional<Admissions> findById(long id){
+    public Optional<Admissions> findById(long id) {
         return admissionsRepository.findById(id);
     }
 
@@ -49,7 +49,7 @@ public class AdmissionsService {
         return admissionsRepository.save(admissions);
     }
 
-    public void delete(Admissions admissions, long id){
+    public void delete(Admissions admissions, long id) {
         admissions.setStatus(Enums.AdmissionsStatus.DELETED);
         admissions.setDeletedAt(LocalDateTime.now());
         admissions.setDeletedBy(id);

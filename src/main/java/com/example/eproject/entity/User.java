@@ -24,7 +24,7 @@ public class User extends BasicEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String avt;
 
     private String firstName;
@@ -36,13 +36,13 @@ public class User extends BasicEntity {
     @Email(message = "Incorrect email format!, Please re-enter")
     private String email;
 
-    private String phoneNumber ;
+    private String phoneNumber;
 
     private Date birthday;
 
     private String gender;
 
-    private String address ;
+    private String address;
 
     @NotNull(message = "Password cannot be left blank")
     @Size(min = 6, message = "password must be greater than or equal to 6")
@@ -56,16 +56,16 @@ public class User extends BasicEntity {
     @Enumerated(EnumType.STRING)
     private Enums.AccountStatus status;
 
-    public User(String avt, String firstName, String lastName, String username, String email, Date birthday, String gender, String password){
-        this.avt=avt;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.username=username;
-        this.email=email;
+    public User(String avt, String firstName, String lastName, String username, String email, Date birthday, String gender, String password) {
+        this.avt = avt;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
 //        this.phoneNumber=phoneNumber;
-        this.birthday=birthday;
-        this.gender=gender;
+        this.birthday = birthday;
+        this.gender = gender;
 //        this.address=address;
-        this.password=password;
+        this.password = password;
     }
 }

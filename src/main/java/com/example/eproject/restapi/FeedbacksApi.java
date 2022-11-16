@@ -20,30 +20,30 @@ public class FeedbacksApi {
     FeedbackService feedbackService;
 
     @GetMapping()
-    public ResponseEntity<List<Feedbacks>> getList(){
+    public ResponseEntity<List<Feedbacks>> getList() {
         return ResponseEntity.ok(feedbackService.getListByStatus(true));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDetail(@PathVariable Integer id){
+    public ResponseEntity<?> getDetail(@PathVariable Integer id) {
         Optional<Feedbacks> optionalFeedbacks = feedbackService.getListByIdAndStatus(id, true);
-        if (!optionalFeedbacks.isPresent()){
+        if (!optionalFeedbacks.isPresent()) {
             ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(feedbackService.getListByIdAndStatus(id, true));
     }
 
     @PostMapping()
-    public ResponseEntity<Feedbacks> create(@RequestBody Feedbacks feedbacks,  Authentication principal){
+    public ResponseEntity<Feedbacks> create(@RequestBody Feedbacks feedbacks, Authentication principal) {
         long id = Long.parseLong(principal.getName());
         return ResponseEntity.ok(feedbackService.save(feedbacks, id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Feedbacks> update(@PathVariable Integer id, @RequestBody Feedbacks feedbacks, Authentication principal){
+    public ResponseEntity<Feedbacks> update(@PathVariable Integer id, @RequestBody Feedbacks feedbacks, Authentication principal) {
         long idM = Long.parseLong(principal.getName());
         Optional<Feedbacks> optionalFeedbacks = feedbackService.findById(id);
-        if ((!optionalFeedbacks.isPresent())){
+        if ((!optionalFeedbacks.isPresent())) {
             ResponseEntity.badRequest().build();
         }
         Feedbacks existFeedbacks = optionalFeedbacks.get();

@@ -101,13 +101,13 @@ public class AuthController {
                 encoder.encode(signupRequest.getPassword()));
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
-        if (strRoles == null){
+        if (strRoles == null) {
             Role userRole = roleRepository.findByName(Enums.Role.USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        }else {
+        } else {
             strRoles.forEach(role -> {
-                switch (role){
+                switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(Enums.Role.ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));

@@ -20,15 +20,15 @@ public class AdminCategoryApi {
 
     @GetMapping()
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<List<Category>> getLists(){
+    public ResponseEntity<List<Category>> getLists() {
         return ResponseEntity.ok(categoryService.findAll());
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> getDetails(@PathVariable Integer id){
+    public ResponseEntity<?> getDetails(@PathVariable Integer id) {
         Optional<Category> optionalCategory = categoryService.findById(id);
-        if (!optionalCategory.isPresent()){
+        if (!optionalCategory.isPresent()) {
             ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(optionalCategory.get());
@@ -36,15 +36,15 @@ public class AdminCategoryApi {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<Category> create(@RequestBody Category category){
+    public ResponseEntity<Category> create(@RequestBody Category category) {
         return ResponseEntity.ok(categoryService.save(category));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<Category> update(@PathVariable Integer id, @RequestBody Category category){
+    public ResponseEntity<Category> update(@PathVariable Integer id, @RequestBody Category category) {
         Optional<Category> optionalCategory = categoryService.findById(id);
-        if ((!optionalCategory.isPresent())){
+        if ((!optionalCategory.isPresent())) {
             ResponseEntity.badRequest().build();
         }
         Category existCategory = optionalCategory.get();
@@ -55,8 +55,8 @@ public class AdminCategoryApi {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable Integer id){
-        if ((!categoryService.findById(id).isPresent())){
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        if ((!categoryService.findById(id).isPresent())) {
             ResponseEntity.badRequest().build();
         }
         categoryService.deleteById(id);

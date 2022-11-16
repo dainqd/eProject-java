@@ -16,9 +16,9 @@ public class AdminCreateApi {
     @Autowired
     RoleService roleService;
 
-//    Tạo role trên heroku bằng api: /api/request/no/roles/create/support
+    //    Tạo role trên heroku bằng api: /api/request/no/roles/create/support
     @PostMapping("/support")
-    public ResponseEntity<Role> create(@RequestBody Role role){
+    public ResponseEntity<Role> create(@RequestBody Role role) {
         return ResponseEntity.ok(roleService.save(role));
     }
 }

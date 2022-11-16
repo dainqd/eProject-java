@@ -25,14 +25,14 @@ public class NewsApi {
     CategoryRepository categoryRepository;
 
     @GetMapping()
-    public ResponseEntity<List<News>> getList(){
+    public ResponseEntity<List<News>> getList() {
         return ResponseEntity.ok(newsService.getListByStatus(Enums.NewsStatus.ACTIVE));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDetail(@PathVariable long id){
-        Optional<News> optionalNews = newsService.getListByIdAndStatus(id,Enums.NewsStatus.ACTIVE);
-        if (!optionalNews.isPresent()){
+    public ResponseEntity<?> getDetail(@PathVariable long id) {
+        Optional<News> optionalNews = newsService.getListByIdAndStatus(id, Enums.NewsStatus.ACTIVE);
+        if (!optionalNews.isPresent()) {
             ResponseEntity.badRequest().build();
         }
         optionalNews.get().setViews(optionalNews.get().getViews() + 1);

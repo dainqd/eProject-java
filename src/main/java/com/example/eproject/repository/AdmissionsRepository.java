@@ -12,7 +12,10 @@ import java.util.Optional;
 @Repository
 public interface AdmissionsRepository extends JpaRepository<Admissions, Long> {
     Page<Admissions> findById(long id, Pageable pageable);
+
     Page<Admissions> findAllByStatus(Enums.AdmissionsStatus status, Pageable pageable);
+
     Optional<Admissions> findByIdAndStatus(long id, Enums.AdmissionsStatus status);
+
     Page<Admissions> findAll(Pageable pageable);
 }

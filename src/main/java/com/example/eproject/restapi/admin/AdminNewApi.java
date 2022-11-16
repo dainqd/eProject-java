@@ -28,14 +28,14 @@ public class AdminNewApi {
     CategoryRepository categoryRepository;
 
     @GetMapping()
-    public ResponseEntity<List<News>> getLists(){
+    public ResponseEntity<List<News>> getLists() {
         return ResponseEntity.ok(newsService.findAll());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getDetails(@PathVariable Integer id){
+    public ResponseEntity<?> getDetails(@PathVariable Integer id) {
         Optional<News> optionalNews = newsService.findById(id);
-        if (!optionalNews.isPresent()){
+        if (!optionalNews.isPresent()) {
             ResponseEntity.badRequest().build();
         }
         optionalNews.get().setViews(optionalNews.get().getViews() + 1);
@@ -51,9 +51,9 @@ public class AdminNewApi {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<News> update(@PathVariable Integer id, @RequestBody News news){
+    public ResponseEntity<News> update(@PathVariable Integer id, @RequestBody News news) {
         Optional<News> optionalNews = newsService.findById(id);
-        if ((!optionalNews.isPresent())){
+        if ((!optionalNews.isPresent())) {
             ResponseEntity.badRequest().build();
         }
         News existNews = optionalNews.get();
@@ -70,28 +70,28 @@ public class AdminNewApi {
     }
 
     @PutMapping("/{id}/{keyword}")
-    public ResponseEntity<News> updated(@PathVariable Integer id,@PathVariable String keyword , @RequestBody News news){
+    public ResponseEntity<News> updated(@PathVariable Integer id, @PathVariable String keyword, @RequestBody News news) {
         Optional<News> optionalNews = newsService.findById(id);
-        if ((!optionalNews.isPresent())){
+        if ((!optionalNews.isPresent())) {
             ResponseEntity.badRequest().build();
         }
         News existNews = optionalNews.get();
 
-        if (keyword.equals("title")){
+        if (keyword.equals("title")) {
             existNews.setTitle(news.getTitle());
-        } else if (keyword.equals("description")){
+        } else if (keyword.equals("description")) {
             existNews.setDescription(news.getDescription());
-        } else if (keyword.equals("img")){
+        } else if (keyword.equals("img")) {
             existNews.setImg(news.getImg());
-        } else if (keyword.equals("content")){
+        } else if (keyword.equals("content")) {
             existNews.setContent(news.getContent());
-        } else if (keyword.equals("views")){
+        } else if (keyword.equals("views")) {
             existNews.setViews(news.getViews());
-        } else if (keyword.equals("status")){
+        } else if (keyword.equals("status")) {
             existNews.setStatus(news.getStatus());
-        } else if (keyword.equals("author")){
+        } else if (keyword.equals("author")) {
             existNews.setAuthor(news.getAuthor());
-        } else if (keyword.equals("categories")){
+        } else if (keyword.equals("categories")) {
             existNews.setCategories(news.getCategories());
         } else {
             ResponseEntity.badRequest();
@@ -101,8 +101,8 @@ public class AdminNewApi {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id){
-        if ((!newsService.findById(id).isPresent())){
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        if ((!newsService.findById(id).isPresent())) {
             ResponseEntity.badRequest().build();
         }
         newsService.deleteById(id);
