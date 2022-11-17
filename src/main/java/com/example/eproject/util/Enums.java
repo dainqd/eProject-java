@@ -32,4 +32,8 @@ public class Enums {
     public static enum CourseStatus {
         ACTIVE, DEACTIVE, PREACTIVE, FULLY, DELETED
     }
+
+    public static enum EventsStatus {
+        ACTIVE, DELETED, DEACTIVE
+    }
 }

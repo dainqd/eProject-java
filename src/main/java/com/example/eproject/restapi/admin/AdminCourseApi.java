@@ -47,9 +47,9 @@ public class AdminCourseApi {
     }
 
     @GetMapping("/{id}")
-    public CourseDto getDetail(@PathVariable("id") long id){
+    public CourseDto getDetail(@PathVariable("id") long id) {
         Optional<Course> optionalCourse = courseService.findById(id);
-        if (!optionalCourse.isPresent()){
+        if (!optionalCourse.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("id.not.found"));
         }
@@ -57,10 +57,10 @@ public class AdminCourseApi {
     }
 
     @PostMapping()
-    public CourseDto create(@RequestBody CourseDto courseDto, Authentication principal){
+    public CourseDto create(@RequestBody CourseDto courseDto, Authentication principal) {
         String adminID = principal.getName();
         Optional<User> optionalUse = userDetailsService.findByUsername(adminID);
-        if (!optionalUse.isPresent()){
+        if (!optionalUse.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("id.not.found"));
         }

@@ -31,7 +31,7 @@ public class CourseService {
     }
 
     public Page<Course> findAllByStatusNoDelete(Enums.CourseStatus status, Pageable pageable) {
-        if (status == Enums.CourseStatus.DELETED){
+        if (status == Enums.CourseStatus.DELETED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     messageResourceService.getMessage("course.not.found"));
         }
@@ -43,7 +43,7 @@ public class CourseService {
     }
 
     public Optional<Course> findByIdAndStatus(long id, Enums.CourseStatus status) {
-        if (status == Enums.CourseStatus.DELETED){
+        if (status == Enums.CourseStatus.DELETED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     messageResourceService.getMessage("course.not.found"));
         }
@@ -64,16 +64,16 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
-    public void delete(Course course, long adminID){
+    public void delete(Course course, long adminID) {
         course.setStatus(Enums.CourseStatus.DELETED);
         course.setDeletedAt(LocalDateTime.now());
         course.setDeletedBy(adminID);
         courseRepository.save(course);
     }
 
-    public Course update(CourseDto courseDto, long adminID){
+    public Course update(CourseDto courseDto, long adminID) {
         Optional<Course> optionalCourse = courseRepository.findById(courseDto.getId());
-        if (!optionalCourse.isPresent()){
+        if (!optionalCourse.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     messageResourceService.getMessage("course.not.found"));
         }
