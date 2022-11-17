@@ -13,6 +13,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Date;
 
@@ -36,6 +37,12 @@ public class CourseDto {
     private long free;
     @Enumerated(EnumType.STRING)
     private Enums.CourseStatus status = Enums.CourseStatus.PREACTIVE;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
+    private Long createdBy;
+    private Long updatedBy;
+    private Long deletedBy;
 
     public CourseDto(Course course) {
         String pattern = "yyyy-MM-dd";

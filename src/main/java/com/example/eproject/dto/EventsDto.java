@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -27,6 +28,12 @@ public class EventsDto {
     private String organiser;
     private Location location = new Location();
     private String thumbnail;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
+    private Long createdBy;
+    private Long updatedBy;
+    private Long deletedBy;
 
     public EventsDto(Events events) {
         String pattern = "yyyy-MM-dd";
