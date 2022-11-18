@@ -5,6 +5,8 @@ import com.example.eproject.entity.News;
 import com.example.eproject.repository.NewsRepository;
 import com.example.eproject.util.Enums;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,8 +19,8 @@ public class NewsService {
     @Autowired
     private NewsRepository newsRepository;
 
-    public List<News> findAll() {
-        return newsRepository.findAll();
+    public Page<News> findAll(Pageable pageable) {
+        return newsRepository.findAll(pageable);
     }
 
     public Optional<News> findById(long id) {
@@ -41,11 +43,11 @@ public class NewsService {
         newsRepository.deleteById(id);
     }
 
-    public List<News> getListByStatus(Enums.NewsStatus status) {
-        return newsRepository.findAllByStatus(status);
+    public Page<News> getListByStatus(Enums.NewsStatus status, Pageable pageable) {
+        return newsRepository.findAllByStatus(status, pageable);
     }
 
     public Optional<News> getListByIdAndStatus(long id, Enums.NewsStatus status) {
-        return newsRepository.findAllByIdAndStatus(id, status);
+        return newsRepository.findByIdAndStatus(id, status);
     }
 }
