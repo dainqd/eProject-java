@@ -1,6 +1,7 @@
 package com.example.eproject.service;
 
 import com.example.eproject.dto.EventsDto;
+import com.example.eproject.entity.Course;
 import com.example.eproject.entity.Events;
 import com.example.eproject.repository.EventsRepository;
 import com.example.eproject.util.Enums;
@@ -10,13 +11,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@Setter
+@Service
 @RequiredArgsConstructor
 public class EventsService {
     final EventsRepository eventsRepository;
@@ -32,6 +34,14 @@ public class EventsService {
 
     public Optional<Events> findById(long id) {
         return eventsRepository.findById(id);
+    }
+
+    public Optional<Events> findByIdAndStatus(long id, Enums.EventsStatus status) {
+        if (status == Enums.EventsStatus.DELETED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    messageResourceService.getMessage("event.not.found"));
+        }
+        return eventsRepository.findByIdAndStatus(id, status);
     }
 
     public Page<Events> findAllByStatusNoDelete(Enums.EventsStatus status, Pageable pageable) {
