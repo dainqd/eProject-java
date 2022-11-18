@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,7 +46,7 @@ public class NewsService {
         return newsRepository.findAllByStatus(status, pageable);
     }
 
-    public Optional<News> getListByIdAndStatus(long id, Enums.NewsStatus status) {
+    public Optional<News> getByIdAndStatus(long id, Enums.NewsStatus status) {
         return newsRepository.findByIdAndStatus(id, status);
     }
 }

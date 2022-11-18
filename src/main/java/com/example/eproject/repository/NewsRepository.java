@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
-    Page<News> findAl(Pageable pageable);
+    Page<News> findAll(Pageable pageable);
     Page<News> findAllByStatus(Enums.NewsStatus status, Pageable pageable);
     Optional<News> findById(long id);
     Optional<News> findByIdAndStatus(long id, Enums.NewsStatus status);

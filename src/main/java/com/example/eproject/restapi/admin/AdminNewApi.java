@@ -1,12 +1,8 @@
 package com.example.eproject.restapi.admin;
 
-import com.example.eproject.dto.EventsDto;
-import com.example.eproject.dto.reponse.MessageResponse;
 import com.example.eproject.dto.NewsDto;
 import com.example.eproject.entity.News;
 import com.example.eproject.entity.User;
-import com.example.eproject.repository.CategoryRepository;
-import com.example.eproject.service.CategoryService;
 import com.example.eproject.service.MessageResourceService;
 import com.example.eproject.service.NewsService;
 import com.example.eproject.service.UserDetailsServiceImpl;

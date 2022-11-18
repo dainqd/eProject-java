@@ -1,8 +1,6 @@
 package com.example.eproject.restapi;
 
 import com.example.eproject.entity.News;
-import com.example.eproject.repository.CategoryRepository;
-import com.example.eproject.service.CategoryService;
 import com.example.eproject.service.MessageResourceService;
 import com.example.eproject.service.NewsService;
 import com.example.eproject.util.Enums;
@@ -36,7 +34,7 @@ public class NewsApi {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDetail(@PathVariable long id) {
-        Optional<News> optionalNews = newsService.getListByIdAndStatus(id, Enums.NewsStatus.ACTIVE);
+        Optional<News> optionalNews = newsService.getByIdAndStatus(id, Enums.NewsStatus.ACTIVE);
         if (!optionalNews.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("id.not.found"));
