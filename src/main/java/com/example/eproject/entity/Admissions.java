@@ -40,9 +40,9 @@ public class Admissions extends BasicEntity {
 
     private String address;
 
-    private String nameOfParents;
+    private String linkFaceBook;
 
-    private String phoneOfParents;
+    private String message;
 
     @Enumerated(EnumType.STRING)
     private Enums.AdmissionsStatus status = Enums.AdmissionsStatus.PENDING;
