@@ -31,15 +31,14 @@ public class AdmissionsDto {
     private String birthday;
     private String gender;
     private String address;
-    private String nameOfParents;
-    private String phoneOfParents;
+    private String linkFaceBook;
+    private String message;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private Long createdBy;
     private Long updatedBy;
     private Long deletedBy;
-
     private Enums.AdmissionsStatus status = Enums.AdmissionsStatus.PENDING;
 
     public AdmissionsDto(Admissions admissions) {
