@@ -2,7 +2,6 @@ package com.example.eproject.service;
 
 import com.example.eproject.dto.AdmissionsDto;
 import com.example.eproject.entity.Admissions;
-import com.example.eproject.entity.User;
 import com.example.eproject.repository.AdmissionsRepository;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;

@@ -39,7 +39,6 @@ public class AdmissionsDto {
     private Long createdBy;
     private Long updatedBy;
     private Long deletedBy;
-
     private Enums.AdmissionsStatus status = Enums.AdmissionsStatus.PENDING;
 
     public AdmissionsDto(Admissions admissions) {
