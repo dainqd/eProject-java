@@ -36,4 +36,8 @@ public class Enums {
     public static enum EventsStatus {
         ACTIVE, DELETED, DEACTIVE
     }
+
+    public static enum FacultyStatus {
+        ACTIVE, DELETED, DEACTIVE
+    }
 }
