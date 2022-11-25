@@ -62,7 +62,7 @@ public class AdminFacultyApi {
         }
         User user = optionalUse.get();
         System.out.println(adminID);
-        Faculty course = new Faculty(facultyDto);
+        Faculty faculty = new Faculty(facultyDto);
         return new FacultyDto(facultyService.create(facultyDto, user.getId()));
     }
 
@@ -76,7 +76,7 @@ public class AdminFacultyApi {
         }
         User user = op.get();
         System.out.println(adminId);
-        Faculty course = new Faculty(facultyDto);
+        Faculty faculty = new Faculty(facultyDto);
         facultyService.update(facultyDto, user.getId());
         return messageResourceService.getMessage("update.success");
     }
