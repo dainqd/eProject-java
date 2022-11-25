@@ -25,7 +25,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("admin/api/feedbacks")
 public class AdminFeedbackApi {
-
     @Autowired
     FeedbackService feedbackService;
     @Autowired

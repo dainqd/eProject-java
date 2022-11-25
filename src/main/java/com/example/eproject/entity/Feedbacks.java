@@ -31,7 +31,7 @@ public class Feedbacks extends BasicEntity {
 
     private String subject;
 
-    @Column(columnDefinition = "text")
+    @Lob
     private String message;
 
     @Enumerated(EnumType.STRING)
