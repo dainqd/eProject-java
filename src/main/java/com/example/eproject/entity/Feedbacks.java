@@ -1,14 +1,17 @@
 package com.example.eproject.entity;
 
+import com.example.eproject.dto.FacultyDto;
+import com.example.eproject.dto.FeedbacksDto;
 import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
+import javax.validation.constraints.Email;
 
 @Getter
 @Setter
@@ -21,14 +24,22 @@ public class Feedbacks extends BasicEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String username;
+    private String name;
 
-    @Max(value = 5, message = "Please re-enter the number of review stars ")
-    private int star;
+    @Email
+    private String email;
 
-    @Column(columnDefinition = "text")
-    private String content;
+    private String subject;
+
+    @Lob
+    private String message;
 
     @Enumerated(EnumType.STRING)
     private Enums.FeedbackStatus status;
+
+    private long userID;
+
+    public Feedbacks(FeedbacksDto feedbacksDto) {
+        BeanUtils.copyProperties(feedbacksDto, this);
+    }
 }
