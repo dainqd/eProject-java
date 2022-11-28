@@ -1,6 +1,5 @@
 package com.example.eproject.repository;
 
-
 import com.example.eproject.entity.Role;
 import com.example.eproject.util.Enums;
 import org.springframework.data.jpa.repository.JpaRepository;

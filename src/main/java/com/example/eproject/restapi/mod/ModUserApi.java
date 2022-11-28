@@ -1,4 +1,4 @@
-package com.example.eproject.restapi.teacher;
+package com.example.eproject.restapi.mod;
 
 import com.example.eproject.entity.User;
 import com.example.eproject.repository.RoleRepository;
