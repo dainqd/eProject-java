@@ -1,6 +1,5 @@
 package com.example.eproject.dto;
 
-import com.example.eproject.entity.Admissions;
 import com.example.eproject.entity.Course;
 import com.example.eproject.util.Enums;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Currency;
-import java.util.Date;
 
 @Getter
 @Setter

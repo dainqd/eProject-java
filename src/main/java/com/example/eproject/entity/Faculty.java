@@ -1,6 +1,5 @@
 package com.example.eproject.entity;
 
-import com.example.eproject.dto.AdmissionsDto;
 import com.example.eproject.dto.FacultyDto;
 import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
@@ -22,14 +21,10 @@ public class Faculty extends BasicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String title;
-
     private String content;
-
     @Enumerated(EnumType.STRING)
     private Enums.FacultyStatus status;
-
     public Faculty(FacultyDto facultyDto) {
         BeanUtils.copyProperties(facultyDto, this);
     }

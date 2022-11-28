@@ -14,7 +14,7 @@ public class Enums {
     }
 
     public static enum CategoryType {
-        HOMEPAGE, POLITICAL, SOCIAL, ECONOMY, HEALTH, EDUCATION, LAW, SPORT, WORLD
+        HOMEPAGE, POLITICAL, SOCIAL, ECONOMY, HEALTH, EDUCATION, LAW, SPORT, WORLD, OTHER
     }
 
     public static enum CategoryStatus {
@@ -38,6 +38,10 @@ public class Enums {
     }
 
     public static enum FacultyStatus {
+        ACTIVE, DELETED, DEACTIVE
+    }
+
+    public static enum ClassroomStatus {
         ACTIVE, DELETED, DEACTIVE
     }
 }

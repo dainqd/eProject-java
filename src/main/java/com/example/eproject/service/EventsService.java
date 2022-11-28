@@ -1,12 +1,10 @@
 package com.example.eproject.service;
 
 import com.example.eproject.dto.EventsDto;
-import com.example.eproject.entity.Course;
 import com.example.eproject.entity.Events;
 import com.example.eproject.repository.EventsRepository;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

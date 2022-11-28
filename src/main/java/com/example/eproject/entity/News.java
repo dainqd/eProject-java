@@ -21,29 +21,22 @@ import java.util.Set;
 public class News extends BasicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    private String title;
-
-    private String description;
-
-    @Column(columnDefinition = "text")
-    private String img;
-
-    @Column(columnDefinition = "text")
-    private String content;
-
-    private int views = 1;
-
+    public long id;
+    public String title;
+    @Lob
+    public String description;
+    @Lob
+    public String img;
+    @Lob
+    public String content;
+    public int views = 1;
     @Enumerated(EnumType.STRING)
-    private Enums.NewsStatus status;
-
-    private String author;
-
+    public Enums.NewsStatus status;
+    public String author;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "news_categories", joinColumns = @JoinColumn(name = "news_id")
             , inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+    public Set<Category> categories = new HashSet<>();
 
     public News(NewsDto request) {
         BeanUtils.copyProperties(request, this);

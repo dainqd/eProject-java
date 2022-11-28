@@ -1,6 +1,5 @@
 package com.example.eproject.entity;
 
-import com.example.eproject.dto.AdmissionsDto;
 import com.example.eproject.dto.CourseDto;
 import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
