@@ -28,12 +28,4 @@ public class CategoryService {
     public void deleteById(long id) {
         categoryRepository.deleteById(id);
     }
-
-//    public List<Category> findAllByStatus(Boolean status){
-//        return categoryRepository.findAllByStatus(status);
-//    }
-
-//    public Optional<Category> getListByIdAndStatus(long id, boolean status){
-//        return categoryRepository.findAllByIdAndStatus(id, status);
-//    }
 }

@@ -1,6 +1,5 @@
 package com.example.eproject.entity;
 
-import com.example.eproject.dto.FacultyDto;
 import com.example.eproject.dto.FeedbacksDto;
 import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
@@ -23,22 +22,15 @@ public class Feedbacks extends BasicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String name;
-
     @Email
     private String email;
-
     private String subject;
-
     @Lob
     private String message;
-
     @Enumerated(EnumType.STRING)
     private Enums.FeedbackStatus status;
-
     private long userID;
-
     public Feedbacks(FeedbacksDto feedbacksDto) {
         BeanUtils.copyProperties(feedbacksDto, this);
     }

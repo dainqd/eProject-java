@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>managerfeedback</artifactId>
+    <artifactId>eproject</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>managerfeedback</name>
-    <description>managerfeedback</description>
+    <name>eproject</name>
+    <description>eproject</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -146,7 +146,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
