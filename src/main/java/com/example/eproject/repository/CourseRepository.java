@@ -1,6 +1,5 @@
 package com.example.eproject.repository;
 
-import com.example.eproject.entity.Admissions;
 import com.example.eproject.entity.Course;
 import com.example.eproject.util.Enums;
 import org.springframework.data.domain.Page;
