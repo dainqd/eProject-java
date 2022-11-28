@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,11 +26,19 @@ public class ClassroomDto {
     private long modId;
     private String content;
     private String note;
+    private String startDate;
+    private String endDate;
     private Set<Faculty> faculties = new HashSet<>();
     private Set<User> users = new HashSet<>();
     private Enums.ClassroomStatus status;
 
     public ClassroomDto(Classroom classroom) {
+        String pattern = "yyyy-MM-dd";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String startDateAsString = df.format(classroom.getStartDate());
+        String endDateAsString = df.format(classroom.getEndDate());
         BeanUtils.copyProperties(classroom, this);
+        this.setStartDate(startDateAsString);
+        this.setEndDate(endDateAsString);
     }
 }

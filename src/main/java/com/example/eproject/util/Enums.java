@@ -42,6 +42,6 @@ public class Enums {
     }
 
     public static enum ClassroomStatus {
-        ACTIVE, DELETED, DEACTIVE
+        ACTIVE, DELETED, DEACTIVE, COMPLETED
     }
 }

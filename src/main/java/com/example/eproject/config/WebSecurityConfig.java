@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/v1/feedbacks/**",
             "/api/v1/course/**",
             "/api/v1/events/**",
+            "/api/v1/classroom/**",
     };
 
     private static final String[] USER_PATHS = {

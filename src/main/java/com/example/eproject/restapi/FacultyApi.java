@@ -1,12 +1,9 @@
 package com.example.eproject.restapi;
 
-import com.example.eproject.dto.EventsDto;
 import com.example.eproject.dto.FacultyDto;
-import com.example.eproject.entity.Events;
 import com.example.eproject.entity.Faculty;
 import com.example.eproject.service.FacultyService;
 import com.example.eproject.service.MessageResourceService;
-import com.example.eproject.service.UserDetailsServiceImpl;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
