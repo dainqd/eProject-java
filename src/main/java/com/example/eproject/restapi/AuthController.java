@@ -118,6 +118,16 @@ public class AuthController {
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
                         break;
+                    case "teach":
+                        Role teachRole = roleRepository.findByName(Enums.Role.TEACHER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(teachRole);
+                        break;
+                    case "student":
+                        Role studentRole = roleRepository.findByName(Enums.Role.STUDENT)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(studentRole);
+                        break;
                     default:
                         Role userRole = roleRepository.findByName(Enums.Role.USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));

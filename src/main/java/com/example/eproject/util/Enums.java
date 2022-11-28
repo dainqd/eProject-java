@@ -2,7 +2,7 @@ package com.example.eproject.util;
 
 public class Enums {
     public static enum Role {
-        USER, MODERATOR, ADMIN
+        USER, MODERATOR, ADMIN, TEACHER, STUDENT
     }
 
     public static enum AccountStatus {

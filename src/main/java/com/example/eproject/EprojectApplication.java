@@ -193,8 +193,18 @@ public class EprojectApplication implements CommandLineRunner {
         role3.setId(3);
         role3.setName(Enums.Role.ADMIN);
 
+        Role role4 = new Role();
+        role4.setId(4);
+        role4.setName(Enums.Role.TEACHER);
+
+        Role role5 = new Role();
+        role5.setId(5);
+        role5.setName(Enums.Role.STUDENT);
+
         roleService.save(role1);
         roleService.save(role2);
         roleService.save(role3);
+        roleService.save(role4);
+        roleService.save(role5);
     }
 }

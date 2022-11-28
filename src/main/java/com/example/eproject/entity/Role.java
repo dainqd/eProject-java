@@ -1,6 +1,5 @@
 package com.example.eproject.entity;
 
-
 import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
 import lombok.*;
@@ -21,7 +20,5 @@ public class Role extends BasicEntity {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private Enums.Role name;
-
-
 }
 
