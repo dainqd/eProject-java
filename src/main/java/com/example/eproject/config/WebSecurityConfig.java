@@ -51,7 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/service/change-email",
             "/assets/**",
             "/auth/**",
-            "/admin/**",
             "/element/**",
             "/error/**",
             "/v1/**",
@@ -70,19 +69,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/v1/mark-report/**",
     };
 
+    private static final String[] STUDENT_PATHS = {
+            "/student/api/**",
+    };
+
+    private static final String[] TEACHER_PATHS = {
+            "/teacher/api/**",
+    };
+
     private static final String[] USER_PATHS = {
-            "/api/feedbacks/**"
+            "/user/api/**",
     };
 
     private static final String[] MOD_PATHS = {
             "/mod/api/**",
-            "/api/feedbacks/**"
     };
 
     private static final String[] ADMIN_PATHS = {
             "/admin/api/**",
             "/mod/api/**",
-            "/api/feedbacks/**",
             "/api/request/no/roles/create/support"
     };
 
@@ -165,6 +170,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers(IGNORE_PATHS).permitAll()
+                .antMatchers(STUDENT_PATHS).hasAuthority("STUDENT")
+                .antMatchers(TEACHER_PATHS).hasAuthority("TEACHER")
                 .antMatchers(USER_PATHS).hasAuthority("USER")
                 .antMatchers(MOD_PATHS).hasAuthority("MODERATOR")
                 .antMatchers(ADMIN_PATHS).hasAuthority("ADMIN")
