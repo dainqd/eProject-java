@@ -1,16 +1,13 @@
 package com.example.eproject.service;
 
-import com.example.eproject.config.WebSecurityConfig;
 import com.example.eproject.entity.User;
 import com.example.eproject.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -23,7 +20,7 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
-        private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public List<User> findAll() {
         return userRepository.findAll();
