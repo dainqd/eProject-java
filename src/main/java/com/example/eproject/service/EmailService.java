@@ -79,7 +79,9 @@ public class EmailService {
     public void userRegisterMail(String email, String code) {
         Map<String, Object> templateModel = new HashMap<String, Object>();
         templateModel.put("email", email);
+        System.out.println(email);
         templateModel.put("code", code);
+        System.out.println(code);
         String subject = "Đăng ký tài khoản!";
         sendMessageUsingThymeleafTemplate(email, subject, "userRegisterEmail", templateModel);
     }

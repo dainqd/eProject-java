@@ -33,6 +33,9 @@ public class User extends BasicEntity {
     private Date birthday;
     private String gender;
     private String address;
+    private String verifyCode = "";
+    private String referralCode = "";
+    private boolean verified = false;
     @NotNull
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
