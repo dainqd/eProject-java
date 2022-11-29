@@ -52,4 +52,12 @@ public class Enums {
     public static enum MarkReportStatus {
         ACTIVE, DELETED, BLOCK, COMPLETED
     }
+
+    public static enum Condition {
+        PRESENT, ABSENT, FUTURE
+    }
+
+    public static enum AttendanceStatus {
+        ACTIVE, DELETED, BLOCK, COMPLETED
+    }
 }
