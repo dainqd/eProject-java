@@ -1,6 +1,7 @@
 package com.example.eproject.entity;
 
 import com.example.eproject.dto.MarkReportDto;
+import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "markreport")
 // Báo cáo điểm
-public class MarkReport {
+public class MarkReport extends BasicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -29,6 +30,7 @@ public class MarkReport {
     private Enums.PointStatus aspect = Enums.PointStatus.NOTSTART;
     @Enumerated(EnumType.STRING)
     private Enums.MarkReportStatus status;
+    private String note;
 
     public MarkReport(MarkReportDto markReportDto) {
         BeanUtils.copyProperties(markReportDto, this);
