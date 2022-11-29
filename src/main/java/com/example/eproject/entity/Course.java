@@ -29,6 +29,7 @@ public class Course extends BasicEntity {
     //    Điều kiện
     private String condition;
     //    Nội dung khóa học
+    @Lob
     private String content;
     //    Bình luận
     private String comments;

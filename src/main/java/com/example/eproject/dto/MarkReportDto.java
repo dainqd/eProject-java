@@ -1,6 +1,6 @@
-package com.example.eproject.entity;
+package com.example.eproject.dto;
 
-import com.example.eproject.dto.MarkReportDto;
+import com.example.eproject.entity.MarkReport;
 import com.example.eproject.util.Enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,29 +8,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
-import javax.persistence.*;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "markreport")
-// Báo cáo điểm
-public class MarkReport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MarkReportDto {
     private long id;
     private String name;
     private long studentId;
     private String subject;
     private long mark;
-    @Enumerated(EnumType.STRING)
     private Enums.PointStatus aspect = Enums.PointStatus.NOTSTART;
-    @Enumerated(EnumType.STRING)
     private Enums.MarkReportStatus status;
 
-    public MarkReport(MarkReportDto markReportDto) {
-        BeanUtils.copyProperties(markReportDto, this);
+    public MarkReportDto(MarkReport markReport) {
+        BeanUtils.copyProperties(markReport, this);
     }
 }
