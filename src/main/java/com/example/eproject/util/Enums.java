@@ -44,4 +44,12 @@ public class Enums {
     public static enum ClassroomStatus {
         ACTIVE, DELETED, DEACTIVE, COMPLETED
     }
+
+    public static enum PointStatus {
+        PASS, FAIL, NONE, NOTSTART
+    }
+
+    public static enum MarkReportStatus {
+        ACTIVE, DELETED, BLOCK, COMPLETED
+    }
 }
