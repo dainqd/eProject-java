@@ -41,16 +41,9 @@ public class User extends BasicEntity {
     private Set<Role> roles = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private Enums.AccountStatus status;
-    public User(String avt, String firstName, String lastName, String username, String email, Date birthday, String gender, String password) {
-        this.avt = avt;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String username, String email,String password) {
         this.username = username;
         this.email = email;
-//        this.phoneNumber=phoneNumber;
-        this.birthday = birthday;
-        this.gender = gender;
-//        this.address=address;
         this.password = password;
     }
 }
