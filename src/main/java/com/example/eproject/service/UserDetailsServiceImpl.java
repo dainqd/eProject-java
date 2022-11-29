@@ -1,8 +1,11 @@
 package com.example.eproject.service;
 
 import com.example.eproject.dto.request.SignupRequest;
+import com.example.eproject.entity.Role;
 import com.example.eproject.entity.User;
+import com.example.eproject.repository.RoleRepository;
 import com.example.eproject.repository.UserRepository;
+import com.example.eproject.util.Enums;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +19,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.example.eproject.util.Utils.decimalToHex;
 import static com.example.eproject.util.Utils.generatorVerifyCode;
@@ -27,6 +32,8 @@ import static com.example.eproject.util.Utils.generatorVerifyCode;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     public static final String ACCESS_TOKEN_KEY = "accessToken";
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -80,6 +87,43 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setVerifyCode(verifyCode);
+        Set<String> strRoles = request.getRole();
+        Set<Role> roles = new HashSet<>();
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(Enums.Role.USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(Enums.Role.ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+                        break;
+                    case "mod":
+                        Role modRole = roleRepository.findByName(Enums.Role.MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
+                        break;
+                    case "teach":
+                        Role teachRole = roleRepository.findByName(Enums.Role.TEACHER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(teachRole);
+                        break;
+                    case "student":
+                        Role studentRole = roleRepository.findByName(Enums.Role.STUDENT)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(studentRole);
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(Enums.Role.USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
+                }
+            });
+        }
+        user.setRoles(roles);
         user = userRepository.save(user);
         createReferralCode(user);
         return user;
@@ -104,8 +148,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return this.save(account);
     }
 
-    public boolean checkVerifyCode( User account, String verifyCode) {
-            return account.getVerifyCode().equals(verifyCode);
+    public boolean checkVerifyCode(User account, String verifyCode) {
+        return account.getVerifyCode().equals(verifyCode);
     }
 
     public User created(SignupRequest request) {

@@ -3,6 +3,7 @@ package com.example.eproject.service;
 import com.example.eproject.entity.User;
 import com.example.eproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,10 +13,12 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import javax.mail.MessagingException;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 @Service
 public class EmailService {
@@ -28,6 +31,15 @@ public class EmailService {
     UserRepository accountRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Value("${config.mail.host}")
+    private String host;
+    @Value("${config.mail.port}")
+    private String port;
+    @Value("${config.mail.username}")
+    private String email;
+    @Value("${config.mail.password}")
+    private String password;
 
     public void sendMessageUsingThymeleafTemplate(String to, String subject, String template,
                                                   Map<String, Object> templateModel) {
@@ -48,16 +60,40 @@ public class EmailService {
     }
 
     public void sendEmail(String to, String subject, String body) {
-        MimeMessage message = emailSender.createMimeMessage();
-        MimeMessageHelper helper;
+        Properties props = new Properties();
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", port);
+
+        Session session = Session.getInstance(props,
+                new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(email, password);
+                    }
+                });
+//        MimeMessage message = emailSender.createMimeMessage();
+        Message message = new MimeMessage(session);
+//        MimeMessageHelper helper;
+//        try {
+//            helper = new MimeMessageHelper(message, true, "UTF-8");
+//            helper.setFrom("HelloWorld <support@me.com>");
+//            helper.setTo(to);
+//            helper.setSubject(subject);
+//            helper.setText(body);
+//            message.setContent(body, "text/html; charset=UTF-8");
+//            emailSender.send(message);
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
         try {
-            helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setFrom("HelloWorld <support@me.com>");
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(body);
+            message.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress(to)});
+
+            message.setFrom(new InternetAddress(email));
+            message.setSubject(subject);
             message.setContent(body, "text/html; charset=UTF-8");
-            emailSender.send(message);
+            Transport.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

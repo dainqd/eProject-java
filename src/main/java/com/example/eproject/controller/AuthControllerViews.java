@@ -147,7 +147,7 @@ public class AuthControllerViews {
             result.rejectValue("email", "400", messageResourceService.getMessage("account.email.exist"));
             model.addAttribute("signupRequest", signupRequest);
             model.addAttribute("isSuccess", false);
-            return "views/register";
+            return "auth/register";
         }
         // Xử lý create account
         String verifyCode = Utils.generatorVerifyCode(6);
