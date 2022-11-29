@@ -65,7 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/v1/feedbacks/**",
             "/api/v1/course/**",
             "/api/v1/events/**",
+            "/api/v1/faculty/**",
             "/api/v1/classroom/**",
+            "/api/v1/mark-report/**",
     };
 
     private static final String[] USER_PATHS = {
@@ -110,7 +112,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             @Override
             public MimeMessage createMimeMessage() {
-                    return null;
+                return null;
             }
 
             @Override

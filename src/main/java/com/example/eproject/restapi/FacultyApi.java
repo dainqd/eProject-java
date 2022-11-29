@@ -44,11 +44,11 @@ public class FacultyApi {
     public FacultyDto getDetail(@RequestParam(value = "id", required = false, defaultValue = "1") long id,
                                 @RequestParam(value = "status", required = false, defaultValue = "") Enums.FacultyStatus status) {
         if (status == Enums.FacultyStatus.DELETED) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("faculty.not.found"));
         }
         if (status == Enums.FacultyStatus.DEACTIVE) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("faculty.not.found"));
         }
         Optional<Faculty> optionalFaculty = facultyService.findByIdAndStatus(id, status);
