@@ -79,4 +79,8 @@ public class Utils {
         }
         return token.toString();
     }
+
+    public static String decimalToHex(long decimal) {
+        return Long.toHexString(decimal);
+    }
 }

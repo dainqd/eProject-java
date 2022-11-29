@@ -33,6 +33,9 @@ public class User extends BasicEntity {
     private Date birthday;
     private String gender;
     private String address;
+    private String verifyCode = "";
+    private String referralCode = "";
+    private boolean verified = false;
     @NotNull
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -41,16 +44,9 @@ public class User extends BasicEntity {
     private Set<Role> roles = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private Enums.AccountStatus status;
-    public User(String avt, String firstName, String lastName, String username, String email, Date birthday, String gender, String password) {
-        this.avt = avt;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String username, String email,String password) {
         this.username = username;
         this.email = email;
-//        this.phoneNumber=phoneNumber;
-        this.birthday = birthday;
-        this.gender = gender;
-//        this.address=address;
         this.password = password;
     }
 }
