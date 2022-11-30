@@ -13,7 +13,6 @@ import com.example.eproject.util.JwtUtils;
 import com.example.eproject.util.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -166,7 +165,7 @@ public class AuthControllerViews {
     public String registerVerify(
             @Valid @ModelAttribute SignupRequest signupRequest, BindingResult result, Model model,
             HttpServletRequest request, HttpServletResponse response) {
-        Optional<User> optionalUser = userDetailsService.findByUsername(signupRequest.getUsername());
+        Optional<User> optionalUser = userDetailsService.findByVerifyCode(signupRequest.getVerifyCode());
         model.addAttribute("isSuccess", true);
         model.addAttribute("isVerify", false);
         if (signupRequest.getVerifyCode().isEmpty()) {
@@ -179,49 +178,22 @@ public class AuthControllerViews {
             model.addAttribute("signupRequest", signupRequest);
             return "auth/register-verify";
         }
-        User user = optionalUser.get();
-        if (user.isVerified()) {
+        User account = optionalUser.get();
+        if (account.isVerified()) {
             result.rejectValue("verifyCode", "400", messageResourceService.getMessage("account.verified"));
             model.addAttribute("signupRequest", signupRequest);
             return "auth/register-verify";
         }
-        if (!userDetailsService.checkVerifyCode(user, signupRequest.getVerifyCode())) {
+        if (!userDetailsService.checkVerifyCode(account, signupRequest.getVerifyCode())) {
             result.rejectValue("verifyCode", "400", messageResourceService.getMessage("account.verifycode.incorrect"));
             model.addAttribute("signupRequest", signupRequest);
             return "auth/register-verify";
         }
-        userDetailsService.active(user);
+        model.addAttribute("account", account);
+        System.out.println(account.getEmail());
+        userDetailsService.active(account);
         model.addAttribute("signupRequest", signupRequest);
-        model.addAttribute("messageVerifySuccess", "Verify Success");
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(signupRequest.getUsername()
-                        , signupRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-        JwtResponse jwtResponse = new JwtResponse("success",
-                jwt,
-                userDetails.getId(),
-                userDetails.getAvt(),
-                userDetails.getFirstname(),
-                userDetails.getLastName(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                userDetails.getPhoneNumber(),
-                userDetails.getBirthday(),
-                userDetails.getGender(),
-                userDetails.getAddress(),
-                roles);
-        userDetailsService.responseCookieToEverySubdomain(response, jwtResponse.getToken());
-//        return "redirect:" + linkRedirectLogin(signupRequest, jwtResponse.getToken());
-        System.out.println(jwtResponse.getToken());
+//        model.addAttribute("messageVerifySuccess", "Verify Success");
         return "redirect:/";
     }
 }
