@@ -13,7 +13,6 @@ import com.example.eproject.util.JwtUtils;
 import com.example.eproject.util.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -62,6 +61,13 @@ public class AuthControllerViews {
     @GetMapping("forgot-password")
     public String forgotPassword() {
         return "auth/forgot-password";
+    }
+
+    @GetMapping("register-verify")
+    public String verify(Model model) {
+        SignupRequest signupRequest = new SignupRequest();
+        model.addAttribute("signupRequest", signupRequest);
+        return "auth/register-verify";
     }
 
     @PostMapping("login")
@@ -139,91 +145,55 @@ public class AuthControllerViews {
         if (optionalUser.isPresent()) {
             result.rejectValue("email", "400", messageResourceService.getMessage("account.username.exist"));
             model.addAttribute("signupRequest", signupRequest);
-            model.addAttribute("isSuccess", false);
             return "auth/register";
         }
         Optional<User> userOptional = userDetailsService.findByEmail(signupRequest.getEmail());
         if (userOptional.isPresent()) {
             result.rejectValue("email", "400", messageResourceService.getMessage("account.email.exist"));
             model.addAttribute("signupRequest", signupRequest);
-            model.addAttribute("isSuccess", false);
             return "auth/register";
         }
         // Xử lý create account
         String verifyCode = Utils.generatorVerifyCode(6);
         userDetailsService.create(signupRequest, verifyCode);
         emailService.userRegisterMail(signupRequest.getEmail(), verifyCode);
-
-//        Tạo mới cái này để test luồng reigster thôi.
-//        userDetailsService.created(signupRequest);
-
         model.addAttribute("signupRequest", signupRequest);
-        model.addAttribute("isSuccess", true);
-//        return "auth/register";
-        return "redirect:/";
+        return "redirect:/service/register-verify";
     }
 
     @PostMapping("register-verify")
     public String registerVerify(
             @Valid @ModelAttribute SignupRequest signupRequest, BindingResult result, Model model,
             HttpServletRequest request, HttpServletResponse response) {
-        Optional<User> optionalUser = userDetailsService.findByUsername(signupRequest.getUsername());
+        Optional<User> optionalUser = userDetailsService.findByVerifyCode(signupRequest.getVerifyCode());
         model.addAttribute("isSuccess", true);
         model.addAttribute("isVerify", false);
         if (signupRequest.getVerifyCode().isEmpty()) {
             result.rejectValue("verifyCode", "400", messageResourceService.getMessage("account.verify.empty"));
             model.addAttribute("signupRequest", signupRequest);
-            return "auth/register";
+            return "auth/register-verify";
         }
         if (!optionalUser.isPresent()) {
             result.rejectValue("verifyCode", "400", messageResourceService.getMessage("account.not.found"));
             model.addAttribute("signupRequest", signupRequest);
-            return "auth/register";
+            return "auth/register-verify";
         }
-        User user = optionalUser.get();
-        if (user.isVerified()) {
+        User account = optionalUser.get();
+        if (account.isVerified()) {
             result.rejectValue("verifyCode", "400", messageResourceService.getMessage("account.verified"));
             model.addAttribute("signupRequest", signupRequest);
-            return "auth/register";
+            return "auth/register-verify";
         }
-        if (!userDetailsService.checkVerifyCode(user, signupRequest.getVerifyCode())) {
+        if (!userDetailsService.checkVerifyCode(account, signupRequest.getVerifyCode())) {
             result.rejectValue("verifyCode", "400", messageResourceService.getMessage("account.verifycode.incorrect"));
             model.addAttribute("signupRequest", signupRequest);
-            return "auth/register";
+            return "auth/register-verify";
         }
-        userDetailsService.active(user);
+        model.addAttribute("account", account);
+        System.out.println(account.getEmail());
+        userDetailsService.active(account);
         model.addAttribute("signupRequest", signupRequest);
-        model.addAttribute("isVerify", true);
-        model.addAttribute("messageVerifySuccess", "Verify Success");
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(signupRequest.getUsername()
-                        , signupRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-        JwtResponse jwtResponse = new JwtResponse("success",
-                jwt,
-                userDetails.getId(),
-                userDetails.getAvt(),
-                userDetails.getFirstname(),
-                userDetails.getLastName(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                userDetails.getPhoneNumber(),
-                userDetails.getBirthday(),
-                userDetails.getGender(),
-                userDetails.getAddress(),
-                roles);
-        userDetailsService.responseCookieToEverySubdomain(response, jwtResponse.getToken());
-//        return "redirect:" + linkRedirectLogin(signupRequest, jwtResponse.getToken());
-        System.out.println(jwtResponse.getToken());
+//        model.addAttribute("messageVerifySuccess", "Verify Success");
         return "redirect:/";
     }
 }

@@ -54,6 +54,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    public Optional<User> findByVerifyCode(String code) {
+        return userRepository.findByVerifyCode(code);
+    }
+
     public User save(User user) {
         return userRepository.save(user);
     }
