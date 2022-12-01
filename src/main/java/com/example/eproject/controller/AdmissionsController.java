@@ -38,7 +38,8 @@ public class AdmissionsController {
         }
         model.addAttribute("alert", "Success");
         admissionsService.create(admissionsDto);
+        admissionsDto = new AdmissionsDto();
         model.addAttribute("admissionsDto", admissionsDto);
-        return "layout/admissions";
+        return "redirect:/admissions/list";
     }
 }
