@@ -1,7 +1,7 @@
 package com.example.eproject.restapi;
 
 import com.example.eproject.dto.reponse.JwtResponse;
-import com.example.eproject.dto.reponse.LoginRequest;
+import com.example.eproject.dto.request.LoginRequest;
 import com.example.eproject.dto.reponse.MessageResponse;
 import com.example.eproject.dto.request.SignupRequest;
 import com.example.eproject.entity.Role;
