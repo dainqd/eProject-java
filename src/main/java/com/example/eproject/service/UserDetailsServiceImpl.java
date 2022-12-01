@@ -1,11 +1,13 @@
 package com.example.eproject.service;
 
+import com.example.eproject.dto.request.ForgotPasswordRequest;
 import com.example.eproject.dto.request.SignupRequest;
 import com.example.eproject.entity.Role;
 import com.example.eproject.entity.User;
 import com.example.eproject.repository.RoleRepository;
 import com.example.eproject.repository.UserRepository;
 import com.example.eproject.util.Enums;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,21 +21,21 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
-import static com.example.eproject.util.Utils.decimalToHex;
-import static com.example.eproject.util.Utils.generatorVerifyCode;
+import static com.example.eproject.util.Utils.*;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+    final EmailService emailService;
+//    @Autowired
+//    EmailService emailService;
 
     public static final String ACCESS_TOKEN_KEY = "accessToken";
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -163,6 +165,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user = userRepository.save(user);
         return user;
+    }
+
+    public void forgotPassword(User account, ForgotPasswordRequest loginFormDto) {
+        long time = new Date().getTime();
+        String code = generatorRandomToken(13) + "-" + time;
+        String link = "http://localhost:8080/service/change-password";
+        account.setVerifyCode(code);
+        System.out.println(loginFormDto.getEmail());
+        emailService.forgot(account.getEmail(), link);
+        save(account);
     }
 }
 

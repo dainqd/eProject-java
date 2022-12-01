@@ -1,6 +1,7 @@
 package com.example.eproject.controller;
 
 import com.example.eproject.dto.reponse.JwtResponse;
+import com.example.eproject.dto.request.ForgotPasswordRequest;
 import com.example.eproject.dto.request.LoginRequest;
 import com.example.eproject.dto.request.SignupRequest;
 import com.example.eproject.entity.User;
@@ -60,7 +61,9 @@ public class AuthControllerViews {
     }
 
     @GetMapping("forgot-password")
-    public String forgotPassword() {
+    public String forgotPassword(Model model) {
+        ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest();
+        model.addAttribute("forgotPasswordRequest", forgotPasswordRequest);
         return "auth/forgot-password";
     }
 
@@ -69,6 +72,13 @@ public class AuthControllerViews {
         SignupRequest signupRequest = new SignupRequest();
         model.addAttribute("signupRequest", signupRequest);
         return "auth/register-verify";
+    }
+
+    @GetMapping("change-password")
+    public String changePassword(Model model) {
+        SignupRequest signupRequest = new SignupRequest();
+        model.addAttribute("signupRequest", signupRequest);
+        return "auth/change-password";
     }
 
     @PostMapping("login")
@@ -85,8 +95,13 @@ public class AuthControllerViews {
             return "auth/login";
         }
         User account = optionalUser.get();
-        if (account.getStatus() == Enums.AccountStatus.DEACTIVE) {
+        if (!account.isVerified()) {
             result.rejectValue("username", "400", messageResourceService.getMessage("account.not.verified"));
+            model.addAttribute("loginRequest", loginRequest);
+            return "auth/login";
+        }
+        if (account.getStatus() == Enums.AccountStatus.DEACTIVE) {
+            result.rejectValue("username", "400", messageResourceService.getMessage("account.not.active"));
             model.addAttribute("loginRequest", loginRequest);
             return "auth/login";
         }
@@ -206,5 +221,43 @@ public class AuthControllerViews {
         model.addAttribute("signupRequest", signupRequest);
 //        model.addAttribute("messageVerifySuccess", "Verify Success");
         return "redirect:/";
+    }
+
+    @PostMapping("forgot-password")
+    public String forgotPassword(
+            @Valid @ModelAttribute ForgotPasswordRequest forgotPasswordRequest,
+            BindingResult result,
+            Model model) {
+        Optional<User> optionalUser = userDetailsService.findByEmail(forgotPasswordRequest.getEmail());
+        if (!optionalUser.isPresent()) {
+            result.rejectValue("email", "400", messageResourceService.getMessage("account.not.found"));
+            model.addAttribute("forgotPasswordRequest", forgotPasswordRequest);
+            return "auth/forgot-password";
+        }
+        User account = optionalUser.get();
+        if (!account.isVerified()) {
+            result.rejectValue("email", "400", messageResourceService.getMessage("account.not.verified"));
+            model.addAttribute("forgotPasswordRequest", forgotPasswordRequest);
+            return "auth/forgot-password";
+        }
+        if (account.getStatus() == Enums.AccountStatus.DEACTIVE) {
+            result.rejectValue("email", "400", messageResourceService.getMessage("account.not.active"));
+            model.addAttribute("forgotPasswordRequest", forgotPasswordRequest);
+            return "auth/forgot-password";
+        }
+        if (account.getStatus() == Enums.AccountStatus.BLOCKED) {
+            result.rejectValue("email", "400", messageResourceService.getMessage("account.banned"));
+            model.addAttribute("forgotPasswordRequest", forgotPasswordRequest);
+            return "auth/forgot-password";
+        }
+        if (account.getStatus() == Enums.AccountStatus.DELETED) {
+            result.rejectValue("email", "400", messageResourceService.getMessage("account.deleted"));
+            model.addAttribute("forgotPasswordRequest", forgotPasswordRequest);
+            return "auth/forgot-password";
+        }
+        // Xử lý create account
+        userDetailsService.forgotPassword(account, forgotPasswordRequest);
+        model.addAttribute("forgotPasswordRequest", forgotPasswordRequest);
+        return "auth/forgot-password";
     }
 }

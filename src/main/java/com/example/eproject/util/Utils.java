@@ -70,6 +70,16 @@ public class Utils {
         return key;
     }
 
+    public static String generatorRandomToken(int length) {
+        String CHARS = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ1234567890";
+        Random random = new Random();
+        StringBuilder token = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            token.append(CHARS.charAt(random.nextInt(CHARS.length())));
+        }
+        return token.toString();
+    }
+
     public static String generatorRandomStringNumber(int length) {
         String CHARS = "1234567890";
         Random random = new Random();
