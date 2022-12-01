@@ -62,7 +62,7 @@
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
                     <input th:field="*{password}" class="input100" type="password" name="password" id="password"
-                           placeholder="Password" onchange='check_pass();'>
+                           placeholder="Password" onkeyup='check_pass();'>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -71,7 +71,7 @@
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
                     <input th:field="*{passwordConfirm}" class="input100" type="password" name="confirm_password"
-                           id="confirm_password" placeholder=" Confirm Password" onchange='check_pass();'>
+                           id="confirm_password" placeholder=" Confirm Password" onkeyup='check_pass();'>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -116,10 +116,7 @@
     })
 
     function check_pass() {
-        console.log(document.getElementById('password').value)
-        console.log(document.getElementById('confirm_password').value)
-        if (document.getElementById('password').value ==
-            document.getElementById('confirm_password').value) {
+        if (document.getElementById('password').value === document.getElementById('confirm_password').value) {
             document.getElementById('submit').disabled = false;
         } else {
             document.getElementById('submit').disabled = true;
