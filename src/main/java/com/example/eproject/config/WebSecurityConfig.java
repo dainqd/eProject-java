@@ -26,7 +26,6 @@ import java.io.InputStream;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     private static final String[] IGNORE_PATHS = {
             "/", "/css/**", "/img/**", "/favicon.ico",
             "/swagger-resources/**",
@@ -54,6 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/error/**",
             "/v1/**",
             "/views/**",
+            "/layout/**",
+            "/include/**",
             "/templates/**",
             "/api/v1/news/**",
             "/api/v1/category/**",
