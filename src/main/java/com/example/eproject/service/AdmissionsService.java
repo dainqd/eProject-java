@@ -48,6 +48,17 @@ public class AdmissionsService {
         return admissionsRepository.save(admissions);
     }
 
+    public Admissions create(AdmissionsDto admissionsDto) {
+        Admissions admissions = new Admissions(admissionsDto);
+
+        BeanUtils.copyProperties(admissionsDto, admissions);
+
+        admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
+        System.out.println(admissions.getBirthday());
+        admissions.setCreatedAt(LocalDateTime.now());
+        return admissionsRepository.save(admissions);
+    }
+
     public void delete(Admissions admissions, long id) {
         admissions.setStatus(Enums.AdmissionsStatus.DELETED);
         admissions.setDeletedAt(LocalDateTime.now());

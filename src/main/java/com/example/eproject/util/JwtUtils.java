@@ -1,5 +1,10 @@
 package com.example.eproject.util;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.eproject.entity.User;
 import com.example.eproject.service.UserDetailsIpmpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +25,9 @@ public class JwtUtils {
     @Value("${bezkoder.app.jwtExpirationMs}")
     public int jwtExpirationsMs;
 
-    public String generateJwtToken(Authentication authentication) {
+    private static String SECRET_KEY = "xxx";
+
+    public String generateToken(Authentication authentication) {
         UserDetailsIpmpl userPrincipal = (UserDetailsIpmpl) authentication.getPrincipal();
 
         return Jwts.builder()
@@ -29,6 +36,26 @@ public class JwtUtils {
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationsMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
+    }
+
+    public DecodedJWT getDecodedJwt(String token) {
+        return getVerifier().verify(token);
+    }
+
+    public JWTVerifier getVerifier() {
+        return JWT.require(getAlgorithm()).build();
+    }
+
+//    public String generateToken(Authentication authentication) {
+//        UserDetailsIpmpl userPrincipal = (UserDetailsIpmpl) authentication.getPrincipal();
+//        return JWT.create()
+//                .withSubject(String.valueOf(userPrincipal.getId()))
+//                .withExpiresAt(new Date((new Date()).getTime() + jwtExpirationsMs))
+//                .sign(getAlgorithm());
+//    }
+
+    public Algorithm getAlgorithm() {
+        return Algorithm.HMAC256(SECRET_KEY.getBytes());
     }
 
     public String getUserNameFromJwtToken(String token) {

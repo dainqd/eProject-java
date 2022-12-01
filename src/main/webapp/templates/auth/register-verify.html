@@ -37,7 +37,8 @@
                 <a href="/"><img class="image-logo" src="../../img/image/logosem2.png" alt="IMG"></a>
             </div>
 
-            <form class="login100-form validate-form " th:object="${signupRequest}" th:action="@{/service/register-verify}"
+            <form class="login100-form validate-form " th:object="${signupRequest}"
+                  th:action="@{/service/register-verify}"
                   method="post">
 					<span>
 						<span class="login100-form-add-title">Verify Account</span>
@@ -46,7 +47,8 @@
                         </div>
 					</span>
                 <div class="wrap-input100 validate-input" data-validate="Valid username is required: abc.xyz">
-                    <input th:field="*{verifyCode}" class="input100" type="text" name="verifyCode" placeholder="Verify Code">
+                    <input th:field="*{verifyCode}" class="input100" type="text" name="verifyCode"
+                           placeholder="Verify Code">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-keyboard-o" aria-hidden="true"></i>

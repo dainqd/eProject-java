@@ -16,9 +16,4 @@ public class HomeController {
     public String faculty(Model model) {
         return "layout/faculty";
     }
-
-    @GetMapping("addmission")
-    public String addmission(Model model) {
-        return "layout/addmission";
-    }
 }

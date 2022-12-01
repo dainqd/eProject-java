@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,6 +24,7 @@
     <title>Admissions</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--
             CSS
             ============================================= -->
@@ -55,7 +56,7 @@
                     Admissions
                 </h1>
                 <p class="text-white link-nav"><a href="/">Home </a> <span class="lnr lnr-arrow-right"></span> <a
-                        href="views/admissions"> Admissions</a></p>
+                        href="/admissions/list"> Admissions</a></p>
             </div>
         </div>
     </div>
@@ -114,12 +115,13 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8">
                     <h3 class="mb-20 text-center">REGISTER</h3>
-                    <form action="#">
+                    <form th:object="${admissionsDto}" th:action="@{/admissions/signup}"
+                          method="post" >
                         <div class="row">
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Full Name</h5>
                                 <div class="mt-10">
-                                    <input type="text" name="full_name" placeholder="Full Name"
+                                    <input th:field="*{fullName}" type="text" name="full_name" placeholder="Full Name"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -127,7 +129,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Gender</h5>
                                 <div class="mt-10">
-                                    <input type="text" name="gender" placeholder="Gender"
+                                    <input th:field="*{gender}" type="text" name="gender" placeholder="Gender"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Gender'" required
                                            class="single-input single-input-full">
                                 </div>
@@ -138,7 +140,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Birthday</h5>
                                 <div class="mt-10">
-                                    <input type="date" name="birthday" placeholder="Birthday"
+                                    <input th:field="*{birthday}" type="text" name="birthday" placeholder="Birthday"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Birthday'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -146,7 +148,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Phone Number</h5>
                                 <div class="mt-10">
-                                    <input type="tel" name="phone" placeholder="Phone Number"
+                                    <input th:field="*{phoneNumber}" type="text" name="phone" placeholder="Phone Number"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -157,7 +159,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Email</h5>
                                 <div class="mt-10">
-                                    <input type="email" name="EMAIL" placeholder="Email" onfocus="this.placeholder = ''"
+                                    <input th:field="*{email}" type="email" name="email" placeholder="Email" onfocus="this.placeholder = ''"
                                            onblur="this.placeholder = 'Email'" required
                                            class="single-input single-input-full">
                                 </div>
@@ -166,7 +168,7 @@
                                 <h5 class="primary-text title-text">Address</h5>
                                 <div class="input-group-icon mt-10">
                                     <div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
-                                    <input type="text" name="address" placeholder="Address"
+                                    <input th:field="*{address}" type="text" name="address" placeholder="Address"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -205,16 +207,16 @@
                         </div>
                         <h5 class="primary-text title-text">Link Facebook</h5>
                         <div class="mt-10">
-                            <input type="text" name="facebook" placeholder="Link Facebook"
+                            <input th:field="*{linkFaceBook}" type="text" name="facebook" placeholder="Link Facebook"
                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Link Facebook'" required
                                    class="single-input-primary">
                         </div>
                         <h5 class="primary-text title-text">Message</h5>
                         <div class="mt-10">
-                            <textarea class="single-textarea" placeholder="Message" onfocus="this.placeholder = ''"
+                            <textarea th:field="*{message}" class="single-textarea" placeholder="Message" onfocus="this.placeholder = ''"
                                       onblur="this.placeholder = 'Message'" required></textarea>
                         </div>
-                        <a href="" class="primary-btn text-uppercase mx-auto btn-register">Register</a>
+                        <input type="submit" id="submid" class="primary-btn text-uppercase mx-auto btn-register" value="Register">
                     </form>
                 </div>
             </div>
@@ -232,7 +234,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">01</div>
-                        <div class="country"><img src="img/elements/f1.jpg" alt="flag">Stanford</div>
+                        <div class="country"><img src="../../img/elements/f1.jpg" alt="flag">Stanford</div>
                         <div class="visit">645032</div>
                         <div class="percentage">
                             <div class="progress">
@@ -243,7 +245,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">02</div>
-                        <div class="country"><img src="img/elements/f2.jpg" alt="flag">5SUPERHERO</div>
+                        <div class="country"><img src="../../img/elements/f2.jpg" alt="flag">5SUPERHERO</div>
                         <div class="visit">638989</div>
                         <div class="percentage">
                             <div class="progress">
@@ -254,7 +256,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">03</div>
-                        <div class="country"><img src="img/elements/f3.jpg" alt="flag">Oxford</div>
+                        <div class="country"><img src="../../img/elements/f3.jpg" alt="flag">Oxford</div>
                         <div class="visit">625192</div>
                         <div class="percentage">
                             <div class="progress">
@@ -265,7 +267,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">04</div>
-                        <div class="country"><img src="img/elements/f4.jpg" alt="flag">Harvard</div>
+                        <div class="country"><img src="../../img/elements/f4.jpg" alt="flag">Harvard</div>
                         <div class="visit">599099</div>
                         <div class="percentage">
                             <div class="progress">
@@ -276,7 +278,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">05</div>
-                        <div class="country"><img src="img/elements/f5.jpg" alt="flag">London</div>
+                        <div class="country"><img src="../../img/elements/f5.jpg" alt="flag">London</div>
                         <div class="visit">588903</div>
                         <div class="percentage">
                             <div class="progress">
@@ -287,7 +289,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">06</div>
-                        <div class="country"><img src="img/elements/f6.jpg" alt="flag">Zurich</div>
+                        <div class="country"><img src="../../img/elements/f6.jpg" alt="flag">Zurich</div>
                         <div class="visit">572168</div>
                         <div class="percentage">
                             <div class="progress">
@@ -298,7 +300,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">07</div>
-                        <div class="country"><img src="img/elements/f7.jpg" alt="flag">Chicago</div>
+                        <div class="country"><img src="../../img/elements/f7.jpg" alt="flag">Chicago</div>
                         <div class="visit">566868</div>
                         <div class="percentage">
                             <div class="progress">
@@ -309,7 +311,7 @@
                     </div>
                     <div class="table-row">
                         <div class="serial">08</div>
-                        <div class="country"><img src="img/elements/f8.jpg" alt="flag">RMIT</div>
+                        <div class="country"><img src="../../img/elements/f8.jpg" alt="flag">RMIT</div>
                         <div class="visit">556738</div>
                         <div class="percentage">
                             <div class="progress">
@@ -342,7 +344,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p1.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p1.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 325 <span class="lnr lnr-bubble"></span>85</p>
@@ -372,7 +374,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p2.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p2.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>92</p>
@@ -400,7 +402,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p3.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p3.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 300 <span class="lnr lnr-bubble"></span>105</p>
@@ -429,7 +431,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p4.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p4.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 550 <span class="lnr lnr-bubble"></span>66</p>
@@ -462,7 +464,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p1.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p1.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 500 <span class="lnr lnr-bubble"></span>298</p>
@@ -492,7 +494,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p2.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p2.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 750 <span class="lnr lnr-bubble"></span>350</p>
@@ -518,7 +520,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p3.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p3.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 255 <span class="lnr lnr-bubble"></span>35</p>
@@ -547,7 +549,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="img/p4.jpg" alt="">
+                            <img class="img-fluid" src="../../img/p4.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span> 215 <span class="lnr lnr-bubble"></span>122</p>
@@ -620,7 +622,7 @@
                     <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>
                     <input type="text" class="form-control" name="name" placeholder="Your Name"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
-                    <input type="phone" class="form-control" name="phone" placeholder="Your Phone Number"
+                    <input type="text" class="form-control" name="phone" placeholder="Your Phone Number"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
                     <input type="email" class="form-control" name="email" placeholder="Your Email Address"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
@@ -644,22 +646,6 @@
     </div>
 </section>
 <!-- End search-course Area -->
-
-<!-- Start cta-two Area -->
-<section class="cta-two-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 cta-left">
-                <h1>Not Yet Satisfied with our Trend?</h1>
-            </div>
-            <div class="col-lg-4 cta-right">
-                <a class="primary-btn wh" href="#">view our blog</a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End cta-two Area -->
-
 <!-- start footer Area -->
 <footer class="footer-area section-gap" id="footer">
 </footer>
@@ -686,8 +672,12 @@
         $("#header").load("../../templates/include/header.html");
         $("#footer").load("../../templates/include/footer.html");
     });
+    function myFunction(p1, p2) {
+
+    }
 </script>
 <script src="../../js/main.js"></script>
+<!--alert('You clicked the button!')-->
 <!-- <script src="js/main2.js"></script> -->
 </body>
 </html>

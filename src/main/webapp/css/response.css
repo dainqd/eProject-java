@@ -233,6 +233,7 @@
         display: initial !important
     }
 }
+
 @media (max-width: 504px) {
     .left-contents .jq-tab-menu .jq-tab-title {
         padding: .9em .9em;
@@ -344,6 +345,7 @@
         padding: 50px 8px
     }
 }
+
 @media (max-width: 991px) {
     .single-post-area .sidebar-widgets {
         padding-bottom: 0px
@@ -363,6 +365,7 @@
         font-size: 10px
     }
 }
+
 @media (max-width: 991px) {
     .comment-form .email {
         padding-left: 0px
