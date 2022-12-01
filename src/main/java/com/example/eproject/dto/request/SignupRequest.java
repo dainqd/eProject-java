@@ -2,7 +2,6 @@ package com.example.eproject.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -15,6 +14,7 @@ public class SignupRequest {
     private String email;
     private String password;
     private String verifyCode;
+    private String passwordConfirm;
     private Set<String> role;
 
     public SignupRequest() {
@@ -22,5 +22,6 @@ public class SignupRequest {
         this.email = "";
         this.password = "";
         this.verifyCode = "";
+        this.passwordConfirm = "";
     }
 }
