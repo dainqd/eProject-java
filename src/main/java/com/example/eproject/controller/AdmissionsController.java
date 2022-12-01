@@ -1,21 +1,16 @@
 package com.example.eproject.controller;
 
 import com.example.eproject.dto.AdmissionsDto;
-import com.example.eproject.dto.request.SignupRequest;
 import com.example.eproject.service.AdmissionsService;
 import com.example.eproject.service.MessageResourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,12 +31,15 @@ public class AdmissionsController {
     public String register(
             @Valid @ModelAttribute AdmissionsDto admissionsDto,
             BindingResult result,
-            Model model, HttpSession session) {
+            Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("alert", "Error");
             return "redirect:/admissions/list";
         }
+        model.addAttribute("alert", "Success");
         admissionsService.create(admissionsDto);
+        admissionsDto = new AdmissionsDto();
         model.addAttribute("admissionsDto", admissionsDto);
-        return "layout/admissions";
+        return "redirect:/admissions/list";
     }
 }

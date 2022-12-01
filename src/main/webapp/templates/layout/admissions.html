@@ -115,8 +115,8 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8">
                     <h3 class="mb-20 text-center">REGISTER</h3>
-                    <form th:object="${admissionsDto}" th:action="@{/admissions/signup}"
-                          method="post" >
+                    <form id="admissionForm" th:object="${admissionsDto}" th:action="@{/admissions/signup}"
+                          method="post">
                         <div class="row">
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Full Name</h5>
@@ -159,7 +159,8 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Email</h5>
                                 <div class="mt-10">
-                                    <input th:field="*{email}" type="email" name="email" placeholder="Email" onfocus="this.placeholder = ''"
+                                    <input th:field="*{email}" type="email" name="email" placeholder="Email"
+                                           onfocus="this.placeholder = ''"
                                            onblur="this.placeholder = 'Email'" required
                                            class="single-input single-input-full">
                                 </div>
@@ -175,36 +176,36 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <h5 class="primary-text title-text">City</h5>
-                                <div class="input-group-icon mt-10  single-input-full">
-                                    <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                    <div class="form-select" id="default-select">
-                                        <select>
-                                            <option value="1">City</option>
-                                            <option value="1">Ha Noi</option>
-                                            <option value="1">Ho Chi Minh</option>
-                                            <option value="1">Da Nang</option>
-                                            <option value="1">Orther</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <h5 class="primary-text title-text">Country</h5>
-                                <div class="input-group-icon mt-10  single-input-full">
-                                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
-                                    <div class="form-select" id="default-select2">
-                                        <select>
-                                            <option value="1">Country</option>
-                                            <option value="1">Viet Nam</option>
-                                            <option value="1">Orther</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="row">-->
+<!--                            <div class="col-6">-->
+<!--                                <h5 class="primary-text title-text">City</h5>-->
+<!--                                <div class="input-group-icon mt-10  single-input-full">-->
+<!--                                    <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>-->
+<!--                                    <div class="form-select" id="default-select">-->
+<!--                                        <select>-->
+<!--                                            <option value="1">City</option>-->
+<!--                                            <option value="1">Ha Noi</option>-->
+<!--                                            <option value="1">Ho Chi Minh</option>-->
+<!--                                            <option value="1">Da Nang</option>-->
+<!--                                            <option value="1">Orther</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-6">-->
+<!--                                <h5 class="primary-text title-text">Country</h5>-->
+<!--                                <div class="input-group-icon mt-10  single-input-full">-->
+<!--                                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>-->
+<!--                                    <div class="form-select" id="default-select2">-->
+<!--                                        <select>-->
+<!--                                            <option value="1">Country</option>-->
+<!--                                            <option value="1">Viet Nam</option>-->
+<!--                                            <option value="1">Orther</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <h5 class="primary-text title-text">Link Facebook</h5>
                         <div class="mt-10">
                             <input th:field="*{linkFaceBook}" type="text" name="facebook" placeholder="Link Facebook"
@@ -213,10 +214,12 @@
                         </div>
                         <h5 class="primary-text title-text">Message</h5>
                         <div class="mt-10">
-                            <textarea th:field="*{message}" class="single-textarea" placeholder="Message" onfocus="this.placeholder = ''"
+                            <textarea th:field="*{message}" class="single-textarea" placeholder="Message"
+                                      onfocus="this.placeholder = ''"
                                       onblur="this.placeholder = 'Message'" required></textarea>
                         </div>
-                        <input type="submit" id="submid" class="primary-btn text-uppercase mx-auto btn-register" value="Register">
+                        <input onclick="myFunction()" type="submit" id="submit"
+                               class="primary-btn text-uppercase mx-auto btn-register" value="Register">
                     </form>
                 </div>
             </div>
@@ -672,12 +675,16 @@
         $("#header").load("../../templates/include/header.html");
         $("#footer").load("../../templates/include/footer.html");
     });
-    function myFunction(p1, p2) {
 
-    }
+    // function myFunction() {
+    //     // document.getElementById("admissionForm").reset();
+    // }
+    //
+    // setTimeout(function myFunction(){
+    //     //do what you need here
+    // }, 2000);
+
 </script>
 <script src="../../js/main.js"></script>
-<!--alert('You clicked the button!')-->
-<!-- <script src="js/main2.js"></script> -->
 </body>
 </html>
