@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -143,13 +144,23 @@ public class AuthControllerViews {
             Model model, HttpSession session) {
         Optional<User> optionalUser = userDetailsService.findByUsername(signupRequest.getUsername());
         if (optionalUser.isPresent()) {
-            result.rejectValue("email", "400", messageResourceService.getMessage("account.username.exist"));
+            result.rejectValue("username", "400", messageResourceService.getMessage("account.username.exist"));
             model.addAttribute("signupRequest", signupRequest);
             return "auth/register";
         }
         Optional<User> userOptional = userDetailsService.findByEmail(signupRequest.getEmail());
         if (userOptional.isPresent()) {
             result.rejectValue("email", "400", messageResourceService.getMessage("account.email.exist"));
+            model.addAttribute("signupRequest", signupRequest);
+            return "auth/register";
+        }
+        if (!Objects.equals(signupRequest.getPassword(), signupRequest.getPasswordConfirm())) {
+            result.rejectValue("password", "400", messageResourceService.getMessage("account.password.incorrect"));
+            model.addAttribute("signupRequest", signupRequest);
+            return "auth/register";
+        }
+        if (signupRequest.getPassword().length() < 6 || signupRequest.getPassword() == null || Objects.equals(signupRequest.getPassword(), "")) {
+            result.rejectValue("password", "400", messageResourceService.getMessage("account.password.invalid"));
             model.addAttribute("signupRequest", signupRequest);
             return "auth/register";
         }
