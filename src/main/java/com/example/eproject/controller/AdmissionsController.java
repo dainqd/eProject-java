@@ -1,6 +1,7 @@
 package com.example.eproject.controller;
 
 import com.example.eproject.dto.AdmissionsDto;
+import com.example.eproject.dto.request.SignupRequest;
 import com.example.eproject.service.AdmissionsService;
 import com.example.eproject.service.MessageResourceService;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,18 +24,24 @@ import javax.validation.Valid;
 public class AdmissionsController {
     final AdmissionsService admissionsService;
     final MessageResourceService messageResourceService;
+
     @GetMapping("list")
-    public String addmission(Model model) {
+    public String admission(Model model) {
+        AdmissionsDto admissionsDto = new AdmissionsDto();
+        model.addAttribute("admissionsDto", admissionsDto);
         return "layout/admissions";
     }
 
     @PostMapping("signup")
-    public ResponseEntity<?> create(@Valid @RequestBody AdmissionsDto admissionsDto) {
-        try {
-            admissionsService.create(admissionsDto);
-            return new ResponseEntity<>(messageResourceService.getMessage("ok"), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(messageResourceService.getMessage("error"), HttpStatus.BAD_REQUEST);
+    public String register(
+            @Valid @ModelAttribute AdmissionsDto admissionsDto,
+            BindingResult result,
+            Model model, HttpSession session) {
+        if (result.hasErrors()) {
+            return "redirect:/admissions/list";
         }
+        admissionsService.create(admissionsDto);
+        model.addAttribute("admissionsDto", admissionsDto);
+        return "layout/admissions";
     }
 }

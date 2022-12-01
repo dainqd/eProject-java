@@ -24,6 +24,7 @@
     <title>Admissions</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--
             CSS
             ============================================= -->
@@ -114,12 +115,13 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8">
                     <h3 class="mb-20 text-center">REGISTER</h3>
-                    <form action="#">
+                    <form th:object="${admissionsDto}" th:action="@{/admissions/signup}"
+                          method="post" >
                         <div class="row">
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Full Name</h5>
                                 <div class="mt-10">
-                                    <input type="text" name="full_name" placeholder="Full Name"
+                                    <input th:field="*{fullName}" type="text" name="full_name" placeholder="Full Name"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -127,7 +129,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Gender</h5>
                                 <div class="mt-10">
-                                    <input type="text" name="gender" placeholder="Gender"
+                                    <input th:field="*{gender}" type="text" name="gender" placeholder="Gender"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Gender'" required
                                            class="single-input single-input-full">
                                 </div>
@@ -138,7 +140,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Birthday</h5>
                                 <div class="mt-10">
-                                    <input type="date" name="birthday" placeholder="Birthday"
+                                    <input th:field="*{birthday}" type="text" name="birthday" placeholder="Birthday"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Birthday'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -146,7 +148,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Phone Number</h5>
                                 <div class="mt-10">
-                                    <input type="tel" name="phone" placeholder="Phone Number"
+                                    <input th:field="*{phoneNumber}" type="text" name="phone" placeholder="Phone Number"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -157,7 +159,7 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Email</h5>
                                 <div class="mt-10">
-                                    <input type="email" name="EMAIL" placeholder="Email" onfocus="this.placeholder = ''"
+                                    <input th:field="*{email}" type="email" name="email" placeholder="Email" onfocus="this.placeholder = ''"
                                            onblur="this.placeholder = 'Email'" required
                                            class="single-input single-input-full">
                                 </div>
@@ -166,7 +168,7 @@
                                 <h5 class="primary-text title-text">Address</h5>
                                 <div class="input-group-icon mt-10">
                                     <div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
-                                    <input type="text" name="address" placeholder="Address"
+                                    <input th:field="*{address}" type="text" name="address" placeholder="Address"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'"
                                            required class="single-input single-input-full">
                                 </div>
@@ -205,16 +207,16 @@
                         </div>
                         <h5 class="primary-text title-text">Link Facebook</h5>
                         <div class="mt-10">
-                            <input type="text" name="facebook" placeholder="Link Facebook"
+                            <input th:field="*{linkFaceBook}" type="text" name="facebook" placeholder="Link Facebook"
                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Link Facebook'" required
                                    class="single-input-primary">
                         </div>
                         <h5 class="primary-text title-text">Message</h5>
                         <div class="mt-10">
-                            <textarea class="single-textarea" placeholder="Message" onfocus="this.placeholder = ''"
+                            <textarea th:field="*{message}" class="single-textarea" placeholder="Message" onfocus="this.placeholder = ''"
                                       onblur="this.placeholder = 'Message'" required></textarea>
                         </div>
-                        <input type="submit" class="primary-btn text-uppercase mx-auto btn-register" value="Register">
+                        <input type="submit" id="submid" class="primary-btn text-uppercase mx-auto btn-register" value="Register">
                     </form>
                 </div>
             </div>
@@ -670,8 +672,12 @@
         $("#header").load("../../templates/include/header.html");
         $("#footer").load("../../templates/include/footer.html");
     });
+    function myFunction(p1, p2) {
+
+    }
 </script>
 <script src="../../js/main.js"></script>
+<!--alert('You clicked the button!')-->
 <!-- <script src="js/main2.js"></script> -->
 </body>
 </html>

@@ -109,7 +109,7 @@ public class AuthControllerViews {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            String jwt = jwtUtils.generateJwtToken(authentication);
+            String jwt = jwtUtils.generateToken(authentication);
 
             UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
             List<String> roles = userDetails.getAuthorities().stream()
