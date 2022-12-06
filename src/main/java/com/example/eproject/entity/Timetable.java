@@ -1,5 +1,5 @@
 package com.example.eproject.entity;
 
-// Thời khóa danh
+// Thời khóa biểu
 public class Timetable {
 }

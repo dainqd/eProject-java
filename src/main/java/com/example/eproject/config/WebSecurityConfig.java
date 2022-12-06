@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/include/**",
             "/templates/**",
             "/admissions/**",
+            "/courses/**",
             "/api/v1/news/**",
             "/api/v1/category/**",
             "/api/v1/image/**",

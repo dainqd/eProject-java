@@ -14,6 +14,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Currency;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -25,14 +27,15 @@ public class CourseDto {
     private String intent;
     private String condition;
     private String content;
-    private String comments;
-    private String reviews;
+    private long comments;
+    private long reviews;
     private String trainer;
-    private Currency price;
+    private String price;
     private long seat;
     private String startDate;
     private String endDate;
     private long free;
+    private List<String> outline;
     @Enumerated(EnumType.STRING)
     private Enums.CourseStatus status = Enums.CourseStatus.PREACTIVE;
 

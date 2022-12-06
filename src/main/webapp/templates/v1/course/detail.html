@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link
+            rel="icon"
+            href="../../../img/image/logosem2.png"
+            type="image/png"
+            sizes="700x700"
+    />
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title th:each="item : ${course}">[[${item.title}]]</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" href="../../../css/linearicons.css">
+    <link rel="stylesheet" href="../../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/magnific-popup.css">
+    <link rel="stylesheet" href="../../../css/nice-select.css">
+    <link rel="stylesheet" href="../../../css/animate.min.css">
+    <link rel="stylesheet" href="../../../css/owl.carousel.css">
+    <link rel="stylesheet" href="../../../css/jquery-ui.css">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/bass.css">
+    <link rel="stylesheet" href="../../../css/response.css">
+    <link rel="stylesheet" href="../../../templates/include/public.css">
+</head>
+<body>
+<header id="header">
+
+</header><!-- #header -->
+
+<!-- start banner Area -->
+<section class="banner-area relative about-banner" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12" th:each="item : ${course}">
+                <h1 class="text-white">
+                    Popular Courses
+                </h1>
+                <p class="text-white link-nav"><a href="/">Home </a> <span
+                        class="lnr lnr-arrow-right"></span> <a href="/courses/list"> Popular Courses</a>
+                    <span class="lnr lnr-arrow-right"></span> <a th:href="|/courses/detail/${item.id}|">[[${item.title}]]</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+
+<!-- Start course-details Area -->
+<section class="course-details-area pt-120">
+    <div class="container">
+        <div class="row" th:each="item : ${course}">
+            <div class="col-lg-8 left-contents">
+                <div class="main-image">
+                    <img class="img-fluid" src="../../../img/m-img.jpg" alt="">
+                </div>
+                <div class="jq-tab-wrapper" id="horizontalTab">
+                    <div class="jq-tab-menu">
+                        <div class="jq-tab-title active" data-tab="1">Objectives</div>
+                        <div class="jq-tab-title" data-tab="2">Eligibility</div>
+                        <div class="jq-tab-title" data-tab="3">Course Outline</div>
+                    </div>
+                    <div class="jq-tab-content-wrapper">
+                        <div class="jq-tab-content active" data-tab="1">
+                            [[${item.intent}]]
+                        </div>
+                        <div class="jq-tab-content" data-tab="2">
+                            [[${item.condition}]]
+                        </div>
+                        <div class="jq-tab-content" data-tab="3" th:each="continet : ${continents}">
+                            <ul class="course-list">
+                                <li class="justify-content-between d-flex">
+                                    <p>[[${continet}]]</p>
+                                    <a class="primary-btn text-uppercase" href="#">View Details</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 right-contents">
+                <ul>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Trainer’s Name</p>
+                            <span class="or">[[${item.trainer}]]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Course Fee </p>
+                            <span>$[[${item.price}]]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Available Seats </p>
+                            <span>[[${item.seat}]]</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Schedule </p>
+                            <span>[[${item.startDate}]] to [[${item.endDate}]]</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="primary-btn text-uppercase" onclick="myFunction()">Enroll the course</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End course-details Area -->
+<!-- Start search-course Area -->
+<section class="search-course-area relative" id="id-scroll-register">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-lg-6 col-md-6 search-course-left">
+                <h1 class="text-white">
+                    Get reduced fee <br>
+                    during this Summer!
+                </h1>
+                <p>
+                    5SUPERHERO is accepting student applications.
+                    You can proceed to register for the academic record of 02 subjects
+                    Math + Information (HK 1 grade 12) at <a class="link-course" href="https://fivesuperhero.com">
+                    https://fivesuperhero.com </a>
+                    to know if you get a scholarship of 3,000,000 or 6,000,000 or 9,000,000 or
+                    Lucky to receive a special scholarship up to 100% of tuition fee when applying
+                    for admission at 5SUPERHERO.
+                </p>
+                <div class="row details-content">
+                    <div class="col single-detials">
+                        <span class="lnr lnr-graduation-hat"></span>
+                        <a href="#"><h4>Expert Instructors</h4></a>
+                        <p>
+                            5SUPERHERO has more than 50 years of experience training international students in Vietnam,
+                            and is always the first choice of students and employers.
+                        </p>
+                    </div>
+                    <div class="col single-detials">
+                        <span class="lnr lnr-license"></span>
+                        <a href="#"><h4>Certification</h4></a>
+                        <p>
+                            We have been continuously honored with the top Technology (CN) training award,
+                            received the 2003 Gold Cup, marking our 19-year
+                            journey as the number 1 unit in industrial education and training in Vietnam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 search-course-right section-gap">
+                <form class="form-wrap" th:object="${courseRegisterDto}" th:action="@{/courses/signup}"
+                      method="post">
+                    <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>
+                    <div>
+                        <input th:field="*{name}" id="name" type="text" class="form-control" name="name"
+                               placeholder="Your Name"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
+                        <div id="js-message-name" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
+                            your name!
+                        </div>
+                    </div>
+                    <div>
+                        <input th:field="*{phoneNumber}" id="phoneNumber" type="text" class="form-control" name="phone"
+                               placeholder="Your Phone Number"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
+                        <div id="js-message-phone" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
+                            your phone number!
+                        </div>
+                    </div>
+                    <div>
+                        <input th:field="*{email}" id="email" type="email" class="form-control" name="email"
+                               placeholder="Your Email Address"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
+                        <div id="js-message-email" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
+                            your email!
+                        </div>
+                        <div id="js-message-email-format"
+                             class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter the correct format
+                            email!
+                        </div>
+                    </div>
+                    <div class="form-select" id="service-select">
+                        <select th:field="*{courseName}" id="titleName">
+                            <option th:each="item : ${course}" th:value="${item.title}">[[${item.title}]]</option>
+                        </select>
+                        <div id="js-message-stand" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
+                            the course you want to choose!
+                        </div>
+                    </div>
+                    <button type="submit" id="submit" class="primary-btn text-uppercase">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End search-course Area -->
+<!-- start footer Area -->
+<footer class="footer-area section-gap" id="footer">
+
+</footer>
+<!-- End footer Area -->
+
+
+<script src="../../../js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="../../../js/vendor/bootstrap.min.js"></script>
+<script src="../../../js/easing.min.js"></script>
+<script src="../../../js/hoverIntent.js"></script>
+<script src="../../../js/superfish.min.js"></script>
+<script src="../../../js/jquery.ajaxchimp.min.js"></script>
+<script src="../../../js/jquery.magnific-popup.min.js"></script>
+<script src="../../../js/jquery.tabs.min.js"></script>
+<script src="../../../js/jquery.nice-select.min.js"></script>
+<script src="../../../js/owl.carousel.min.js"></script>
+<script src="../../../js/mail-script.js"></script>
+<script>
+    $(function () {
+        $("#header").load("../../../templates/include/header.html");
+        $("#footer").load("../../../templates/include/footer.html");
+    });
+
+    function myFunction() {
+        const element = document.getElementById('id-scroll-register');
+        element.scrollIntoView(true);
+    }
+
+    $('#submit').click(() => {
+        if (validate()) {
+            $('#submit').prop("disabled", true);
+            let fetches = [];
+            Promise.all(fetches).then(function () {
+                const fullName = $('#name').val();
+                const email = $('#email').val()
+                const phoneNumber = $('#phoneNumber').val()
+                const titleName = $('#titleName').val()
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                // const raw = JSON.stringify({
+                //     fullName,
+                //     email,
+                //     phoneNumber,
+                //     titleName
+                // });
+                //
+                // const requestOptions = {
+                //     method: 'POST',
+                //     headers: myHeaders,
+                //     body: raw,
+                //     redirect: 'follow'
+                // };
+                //
+                // fetch("/courses/register", requestOptions)
+                //     .then(response => {
+                //         $('#name').val('');
+                //         $('#email').val('');
+                //         $('#phoneNumber').val('');
+                //         $('#submit').prop("disabled", false);
+                //         // $('#applyRecruitModal').modal("hide");
+                //         // showSuccess("Send success!");
+                //     }).catch(error => {
+                //     $('#submit').prop("disabled", false);
+                // });
+            }).catch(error => {
+                console.log("ok");
+            })
+        }
+    });
+
+    function validate() {
+        let check = 1;
+        if ($('#name').val() === "") {
+            $('#js-message-name').removeClass("d-none");
+            check = 0;
+        }
+        $('#name').keyup(function () {
+            if ($(this).val() !== "") {
+                $('#js-message-name').addClass("d-none")
+                check = 0;
+            }
+        });
+
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if ($('#email').val() === "") {
+            $('#js-message-email').removeClass("d-none");
+            $('#js-message-email-format').addClass("d-none");
+            check = 0;
+        }
+        if ($('#email').val() !== "" && !$('#email').val().match(mailFormat)) {
+            $('#js-message-email-format').removeClass("d-none");
+            check = 0;
+        }
+        $('#email').keyup(function () {
+            if ($(this).val() !== "") {
+                $('#js-message-email').addClass("d-none")
+                if (!$(this).val().match(mailFormat)) {
+                    $('#js-message-email-format').removeClass("d-none");
+                    check = 0;
+                }
+                if ($(this).val().match(mailFormat)) {
+                    $('#js-message-email-format').addClass("d-none")
+                    check = 0;
+                }
+            }
+        });
+
+        const phoneFormat = /(((\+|)84)|0)(3|5|7|8|9)([0-9]{8})\b/
+        if ($('#phoneNumber').val() === "") {
+            $('#js-message-phone').removeClass("d-none");
+            $('#js-message-phone-format').addClass("d-none");
+            check = 0;
+        }
+        if ($('#phoneNumber').val() !== "" && !$('#phoneNumber').val().match(mailFormat)) {
+            $('#js-message-phone-format').removeClass("d-none");
+            check = 0;
+        }
+        $('#phoneNumber').keyup(function () {
+            console.log($(this).val())
+            if ($(this).val() !== "") {
+                $('#js-message-phone').addClass("d-none")
+                if (!$(this).val().match(phoneFormat)) {
+                    $('#js-message-phone-format').removeClass("d-none");
+                    check = 0;
+                }
+                if ($(this).val().match(phoneFormat)) {
+                    $('#js-message-phone-format').addClass("d-none")
+                    check = 0;
+                }
+            }
+        });
+
+        if ($('#titleName').val() === "") {
+            $('#js-message-stand').removeClass("d-none");
+            check = 0;
+        }
+        $('#titleName').keyup(function () {
+            if ($(this).val() !== "") {
+                $('#js-message-stand').addClass("d-none")
+                check = 0;
+            }
+        });
+        return check !== 0;
+    }
+</script>
+<script src="../../../js/main.js"></script>
+</body>
+</html>

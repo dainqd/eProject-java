@@ -23,7 +23,6 @@ import java.util.Optional;
 @RequestMapping("api/v1/course")
 public class CourseApi {
     final CourseService courseService;
-    final UserDetailsServiceImpl userDetailsService;
     final MessageResourceService messageResourceService;
 
     @GetMapping()
@@ -35,7 +34,7 @@ public class CourseApi {
         if (status == Enums.CourseStatus.DELETED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     messageResourceService.getMessage("course.not.found"));
-        } else if (status != null){
+        } else if (status != null) {
             return courseService.findAllByStatusNoDelete(status, pageable).map(CourseDto::new);
         }
         return courseService.findAllByStatusNoDelete(Enums.CourseStatus.ACTIVE, pageable).map(CourseDto::new);
@@ -43,15 +42,17 @@ public class CourseApi {
 
     @GetMapping("/{id}")
     public CourseDto getDetail(@RequestParam(value = "id", required = false, defaultValue = "1") long id,
-                               @RequestParam(value = "status", required = false, defaultValue = "") Enums.CourseStatus status){
-        if (status == Enums.CourseStatus.DELETED) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    messageResourceService.getMessage("course.not.found"));
-        }
+                               @RequestParam(value = "status", required = false, defaultValue = "") Enums.CourseStatus status) {
         Optional<Course> optionalCourse = courseService.findByIdAndStatus(id, status);
-        if (!optionalCourse.isPresent()){
+        if (!optionalCourse.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("id.not.found"));
+        }
+        if (status != null) {
+            if (status == Enums.CourseStatus.DELETED) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        messageResourceService.getMessage("course.not.found"));
+            }
         }
         return new CourseDto(optionalCourse.get());
     }
