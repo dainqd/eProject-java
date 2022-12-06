@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CourseService {
     final CourseRepository courseRepository;
-    final MessageResourceService messageResourceService;
 
     public Page<Course> findAll(Pageable pageable) {
         return courseRepository.findAll(pageable);
@@ -31,10 +30,6 @@ public class CourseService {
     }
 
     public Page<Course> findAllByStatusNoDelete(Enums.CourseStatus status, Pageable pageable) {
-        if (status == Enums.CourseStatus.DELETED) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    messageResourceService.getMessage("course.not.found"));
-        }
         return courseRepository.findAllByStatus(status, pageable);
     }
 
@@ -43,10 +38,6 @@ public class CourseService {
     }
 
     public Optional<Course> findByIdAndStatus(long id, Enums.CourseStatus status) {
-        if (status == Enums.CourseStatus.DELETED) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    messageResourceService.getMessage("course.not.found"));
-        }
         return courseRepository.findByIdAndStatus(id, status);
     }
 
@@ -64,6 +55,10 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
+    public Course save(Course course) {
+        return courseRepository.save(course);
+    }
+
     public void delete(Course course, long adminID) {
         course.setStatus(Enums.CourseStatus.DELETED);
         course.setDeletedAt(LocalDateTime.now());
@@ -74,8 +69,7 @@ public class CourseService {
     public Course update(CourseDto courseDto, long adminID) {
         Optional<Course> optionalCourse = courseRepository.findById(courseDto.getId());
         if (!optionalCourse.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    messageResourceService.getMessage("course.not.found"));
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR");
         }
         Course course = optionalCourse.get();
 

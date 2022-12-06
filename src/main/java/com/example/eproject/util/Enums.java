@@ -33,6 +33,10 @@ public class Enums {
         ACTIVE, DEACTIVE, PREACTIVE, FULLY, DELETED
     }
 
+    public static enum CourseRegisterStatus {
+        APPROVED, PENDING, WAITCONFIRM, REFUSE, COMPLETE, DELETED
+    }
+
     public static enum EventsStatus {
         ACTIVE, DELETED, DEACTIVE
     }

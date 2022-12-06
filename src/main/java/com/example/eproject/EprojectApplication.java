@@ -1,11 +1,13 @@
 package com.example.eproject;
 
+import com.example.eproject.entity.Course;
 import com.example.eproject.entity.News;
 import com.example.eproject.entity.Role;
-import com.example.eproject.entity.User;
+import com.example.eproject.service.CourseService;
 import com.example.eproject.service.NewsService;
 import com.example.eproject.service.RoleService;
 import com.example.eproject.util.Enums;
+import lombok.RequiredArgsConstructor;
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +19,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -27,13 +28,14 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 @EnableScheduling
 @SpringBootApplication
+@RequiredArgsConstructor
 public class EprojectApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(EprojectApplication.class, args);
@@ -94,6 +96,9 @@ public class EprojectApplication implements CommandLineRunner {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    CourseService courseService;
+
     private void createNews(long id, String title, String desc, String img, String content, int views, Enums.NewsStatus status, String author) {
         News news = new News();
         news.setId(id);
@@ -152,9 +157,99 @@ public class EprojectApplication implements CommandLineRunner {
         createRole(5, Enums.Role.STUDENT);
     }
 
+    private void createCourse(long id, String title, String intent, String condition, String content,
+                              long comments, long reviews, String trainer, String price, long seat,
+                              String startDate, String endDate, long free, String outlineStr) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date stDate = formatter.parse(startDate);
+        System.out.println(stDate);
+        Date enDate = formatter.parse(endDate);
+        System.out.println(enDate);
+// Tạo mới khóa học
+        Course course = new Course();
+        course.setId(id);
+        course.setTitle(title);
+        course.setIntent(intent);
+        course.setCondition(condition);
+        course.setContent(content);
+        course.setComments(comments);
+        course.setReviews(reviews);
+        course.setTrainer(trainer);
+        course.setPrice(price);
+        course.setSeat(seat);
+        course.setStartDate(stDate);
+        course.setEndDate(enDate);
+        course.setFree(free);
+        course.setStatus(Enums.CourseStatus.ACTIVE);
+        List<String> outline = new ArrayList<String>(Arrays.asList(outlineStr.split(",")));
+        System.out.println(outline);
+        course.setOutline(outline);
+//        courseService.save(course);
+    }
+
+    public void generateCourse() throws ParseException {
+        createCourse(1, "Learn Designing", "", "", "Multimedia art design has become a fertile land,\n" +
+                        "\t\t\t\t\t\t\t\t\t thirsty for human resources with thousands of domestic and foreign advertising companies looking for candidates. \n" +
+                        "\t\t\t\t\t\t\t\t\t Do you love beauty, are passionate about creativity and want to design your own life around you? \n" +
+                        "\t\t\t\t\t\t\t\t\t Are you ready to enter the multimedia art design industry with exciting career opportunities and attractive salaries?\n" +
+                        "\t\t\t\t\t\t\t\t\t Become a designer and confidently show yourself in the challenging creative industry today, why not?"
+                , 368, 89, "Ngo Quang Dai", "456,99", 30, "2022-02-10", "2022-10-10", 25, "");
+        createCourse(2, "Learn React js beginners", "", "", "React is the most popular javascript library for building user interfaces. \n" +
+                        "\t\t\t\t\t\t\t\t\tIt's fast, flexible and it also has a strong online community to help you at all times. \n" +
+                        "\t\t\t\t\t\t\t\t\tThe best part is that React is based on components, you break your complex code into individual parts, \n" +
+                        "\t\t\t\t\t\t\t\t\tie components and that helps programmers organize their code in a better way. \n" +
+                        "\t\t\t\t\t\t\t\t\tA lot of companies are moving to React and that's the reason most of the beginners \n" +
+                        "\t\t\t\t\t\t\t\t\tlearn programming and programmers Experienced students start learning ReactJS."
+                , 235, 68, "Hoang Minh Hieu", "625,99", 30, "2022-02-10", "2022-10-10", 25, "");
+        createCourse(3, "Learn Photography", "", "", "The Photography program will equip students with all the necessary knowledge through subjects such as: \n" +
+                        "\t\t\t\t\t\t\t\t\tDigital Photography, History of Vietnam and World Photography, Lenses, Flash, Photographs.\n" +
+                        "\t\t\t\t\t\t\t\t\t Landscape, Architectural Photo, Macro Photo, Studio Portrait, Advertising Photo, Sports Photo... \n" +
+                        "\t\t\t\t\t\t\t\t\t Skilled to handle basic techniques in photography with different genres such as advertising photos, architectural photos. \n" +
+                        "\t\t\t\t\t\t\t\t\tarchitecture, sports photography… especially the creative language of photography."
+                , 589, 88, "Ngo Quang Dai", "656,99", 36, "2021-02-10", "2022-10-10", 22, "");
+        createCourse(4, "Learn Java - Spring Boot", "", "", "As the most powerful and popular object-oriented programming language today, \n" +
+                        "\t\t\t\t\t\t\t\t\tJava is appreciated and praised by many experts for its extremely powerful support. \n" +
+                        "\t\t\t\t\t\t\t\t\tThe strength of Java is that it can work on many technology platforms, \n" +
+                        "\t\t\t\t\t\t\t\t\tincluding operating in many different operating systems. Or to put it simply, \n" +
+                        "\t\t\t\t\t\t\t\t\tJava is a programming language that can \"write once, run everywhere\" (\"write one, run everywhere\") with the JVM. \n" +
+                        "\t\t\t\t\t\t\t\t\tSpring Boot is a project developed by JAV (java language) in the Spring framework ecosystem. \n" +
+                        "\t\t\t\t\t\t\t\t\tIt helps us programmers simplify the process of programming an application with Spring, \n" +
+                        "\t\t\t\t\t\t\t\t\tfocusing only on developing the business for the application."
+                , 486, 66, "Ngo Quang Dai", "858,99", 32, "2022-04-05", "2023-04-05", 25, "");
+        createCourse(5, "Learn PHP - Laravel", "", "", "PHP stands for Personal Home Page which has now been converted to Hypertext Preprocessor.\n" +
+                        "\t\t\t\t\t\t\t\t\t Simply put, PHP is a multi-purpose scripting language. \n" +
+                        "\t\t\t\t\t\t\t\t\t PHP is commonly used for developing server-side web applications.\n" +
+                        "\t\t\t\t\t\t\t\t\t  Thus, the PHP programming language can handle server-side functions to generate HTML code on the client \n" +
+                        "\t\t\t\t\t\t\t\t\t  such as collecting form data, modifying the database, managing files on the server, or other operations. \n" +
+                        "\t\t\t\t\t\t\t\t\t  Laravel is one of the most popular PHP Frameworks in the world used to build web applications from small \n" +
+                        "\t\t\t\t\t\t\t\t\t  to large projects.Laravel is the choice of many professional PHP programmers for its performance, \n" +
+                        "\t\t\t\t\t\t\t\t\t  features and its scalability."
+                , 558, 85, "Ngo Quang Dai", "380,99", 36, "2022-01-01", "2022-10-10", 30, "");
+        createCourse(6, "Learn Angular", "", "", "Angular is a JavaScript framework and is written in TypeScript. \n" +
+                        "\t\t\t\t\t\t\t\t\tGoogle created this framework with the purpose of writing the web interface (Front-end) \n" +
+                        "\t\t\t\t\t\t\t\t\tstandard \"less effort\". Not only does it offer the benefits of a framework, \n" +
+                        "\t\t\t\t\t\t\t\t\tbut Angular keeps the same structure as a standard programming language. \n" +
+                        "\t\t\t\t\t\t\t\t\tThat makes it easy for developers to scale the project as well as maintain it."
+                , 569, 108, "Ngo Quang Dai", "489,99", 30, "2022-10-10", "2023-10-10", 25, "");
+        createCourse(7, "Learn Marketing", "", "", "Digital Marketing in general and Online Marketing in particular is a strong industry trend \n" +
+                        "\t\t\t\t\t\t\t\t\tand is always \"thirst\" for human resources. \n" +
+                        "\t\t\t\t\t\t\t\t\tTherefore, it is not difficult to understand when the keyword \"Online Marketing Course\" \n" +
+                        "\t\t\t\t\t\t\t\t\tis becoming very HOT in the search engines.\n" +
+                        "\t\t\t\t\t\t\t\t\tOne of the leading prestigious training units in Vietnam must mention the Marketing Online course of 5SUPERHERO. \n" +
+                        "\t\t\t\t\t\t\t\t\tSo, how in-depth this course is, what it offers and what the future of employment promises, let's explore it right here."
+                , 862, 88, "Ngo Quang Dai", "386,99", 36, "2022-02-10", "2022-06-10", 30, "");
+        createCourse(8, "Learn Surveying", "", "", "Data analysis is the science of analyzing raw data to draw conclusions about that information. \n" +
+                        "\t\t\t\t\t\t\t\t\tData Analysts find trends and metrics in chunks of information that would otherwise \n" +
+                        "\t\t\t\t\t\t\t\t\tbe missed without the use of techniques or analytical tools. The information obtained \n" +
+                        "\t\t\t\t\t\t\t\t\tcan be used to optimize processes that increase the overall efficiency of a business or a system."
+                , 766, 98, "Hoang Minh Hieu", "856,99", 30, "2023-02-02", "2023-10-10", 25, "");
+    }
+
+
     @Override
     public void run(String... arg0) throws Exception {
         generateNews();
         generateRole();
+        generateCourse();
     }
 }
