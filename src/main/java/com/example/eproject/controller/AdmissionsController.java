@@ -18,7 +18,6 @@ import javax.validation.Valid;
 @Slf4j
 public class AdmissionsController {
     final AdmissionsService admissionsService;
-    final MessageResourceService messageResourceService;
 
     @GetMapping("list")
     public String admission(Model model) {
