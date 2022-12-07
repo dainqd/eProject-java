@@ -338,8 +338,8 @@
 </div>
 <!--  -->
 
-<!-- Start popular-course Area -->
-<section class="popular-course-area section-gap">
+<!-- Start popular-courses Area -->
+<section class="popular-courses-area section-gap courses-page">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-70 col-lg-8">
@@ -350,313 +350,35 @@
             </div>
         </div>
         <div class="row">
-            <div class="active-popular-carusel">
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p1.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 325 <span class="lnr lnr-bubble"></span>85</p>
-                            <h4>$422,66</h4>
-                        </div>
+            <div class="single-popular-carusel col-lg-3 col-md-6" th:each="item : ${courseDto}">
+                <div class="thumb-wrap relative">
+                    <div class="thumb relative">
+                        <div class="overlay overlay-bg"></div>
+                        <img class="img-fluid" src="../../../img/p2.jpg" alt="">
                     </div>
-                    <div class="details">
-                        <a href="templates/v1/course/course-details-design.html">
-                            <h4>
-                                Learn Designing
-                            </h4>
-                        </a>
-                        <p>
-                            Multimedia art design has become a fertile land,
-                            thirsty for human resources with thousands of domestic and foreign advertising companies
-                            looking for candidates.
-                            Do you love beauty, are passionate about creativity and want to design your own life around
-                            you?
-                            Are you ready to enter the multimedia art design industry with exciting career opportunities
-                            and attractive salaries?
-                            Become a designer and confidently show yourself in the challenging creative industry today,
-                            why not?
+                    <div class="meta d-flex justify-content-between">
+                        <p><span class="lnr lnr-users"></span>[[${item.reviews}]]<span class="lnr lnr-bubble"></span>[[${item.comments}]]
                         </p>
+                        <h4>$[[${item.price}]]</h4>
                     </div>
                 </div>
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p2.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>92</p>
-                            <h4>$422,66</h4>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <a href="templates/v1/course/course-details-reactjs.html">
-                            <h4>
-                                Learn React js beginners
-                            </h4>
-                        </a>
-                        <p>
-                            React is the most popular javascript library for building user interfaces.
-                            It's fast, flexible and it also has a strong online community to help you at all times.
-                            The best part is that React is based on components, you break your complex code into
-                            individual parts,
-                            ie components and that helps programmers organize their code in a better way.
-                            A lot of companies are moving to React and that's the reason most of the beginners
-                            learn programming and programmers Experienced students start learning ReactJS.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p3.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 300 <span class="lnr lnr-bubble"></span>105</p>
-                            <h4>$422,66</h4>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <a href="templates/v1/course/course-details-photography.html">
-                            <h4>
-                                Learn Photography
-                            </h4>
-                        </a>
-                        <p>
-                            The Photography program will equip students with all the necessary knowledge through
-                            subjects such as:
-                            Digital Photography, History of Vietnam and World Photography, Lenses, Flash, Photographs.
-                            Landscape, Architectural Photo, Macro Photo, Studio Portrait, Advertising Photo, Sports
-                            Photo...
-                            Skilled to handle basic techniques in photography with different genres such as advertising
-                            photos, architectural photos.
-                            architecture, sports photography… especially the creative language of photography.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p4.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 550 <span class="lnr lnr-bubble"></span>66</p>
-                            <h4>$422,66</h4>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <a href="course-details-survery.html">
-                            <h4>
-                                Learn PHP - Laravel
-                            </h4>
-                        </a>
-                        <p>
-                            PHP stands for Personal Home Page which has now been converted to Hypertext Preprocessor.
-                            Simply put, PHP is a multi-purpose scripting language.
-                            PHP is commonly used for developing server-side web applications.
-                            Thus, the PHP programming language can handle server-side functions to generate HTML code on
-                            the client
-                            such as collecting form data, modifying the database, managing files on the server, or other
-                            operations.
-                            Laravel is one of the most popular PHP Frameworks in the world used to build web
-                            applications from small
-                            to large projects.Laravel is the choice of many professional PHP programmers for its
-                            performance,
-                            features and its scalability.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p1.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 500 <span class="lnr lnr-bubble"></span>298</p>
-                            <h4>$422,66</h4>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <a href="templates/v1/course/course-details-design.html">
-                            <h4>
-                                Learn Java - Spring Boot
-                            </h4>
-                        </a>
-                        <p>
-                            As the most powerful and popular object-oriented programming language today,
-                            Java is appreciated and praised by many experts for its extremely powerful support.
-                            The strength of Java is that it can work on many technology platforms,
-                            including operating in many different operating systems. Or to put it simply,
-                            Java is a programming language that can "write once, run everywhere" ("write one, run
-                            everywhere") with the JVM.
-                            Spring Boot is a project developed by JAV (java language) in the Spring framework ecosystem.
-                            It helps us programmers simplify the process of programming an application with Spring,
-                            focusing only on developing the business for the application.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p2.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 750 <span class="lnr lnr-bubble"></span>350</p>
-                            <h4>$422,66</h4>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <a href="templates/v1/course/course-details-reactjs.html">
-                            <h4>
-                                Learn Angular
-                            </h4>
-                        </a>
-                        <p>
-                            Angular is a JavaScript framework and is written in TypeScript.
-                            Google created this framework with the purpose of writing the web interface (Front-end)
-                            standard "less effort". Not only does it offer the benefits of a framework,
-                            but Angular keeps the same structure as a standard programming language.
-                            That makes it easy for developers to scale the project as well as maintain it.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p3.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 255 <span class="lnr lnr-bubble"></span>35</p>
-                            <h4>$422,66</h4>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <a href="templates/v1/course/course-details-photography.html">
-                            <h4>
-                                Learn Marketing
-                            </h4>
-                        </a>
-                        <p>
-                            Digital Marketing in general and Online Marketing in particular is a strong industry trend
-                            and is always "thirst" for human resources.
-                            Therefore, it is not difficult to understand when the keyword "Online Marketing Course"
-                            is becoming very HOT in the search engines.
-                            One of the leading prestigious training units in Vietnam must mention the Marketing Online
-                            course of 5SUPERHERO.
-                            So, how in-depth this course is, what it offers and what the future of employment promises,
-                            let's explore it right here.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-popular-carusel">
-                    <div class="thumb-wrap relative">
-                        <div class="thumb relative">
-                            <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p4.jpg" alt="">
-                        </div>
-                        <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span> 215 <span class="lnr lnr-bubble"></span>122</p>
-                            <h4>$422,66</h4>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <a href="course-details-survery.html">
-                            <h4>
-                                Learn Surveying
-                            </h4>
-                        </a>
-                        <p>
-                            Data analysis is the science of analyzing raw data to draw conclusions about that
-                            information.
-                            Data Analysts find trends and metrics in chunks of information that would otherwise
-                            be missed without the use of techniques or analytical tools. The information obtained
-                            can be used to optimize processes that increase the overall efficiency of a business or a
-                            system.
-                        </p>
-                    </div>
+                <div class="details">
+                    <a th:href="|/courses/detail/${item.id}|">
+                        <h4>
+                            [[${item.title}]]
+                        </h4>
+                    </a>
+                    <p>
+                        [[${item.content}]]
+                    </p>
                 </div>
             </div>
+            <a href="/courses/list" class="primary-btn text-uppercase mx-auto">Load More Courses</a>
         </div>
     </div>
 </section>
-<!-- End popular-course Area -->
+<!-- End popular-courses Area -->
 
-<!-- Start search-course Area -->
-<section class="search-course-area relative">
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-lg-6 col-md-6 search-course-left">
-                <h1 class="text-white">
-                    Get reduced fee <br>
-                    during this Summer!
-                </h1>
-                <p>
-                    5SUPERHERO is accepting student applications.
-                    You can proceed to register for the academic record of 02 subjects
-                    Math + Information (HK 1 grade 12) at <a class="link-course" href="https://fivesuperhero.com">
-                    https://fivesuperhero.com </a>
-                    to know if you get a scholarship of 3,000,000 or 6,000,000 or 9,000,000 or
-                    Lucky to receive a special scholarship up to 100% of tuition fee when applying
-                    for admission at 5SUPERHERO.
-                </p>
-                <div class="row details-content">
-                    <div class="col single-detials">
-                        <span class="lnr lnr-graduation-hat"></span>
-                        <a href="#"><h4>Expert Instructors</h4></a>
-                        <p>
-                            5SUPERHERO has more than 50 years of experience training international students in Vietnam,
-                            and is always the first choice of students and employers.
-                        </p>
-                    </div>
-                    <div class="col single-detials">
-                        <span class="lnr lnr-license"></span>
-                        <a href="#"><h4>Certification</h4></a>
-                        <p>
-                            We have been continuously honored with the top Technology (CN) training award,
-                            received the 2003 Gold Cup, marking our 19-year
-                            journey as the number 1 unit in industrial education and training in Vietnam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 search-course-right section-gap">
-                <form class="form-wrap" action="#">
-                    <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>
-                    <input type="text" class="form-control" name="name" placeholder="Your Name"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
-                    <input type="text" class="form-control" name="phone" placeholder="Your Phone Number"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email Address"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
-                    <div class="form-select" id="service-select">
-                        <select>
-                            <option datd-display="">Choose Course</option>
-                            <option value="1">Learn Designing</option>
-                            <option value="2">Learn React js beginners</option>
-                            <option value="3">Learn Photography</option>
-                            <option value="4">Learn PHP - Laravel</option>
-                            <option value="1">Learn Java - Spring Boot</option>
-                            <option value="2">Learn Marketing</option>
-                            <option value="3">Learn Angular</option>
-                            <option value="4">Learn Surveying</option>
-                        </select>
-                    </div>
-                    <button class="primary-btn text-uppercase">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End search-course Area -->
 <!-- start footer Area -->
 <footer class="footer-area section-gap" id="footer">
 </footer>
