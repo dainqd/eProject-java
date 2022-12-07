@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class Utils {
     public static LocalDateTime converLocalDateTime(String dateTime) {
         ZoneId zoneId = ZoneId.of("Europe/London");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm");
         LocalDateTime localDateTime = null;
         try {
             Date parsedDate = dateFormat.parse(dateTime);
@@ -28,7 +28,7 @@ public class Utils {
     }
 
     public static java.sql.Date convertDate(String datetime) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
             date = df.parse(datetime);
@@ -39,7 +39,7 @@ public class Utils {
     }
 
     public static String convertString(Date datetime) {
-        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(datetime);
     }
 

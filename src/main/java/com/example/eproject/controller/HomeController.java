@@ -1,9 +1,7 @@
 package com.example.eproject.controller;
 
-import com.example.eproject.dto.AdmissionsDto;
-import com.example.eproject.dto.CourseDto;
-import com.example.eproject.dto.CourseRegisterDto;
-import com.example.eproject.dto.ManagerDto;
+import com.example.eproject.dto.*;
+import com.example.eproject.service.FeedbackService;
 import com.example.eproject.service.ManagerService;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class HomeController {
     final ManagerService managerService;
+    final FeedbackService feedbackService;
 
     @GetMapping("faculty")
     public String faculty(Model model) {
@@ -37,7 +37,27 @@ public class HomeController {
 
     @GetMapping("contact")
     public String contact(Model model) {
+        FeedbacksDto feedbacksDto = new FeedbacksDto();
+        model.addAttribute("feedbacksDto", feedbacksDto);
         return "layout/contact";
+    }
+
+    @PostMapping("feedbacks")
+    public String feedbacks(Model model,
+                            @Valid @ModelAttribute FeedbacksDto feedbacksDto,
+                            BindingResult result) {
+        try {
+            if (result.hasErrors()) {
+                model.addAttribute("isSuccess", false);
+                return "redirect:/views/contact";
+            }
+            feedbackService.save(feedbacksDto);
+            model.addAttribute("isSuccess", true);
+            model.addAttribute("feedbacksDto", new FeedbacksDto());
+            return "redirect:/views/contact";
+        } catch (Exception e) {
+            return "/error/404";
+        }
     }
 
     @GetMapping("about")
@@ -49,7 +69,7 @@ public class HomeController {
             model.addAttribute("managerDto", managerDto);
             return "layout/about";
         } catch (Exception e) {
-            return "layout/about";
+            return "/error/404";
         }
     }
 

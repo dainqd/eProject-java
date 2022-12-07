@@ -147,7 +147,7 @@
                     <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>
                     <div>
                         <input th:field="*{name}" id="name" type="text" class="form-control" name="name"
-                               placeholder="Your Name"
+                               placeholder="Your Name" required=""
                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
                         <div id="js-message-name" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
                             your name!
@@ -155,7 +155,7 @@
                     </div>
                     <div>
                         <input th:field="*{phoneNumber}" id="phoneNumber" type="text" class="form-control" name="phone"
-                               placeholder="Your Phone Number"
+                               placeholder="Your Phone Number" required=""
                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
                         <div id="js-message-phone" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
                             your phone number!
@@ -163,7 +163,7 @@
                     </div>
                     <div>
                         <input th:field="*{email}" id="email" type="email" class="form-control" name="email"
-                               placeholder="Your Email Address"
+                               placeholder="Your Email Address" required=""
                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
                         <div id="js-message-email" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
                             your email!
