@@ -34,11 +34,15 @@ public class FeedbackService {
         return feedbacksRepository.findById(id);
     }
 
-    public Feedbacks save(FeedbacksDto feedbacksDto, long id) {
+    public Feedbacks create(FeedbacksDto feedbacksDto, long id) {
         Feedbacks feedbacks = new Feedbacks(feedbacksDto);
         feedbacks.setUserID(id);
         feedbacks.setCreatedAt(LocalDateTime.now());
         feedbacks.setCreatedBy(id);
+        return feedbacksRepository.save(feedbacks);
+    }
+
+    public Feedbacks save(Feedbacks feedbacks) {
         return feedbacksRepository.save(feedbacks);
     }
 
@@ -58,6 +62,7 @@ public class FeedbackService {
     }
 
     public void delete(Feedbacks feedbacks, long adminID) {
+        feedbacks.setStatus(Enums.FeedbackStatus.DELETED);
         feedbacks.setDeletedAt(LocalDateTime.now());
         feedbacks.setDeletedBy(adminID);
         feedbacksRepository.save(feedbacks);

@@ -45,7 +45,7 @@ public class AdminFeedbackApi {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDetails(@PathVariable Integer id) {
+    public ResponseEntity<?> getDetails(@PathVariable("id") long id) {
         Optional<Feedbacks> optionalFeedbacks = feedbackService.findById(id);
         if (!optionalFeedbacks.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -64,11 +64,11 @@ public class AdminFeedbackApi {
         }
         User user = optionalUse.get();
         System.out.println(adminID);
-        return ResponseEntity.ok(feedbackService.save(feedbacksDto, user.getId()));
+        return ResponseEntity.ok(feedbackService.create(feedbacksDto, user.getId()));
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable Integer id, @RequestBody FeedbacksDto feedbacksDto, Authentication principal) {
+    public String update(@PathVariable long id, @RequestBody FeedbacksDto feedbacksDto, Authentication principal) {
         String adminID = principal.getName();
         Optional<User> optionalUse = userDetailsService.findByUsername(adminID);
         if (!optionalUse.isPresent()) {
@@ -85,8 +85,8 @@ public class AdminFeedbackApi {
         return messageResourceService.getMessage("update.success");
     }
 
-    @DeleteMapping()
-    public ResponseEntity<String> delete(Feedbacks feedbacks) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") long id) {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
         String adminId = principal.getName();
         Optional<User> op = userDetailsService.findByUsername(adminId);
@@ -96,22 +96,12 @@ public class AdminFeedbackApi {
         }
         User user = op.get();
         System.out.println(adminId);
-        Optional<Feedbacks> optionalFeedbacks = feedbackService.findById(feedbacks.getId());
+        Optional<Feedbacks> optionalFeedbacks = feedbackService.findById(id);
         if (!optionalFeedbacks.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("feedbacks.not.found"));
         }
         feedbackService.delete(optionalFeedbacks.get(), user.getId());
         return new ResponseEntity<>(messageResourceService.getMessage("delete.success"), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id) {
-        if ((!feedbackService.findById(id).isPresent())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    messageResourceService.getMessage("feedbacks.not.found"));
-        }
-        feedbackService.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 }

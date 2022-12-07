@@ -29,8 +29,9 @@ public class Feedbacks extends BasicEntity {
     @Lob
     private String message;
     @Enumerated(EnumType.STRING)
-    private Enums.FeedbackStatus status;
+    private Enums.FeedbackStatus status = Enums.FeedbackStatus.PENDING;
     private long userID;
+
     public Feedbacks(FeedbacksDto feedbacksDto) {
         BeanUtils.copyProperties(feedbacksDto, this);
     }

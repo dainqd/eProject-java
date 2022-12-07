@@ -35,22 +35,10 @@ public class HomeController {
         return "layout/gallery";
     }
 
-//    @GetMapping("about")
-//    public String about(Model model) {
-//        return "layout/about";
-//    }
-
     @GetMapping("contact")
     public String contact(Model model) {
         return "layout/contact";
     }
-
-//    @GetMapping("manager")
-//    public String manager(Model model) {
-//        ManagerDto managerDto = new ManagerDto();
-//        model.addAttribute("managerDto", managerDto);
-//        return "layout/about";
-//    }
 
     @GetMapping("about")
     public String getList(Model model, @RequestParam(value = "page", required = false, defaultValue = "0") int page,
@@ -64,4 +52,6 @@ public class HomeController {
             return "layout/about";
         }
     }
+
+
 }
