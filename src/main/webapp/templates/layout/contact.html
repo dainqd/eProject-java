@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,7 +54,7 @@
                     Contact
                 </h1>
                 <p class="text-white link-nav"><a href="/">Home </a> <span class="lnr lnr-arrow-right"></span>
-                    <a href="views/contact"> Contact</a></p>
+                    <a href="/views/contact"> Contact</a></p>
             </div>
         </div>
     </div>
@@ -103,30 +104,36 @@
             <div class="col-lg-8">
                 <h5 class="feedback-contact">Feedback to us</h5>
                 <div>
-                    <form class="form-area contact-form text-right" id="myForm" action="mail.php" method="post">
+                    <form class="form-area contact-form text-right" th:object="${feedbacksDto}"
+                          th:action="@{/views/feedbacks}" method="post">
                         <div class="row">
                             <div class="col-lg-6 form-group">
-                                <input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''"
+                                <input th:field="*{name}" id="name" name="name" placeholder="Enter your name"
+                                       onfocus="this.placeholder = ''"
                                        onblur="this.placeholder = 'Enter your name'"
                                        class="common-input mb-20 form-control" required="" type="text">
 
-                                <input name="email" placeholder="Enter email address"
+                                <input th:field="*{email}" id="email" name="email" placeholder="Enter email address"
                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'"
                                        class="common-input mb-20 form-control" required="" type="email">
 
-                                <input name="subject" placeholder="Enter subject" onfocus="this.placeholder = ''"
+                                <input th:field="*{subject}" id="subject" name="subject" placeholder="Enter subject"
+                                       onfocus="this.placeholder = ''"
                                        onblur="this.placeholder = 'Enter subject'"
                                        class="common-input mb-20 form-control" required="" type="text">
                             </div>
                             <div class="col-lg-6 form-group">
-                                <textarea class="common-textarea form-control" name="message"
+                                <textarea th:field="*{message}" id="message" class="common-textarea form-control"
+                                          name="message"
                                           placeholder="Enter Messege" onfocus="this.placeholder = ''"
-                                          onblur="this.placeholder = 'Enter Messege'" required=""></textarea>
+                                          onblur="this.placeholder = 'Enter Message'" required=""></textarea>
                             </div>
                             <div class="col-lg-12">
                                 <div class="alert-msg" style="text-align: left;"></div>
-                                <button class="genric-btn primary" style="float: right;">Send Message</button>
+                                <input onclick="checkFunction()" type="submit"
+                                       value="Send Message" class="genric-btn primary"
+                                       style="float: right; padding: 0 8px">
                             </div>
                         </div>
                     </form>
@@ -163,6 +170,25 @@
         $("#header").load("../../templates/include/header.html");
         $("#footer").load("../../templates/include/footer.html");
     });
+
+    function checkFunction() {
+        let nameIp = document.getElementById('name');
+        console.log(nameIp.value)
+        let emailIp = document.getElementById('email');
+        console.log(emailIp.value)
+        let subjectIp = document.getElementById('subject');
+        console.log(subjectIp.value)
+        let messIp = document.getElementById('message');
+        console.log(messIp.value)
+        if (nameIp.value != null && nameIp.value !== ""
+            && emailIp.value != null && emailIp.value !== ""
+            && subjectIp.value != null && subjectIp.value !== ""
+            && messIp.value != null && messIp.value !== "") {
+            alert("Success!");
+        } else {
+            alert("Error!");
+        }
+    }
 </script>
 <script src="../../js/main.js"></script>
 </body>

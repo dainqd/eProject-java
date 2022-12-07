@@ -28,7 +28,7 @@ public class AdmissionsDto {
     private Enums.AdmissionsStatus status = Enums.AdmissionsStatus.PENDING;
 
     public AdmissionsDto(Admissions admissions) {
-        String pattern = "yyyy-MM-dd";
+        String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
         String todayAsString = df.format(admissions.getBirthday());
         BeanUtils.copyProperties(admissions, this);

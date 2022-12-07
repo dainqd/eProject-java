@@ -29,7 +29,7 @@ public class EventsDto {
     private String thumbnail;
 
     public EventsDto(Events events) {
-        String pattern = "yyyy-MM-dd";
+        String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
         String sTodayAsString = df.format(events.getStartDate());
         String eTodayAsString = df.format(events.getEndDate());

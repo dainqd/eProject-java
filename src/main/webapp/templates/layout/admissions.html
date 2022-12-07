@@ -121,16 +121,19 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Full Name</h5>
                                 <div class="mt-10">
-                                    <input th:field="*{fullName}" type="text" name="full_name" placeholder="Full Name"
+                                    <input th:field="*{fullName}" id="name" type="text" name="full_name"
+                                           placeholder="Full Name"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name'"
-                                           required class="single-input single-input-full">
+                                           required="" class="single-input single-input-full">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Gender</h5>
                                 <div class="mt-10">
-                                    <input th:field="*{gender}" type="text" name="gender" placeholder="Gender"
-                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Gender'" required
+                                    <input th:field="*{gender}" id="gender" type="text" name="gender"
+                                           placeholder="Gender"
+                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Gender'"
+                                           required=""
                                            class="single-input single-input-full">
                                 </div>
                             </div>
@@ -140,17 +143,19 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Birthday</h5>
                                 <div class="mt-10">
-                                    <input th:field="*{birthday}" type="text" name="birthday" placeholder="Birthday"
+                                    <input th:field="*{birthday}" id="birthday" type="date" name="birthday"
+                                           placeholder="Birthday"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Birthday'"
-                                           required class="single-input single-input-full">
+                                           required="" class="single-input single-input-full">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Phone Number</h5>
                                 <div class="mt-10">
-                                    <input th:field="*{phoneNumber}" type="text" name="phone" placeholder="Phone Number"
+                                    <input th:field="*{phoneNumber}" id="phoneNumber" type="text" name="phone"
+                                           placeholder="Phone Number"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'"
-                                           required class="single-input single-input-full">
+                                           required="" class="single-input single-input-full">
                                 </div>
                             </div>
                         </div>
@@ -159,9 +164,9 @@
                             <div class="col-6">
                                 <h5 class="primary-text title-text">Email</h5>
                                 <div class="mt-10">
-                                    <input th:field="*{email}" type="email" name="email" placeholder="Email"
+                                    <input th:field="*{email}" id="email" type="email" name="email" placeholder="Email"
                                            onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = 'Email'" required
+                                           onblur="this.placeholder = 'Email'" required=""
                                            class="single-input single-input-full">
                                 </div>
                             </div>
@@ -169,56 +174,59 @@
                                 <h5 class="primary-text title-text">Address</h5>
                                 <div class="input-group-icon mt-10">
                                     <div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
-                                    <input th:field="*{address}" type="text" name="address" placeholder="Address"
+                                    <input th:field="*{address}" id="address" type="text" name="address"
+                                           placeholder="Address"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'"
-                                           required class="single-input single-input-full">
+                                           required="" class="single-input single-input-full">
                                 </div>
                             </div>
                         </div>
 
-<!--                        <div class="row">-->
-<!--                            <div class="col-6">-->
-<!--                                <h5 class="primary-text title-text">City</h5>-->
-<!--                                <div class="input-group-icon mt-10  single-input-full">-->
-<!--                                    <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>-->
-<!--                                    <div class="form-select" id="default-select">-->
-<!--                                        <select>-->
-<!--                                            <option value="1">City</option>-->
-<!--                                            <option value="1">Ha Noi</option>-->
-<!--                                            <option value="1">Ho Chi Minh</option>-->
-<!--                                            <option value="1">Da Nang</option>-->
-<!--                                            <option value="1">Orther</option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-6">-->
-<!--                                <h5 class="primary-text title-text">Country</h5>-->
-<!--                                <div class="input-group-icon mt-10  single-input-full">-->
-<!--                                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>-->
-<!--                                    <div class="form-select" id="default-select2">-->
-<!--                                        <select>-->
-<!--                                            <option value="1">Country</option>-->
-<!--                                            <option value="1">Viet Nam</option>-->
-<!--                                            <option value="1">Orther</option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="row">-->
+                        <!--                            <div class="col-6">-->
+                        <!--                                <h5 class="primary-text title-text">City</h5>-->
+                        <!--                                <div class="input-group-icon mt-10  single-input-full">-->
+                        <!--                                    <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>-->
+                        <!--                                    <div class="form-select" id="default-select">-->
+                        <!--                                        <select>-->
+                        <!--                                            <option value="1">City</option>-->
+                        <!--                                            <option value="1">Ha Noi</option>-->
+                        <!--                                            <option value="1">Ho Chi Minh</option>-->
+                        <!--                                            <option value="1">Da Nang</option>-->
+                        <!--                                            <option value="1">Orther</option>-->
+                        <!--                                        </select>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="col-6">-->
+                        <!--                                <h5 class="primary-text title-text">Country</h5>-->
+                        <!--                                <div class="input-group-icon mt-10  single-input-full">-->
+                        <!--                                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>-->
+                        <!--                                    <div class="form-select" id="default-select2">-->
+                        <!--                                        <select>-->
+                        <!--                                            <option value="1">Country</option>-->
+                        <!--                                            <option value="1">Viet Nam</option>-->
+                        <!--                                            <option value="1">Orther</option>-->
+                        <!--                                        </select>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <h5 class="primary-text title-text">Link Facebook</h5>
                         <div class="mt-10">
-                            <input th:field="*{linkFaceBook}" type="text" name="facebook" placeholder="Link Facebook"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Link Facebook'" required
+                            <input th:field="*{linkFaceBook}" id="linkFacebook" type="text" name="facebook"
+                                   placeholder="Link Facebook"
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Link Facebook'"
+                                   required=""
                                    class="single-input-primary">
                         </div>
                         <h5 class="primary-text title-text">Message</h5>
                         <div class="mt-10">
-                            <textarea th:field="*{message}" class="single-textarea" placeholder="Message"
+                            <textarea th:field="*{message}" id="message" class="single-textarea" placeholder="Message"
                                       onfocus="this.placeholder = ''"
-                                      onblur="this.placeholder = 'Message'" required></textarea>
+                                      onblur="this.placeholder = 'Message'" required=""></textarea>
                         </div>
-                        <input onclick="myFunction()" type="submit" id="submit"
+                        <input onclick="checkFunction()" type="submit" id="submit"
                                class="primary-btn text-uppercase mx-auto btn-register" value="Register">
                     </form>
                 </div>
@@ -676,13 +684,28 @@
         $("#footer").load("../../templates/include/footer.html");
     });
 
-    // function myFunction() {
-    //     // document.getElementById("admissionForm").reset();
-    // }
-    //
-    // setTimeout(function myFunction(){
-    //     //do what you need here
-    // }, 2000);
+    function checkFunction() {
+        let nameIp = document.getElementById('name');
+        let genderIp = document.getElementById('gender');
+        let birthdayIp = document.getElementById('birthday');
+        let phoneNumber = document.getElementById('phoneNumber');
+        let emailIp = document.getElementById('email');
+        let addressIp = document.getElementById('address');
+        let linkFaceBookIp = document.getElementById('linkFacebook');
+        let messIp = document.getElementById('message');
+        if (nameIp.value != null && nameIp.value !== ""
+            && emailIp.value != null && emailIp.value !== ""
+            && genderIp.value != null && genderIp.value !== ""
+            && messIp.value != null && messIp.value !== ""
+            && birthdayIp.value != null && birthdayIp.value !== ""
+            && phoneNumber.value != null && phoneNumber.value !== ""
+            && addressIp.value != null && addressIp.value !== ""
+            && linkFaceBookIp.value != null && linkFaceBookIp.value !== "") {
+                alert("Success!");
+        } else {
+            alert("Error!");
+        }
+    }
 
 </script>
 <script src="../../js/main.js"></script>
