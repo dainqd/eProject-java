@@ -1,9 +1,11 @@
 package com.example.eproject;
 
 import com.example.eproject.entity.Course;
+import com.example.eproject.entity.Manager;
 import com.example.eproject.entity.News;
 import com.example.eproject.entity.Role;
 import com.example.eproject.service.CourseService;
+import com.example.eproject.service.ManagerService;
 import com.example.eproject.service.NewsService;
 import com.example.eproject.service.RoleService;
 import com.example.eproject.util.Enums;
@@ -98,6 +100,9 @@ public class EprojectApplication implements CommandLineRunner {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    ManagerService managerService;
 
     private void createNews(long id, String title, String desc, String img, String content, int views, Enums.NewsStatus status, String author) {
         News news = new News();
@@ -245,11 +250,53 @@ public class EprojectApplication implements CommandLineRunner {
                 , 766, 98, "Hoang Minh Hieu", "856,99", 30, "2023-02-02", "2023-10-10", 25, "");
     }
 
+    public void createManager(long id, String fullName, String summary, String position, String introduce, String email, String phoneNumber) {
+        Manager manager = new Manager();
+        manager.setId(id);
+        manager.setFullName(fullName);
+        manager.setFeedbacks(10);
+        manager.setSummary(summary);
+        manager.setPosition(position);
+        manager.setIntroduce(introduce);
+        manager.setEmail(email);
+        manager.setPhoneNumber(phoneNumber);
+        manager.setStatus(Enums.ManagerStatus.ACTIVE);
+
+//        managerService.save(manager);
+    }
+
+    public void generateManager() {
+        createManager(1, "Ngo Quang Dai", "Dr", "Principal",
+                "As one of the best masters in the field of Information Technology, Dr. Ngo Quang Dai is the rector of 5SUPERHERO under the appointment of the Board of Directors of 5SUPERHERO University.",
+                "dainq@gmail.com", "0388889899");
+        createManager(2, "Hoang Minh Hieu", "Dr", "Direction",
+                "As one of the first lecturers, since the school was established until now, Dr. Hoang Minh Hieu has witnessed the growth of hundreds of generations of 5SUPERHERO students",
+                "hieuhm@gmail.com", "0989898888");
+        createManager(3, "Bui Tuan Anh", "MSc", "Leader",
+                "Is a department head possessing excellent communication skills and teaching skills that have made MSc. Bui Tuan Anh was selected as one of the most talented lecturers in 5SUPERHERO",
+                "anhbt@gmail.com", "0868688868");
+        createManager(4, "Nguyen Ngoc Hung", "ThS", "Deputy",
+                "Not less than the head of the department in terms of skills and also one of the multi-talented instructors of 5SUPERHERO is MSc. Nguyen Ngoc Hung has been highly respected by students in the school",
+                "hungnn@gmail.com", "0386886688");
+        createManager(5, "Ngo Minh Hoang", "Mr", "",
+                "Mr. Ngo Minh Hoang is a teacher who is always strict and strict with students, but he is also one of the lecturers who is always devoted to the students' academic career.",
+                "hoangnm@gmail.com", "039449494");
+        createManager(6, "Duong Cong Ke", "ThS", "Trainers",
+                "Always enthusiastic about the profession with humor and wit are the reasons why MSc's training class. Duong Cong Ke is always full, on time and especially indispensable is the laughter.",
+                "kedc@gmail.com", "0980999899");
+        createManager(7, "Tran Nguyen Ngoc Linh", "ThS", "Manager",
+                "MSc. Tran Nguyen Ngoc Linh is the school's excellent female lecturer when she entered the top 10 most proficient teachers in Vietnam",
+                "linhtnn@gmail.com", "0868889899");
+        createManager(8, "Hoang Bao Ngoc", "Mrs", "",
+                "In parallel between the students' comments is the fastidiousness of Mrs. Hoang Bao Ngoc is her boundless love for her players",
+                "ngochb@gmail.com", "098458985");
+    }
 
     @Override
     public void run(String... arg0) throws Exception {
         generateNews();
         generateRole();
         generateCourse();
+        generateManager();
     }
 }
