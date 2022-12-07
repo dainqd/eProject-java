@@ -2024,8 +2024,8 @@ h6 {
 }
 
 .main-menu {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    /*padding-bottom: 20px;*/
+    /*padding-top: 20px;*/
     border-bottom: 1px solid #39353e
 }
 
@@ -2130,7 +2130,8 @@ h6 {
 
 
 .nav-menu a {
-    padding: 0 8px 0px 8px;
+    /*padding: 0 8px 0px 8px;*/
+    padding: 20px 25px;
     text-decoration: none;
     display: inline-block;
     color: var(--white-color);
@@ -2149,7 +2150,7 @@ h6 {
 }
 
 .nav-menu ul {
-    margin: 24px 0 0 0;
+    /*margin: 24px 0 0 0;*/
     padding: 10px;
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
     background: var(--white-color)

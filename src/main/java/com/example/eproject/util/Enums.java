@@ -64,4 +64,8 @@ public class Enums {
     public static enum AttendanceStatus {
         ACTIVE, DELETED, BLOCK, COMPLETED
     }
+
+    public static enum ManagerStatus {
+        ACTIVE, DELETED, BLOCK
+    }
 }
