@@ -18,8 +18,9 @@ public class FeedbacksDto {
     private String email;
     private String subject;
     private String message;
-    private Enums.FeedbackStatus status;
+    private Enums.FeedbackStatus status = Enums.FeedbackStatus.PENDING;
     private long userID;
+
     public FeedbacksDto(Feedbacks feedbacks) {
         BeanUtils.copyProperties(feedbacks, this);
     }

@@ -12,9 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface FeedbacksRepository extends JpaRepository<Feedbacks, Long> {
-    List<Feedbacks> findAllByStatus(boolean status);
-
-    Optional<Feedbacks> findAllByIdAndStatus(long id, boolean status);
     Page<Feedbacks> findAll(Pageable pageable);
     Page<Feedbacks> findAllByStatus(Enums.FeedbackStatus status, Pageable pageable);
     Optional<Feedbacks> findByIdAndStatus(long id, Enums.FeedbackStatus status);
