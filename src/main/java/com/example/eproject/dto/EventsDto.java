@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 public class EventsDto {
     private long id;
     private String title;
+    private String description;
     private String content;
     private String startDate;
     private String endDate;
