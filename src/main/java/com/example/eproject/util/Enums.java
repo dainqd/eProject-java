@@ -68,4 +68,8 @@ public class Enums {
     public static enum ManagerStatus {
         ACTIVE, DELETED, BLOCK
     }
+
+    public static enum EmailFollowStatus{
+        APPROVED, PENDING, DELETED
+    }
 }

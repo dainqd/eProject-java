@@ -145,4 +145,11 @@ public class EmailService {
         String subject = "Xác nhận địa chỉ email";
         sendMessageUsingThymeleafTemplate(email, subject, "userShowEmail", templateModel);
     }
+
+    public void followEmail(String email) {
+        Map<String, Object> templateModel = new HashMap<String, Object>();
+        templateModel.put("email", email);
+        String subject = "Xác nhận địa chỉ email";
+        sendMessageUsingThymeleafTemplate(email, subject, "followEmail", templateModel);
+    }
 }

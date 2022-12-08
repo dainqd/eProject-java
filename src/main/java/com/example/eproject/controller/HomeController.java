@@ -1,6 +1,8 @@
 package com.example.eproject.controller;
 
 import com.example.eproject.dto.*;
+import com.example.eproject.service.EmailFollowService;
+import com.example.eproject.service.EmailService;
 import com.example.eproject.service.FeedbackService;
 import com.example.eproject.service.ManagerService;
 import com.example.eproject.util.Enums;
@@ -24,6 +26,8 @@ import javax.validation.Valid;
 public class HomeController {
     final ManagerService managerService;
     final FeedbackService feedbackService;
+    final EmailFollowService emailFollowService;
+    final EmailService emailService;
 
     @GetMapping("faculty")
     public String faculty(Model model) {
@@ -73,5 +77,29 @@ public class HomeController {
         }
     }
 
+    @GetMapping("email")
+    public String getEmail(Model model) {
+        EmailFollowDto emailFollowDto = new EmailFollowDto();
+        model.addAttribute("emailFollowDto", emailFollowDto);
+        return "include/footer";
+    }
 
+    @PostMapping("email")
+    public String postEmail(Model model,
+                            @Valid @ModelAttribute EmailFollowDto emailFollowDto,
+                            BindingResult result) {
+        try {
+            if (result.hasErrors()) {
+                return "/error/404";
+            }
+            emailFollowService.save(emailFollowDto);
+            emailService.followEmail(emailFollowDto.getEmail());
+            model.addAttribute("emailFollowDto", new EmailFollowDto());
+//            Đoạn này muốn đang ở trang nào thì trả về trang đấy nhưng chưa tìm được giải pháp
+//            Sẽ tìm giải pháp sau, tạm thời sau khi success thì đưa về trang chủ
+            return "redirect:/";
+        } catch (Exception e) {
+            return "/error/404";
+        }
+    }
 }
