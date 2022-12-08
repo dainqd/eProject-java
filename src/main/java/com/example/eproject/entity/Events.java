@@ -24,6 +24,7 @@ public class Events extends BasicEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
+    private String description;
     @Lob
     private String content;
     private Date startDate;
