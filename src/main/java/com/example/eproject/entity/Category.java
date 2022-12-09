@@ -20,7 +20,6 @@ public class Category extends BasicEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Enumerated(EnumType.STRING)
-    @Column(length = 50)
     private Enums.CategoryType name;
     @Enumerated(EnumType.STRING)
     private Enums.CategoryStatus status;

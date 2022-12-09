@@ -8,9 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -144,16 +142,33 @@ public class Utils {
         return s;
     }
 
-    public static void main(String[] args) {
-        String a = "27/07/2003 10:10:10";
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = (Date) formatter.parse(a);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
+
+    static {
+        suffixes.put(1_000L, "k");
+        suffixes.put(1_000_000L, "M");
+        suffixes.put(1_000_000_000L, "G");
+        suffixes.put(1_000_000_000_000L, "T");
+        suffixes.put(1_000_000_000_000_000L, "P");
+        suffixes.put(1_000_000_000_000_000_000L, "E");
+    }
+
+    public static String formatIntToViews(long value) {
+        if (value < 1000) return Long.toString(value);
+        Map.Entry<Long, String> e = suffixes.floorEntry(value);
+        Long divideBy = e.getKey();
+        String suffix = e.getValue();
+        long truncated = value / (divideBy / 10);
+        boolean hasDecimal = truncated < 100 && (truncated / 10d) != (truncated / 10);
+        return hasDecimal ? (truncated / 10d) + suffix : (truncated / 10) + suffix;
+    }
+
+    public static void main(String args[]) {
+        int[] numbers = {0, 5, 999, 1000, 5821, 10500, 101800, 2000000, 7800000, 92150000, 123200000, 999999 + 1};
+        for (int i = 0; i < numbers.length; i++) {
+            long n = numbers[i];
+            String formatted = formatIntToViews(n);
+            System.out.println(n + " => " + formatted);
         }
-//        String c = convertToString(date);
-//        System.out.println(c);
     }
 }
