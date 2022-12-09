@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class NewsService {
-
     @Autowired
     private NewsRepository newsRepository;
 
@@ -31,6 +31,10 @@ public class NewsService {
 
     public Page<News> findAllByStatus(Enums.NewsStatus status, Pageable pageable) {
         return newsRepository.findAllByStatus(status, pageable);
+    }
+
+    public List<News> findByStatus(Enums.NewsStatus status) {
+        return newsRepository.findByStatus(status);
     }
 
     public Optional<News> findByIdAndStatus(long id, Enums.NewsStatus status) {

@@ -51,7 +51,7 @@ public class AdminCategoryApi {
     }
 
     @PostMapping()
-    public Category create(@RequestBody Category courseDto, Authentication principal) {
+    public Category create(@RequestBody Category category, Authentication principal) {
         String adminID = principal.getName();
         Optional<User> optionalUse = userDetailsService.findByUsername(adminID);
         if (!optionalUse.isPresent()) {
@@ -60,11 +60,12 @@ public class AdminCategoryApi {
         }
         User user = optionalUse.get();
         System.out.println(adminID);
-        return categoryService.save(courseDto, user.getId());
+        String[] abc = {};
+        return categoryService.save(category, user.getId());
     }
 
     @PutMapping()
-    public String update(@RequestBody Category courseDto, Authentication principal) {
+    public String update(@RequestBody Category category, Authentication principal) {
         String adminId = principal.getName();
         Optional<User> op = userDetailsService.findByUsername(adminId);
         if (!op.isPresent()) {
@@ -73,7 +74,7 @@ public class AdminCategoryApi {
         }
         User user = op.get();
         System.out.println(adminId);
-        categoryService.update(courseDto, user.getId());
+        categoryService.update(category, user.getId());
         return messageResourceService.getMessage("update.success");
     }
 

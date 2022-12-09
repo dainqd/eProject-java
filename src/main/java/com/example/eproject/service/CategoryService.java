@@ -35,7 +35,19 @@ public class CategoryService {
         return categoryRepository.findByIdAndStatus(id, status);
     }
 
+    public List<Category> findAllByStatus(Enums.CategoryStatus status) {
+        return categoryRepository.findAllByStatus(status);
+    }
+
     public Category save(Category category, long adminID) {
+        String nameCase = String.valueOf(category.getName());
+        String caseUp = nameCase.toUpperCase();
+        Optional<Category> optionalCategory = categoryRepository.findByName(Enums.CategoryType.valueOf(caseUp));
+        if (optionalCategory.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR, CATEGORY EXIT!");
+        }
+        category.setName(Enums.CategoryType.valueOf(caseUp));
+        category.setStatus(category.getStatus());
         category.setCreatedAt(LocalDateTime.now());
         category.setCreatedBy(adminID);
         return categoryRepository.save(category);
@@ -44,7 +56,7 @@ public class CategoryService {
     public Category update(Category category, long adminID) {
         Optional<Category> optionalCategory = categoryRepository.findById(category.getId());
         if (!optionalCategory.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "NOT FOUND");
         }
         Category category1 = optionalCategory.get();
         category1.setName(category.getName());
@@ -57,7 +69,7 @@ public class CategoryService {
     public void delete(Category category1, long adminID) {
         Optional<Category> optionalCategory = categoryRepository.findById(category1.getId());
         if (!optionalCategory.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "NOT FOUND");
         }
         Category category = optionalCategory.get();
         category.setStatus(Enums.CategoryStatus.DELETED);
