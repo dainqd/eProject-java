@@ -2,8 +2,11 @@ package com.example.eproject.restapi.admin;
 
 import com.example.eproject.entity.User;
 import com.example.eproject.repository.RoleRepository;
+import com.example.eproject.service.MessageResourceService;
 import com.example.eproject.service.UserDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("admin/api/user")
 public class AdminUserApi {
     @Autowired
@@ -23,6 +27,8 @@ public class AdminUserApi {
 
     @Autowired
     RoleRepository roleRepository;
+
+    final MessageResourceService messageResourceService;
 
     @GetMapping()
     public ResponseEntity<List<User>> getList() {
@@ -109,6 +115,6 @@ public class AdminUserApi {
             ResponseEntity.badRequest().build();
         }
         userDetailsServiceimpl.deleteById(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(messageResourceService.getMessage("delete.success"), HttpStatus.OK);
     }
 }
