@@ -26,7 +26,11 @@ public class HomeController {
     final FeedbackService feedbackService;
 
     @GetMapping("faculty")
-    public String faculty(Model model) {
+    public String faculty(Model model, @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                          @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<ManagerDto> managerDto = managerService.findAllByStatus(Enums.ManagerStatus.ACTIVE, pageable).map(ManagerDto::new);
+        model.addAttribute("managerDto", managerDto);
         return "layout/faculty";
     }
 

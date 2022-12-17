@@ -3,8 +3,10 @@ package com.example.eproject.controller;
 import com.example.eproject.dto.AdmissionsDto;
 import com.example.eproject.dto.CourseDto;
 import com.example.eproject.dto.CourseRegisterDto;
+import com.example.eproject.dto.EventsDto;
 import com.example.eproject.service.CourseRegisterService;
 import com.example.eproject.service.CourseService;
+import com.example.eproject.service.EventsService;
 import com.example.eproject.service.MessageResourceService;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +30,8 @@ import java.util.Optional;
 @Slf4j
 public class CourseController {
     final CourseService courseService;
-    final MessageResourceService messageResourceService;
     final CourseRegisterService courseRegisterService;
+    final EventsService eventsService;
 
     @GetMapping("list")
     public String getList(Model model, @RequestParam(value = "page", required = false, defaultValue = "0") int page,
@@ -40,6 +42,8 @@ public class CourseController {
             model.addAttribute("courseDto", courseDto);
             CourseRegisterDto courseRegisterDto = new CourseRegisterDto();
             model.addAttribute("courseRegisterDto", courseRegisterDto);
+            Page<EventsDto> eventsDto = eventsService.findAllByStatusNoDelete(Enums.EventsStatus.ACTIVE, pageable).map(EventsDto::new);
+            model.addAttribute("eventsDto", eventsDto);
             return "v1/course/list";
         } catch (Exception e) {
             return "/error/404";

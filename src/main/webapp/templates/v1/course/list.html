@@ -182,7 +182,7 @@
                             the course you want to choose!
                         </div>
                     </div>
-                    <button type="submit" id="submit" class="primary-btn text-uppercase">Submit</button>
+                    <button type="button" id="submit" class="primary-btn text-uppercase">Submit</button>
                 </form>
             </div>
         </div>
@@ -203,85 +203,15 @@
         </div>
         <div class="row">
             <div class="active-upcoming-event-carusel">
-                <div class="single-carusel row align-items-center">
+                <div class="single-carusel row align-items-center" th:each="item : ${eventsDto}">
                     <div class="col-12 col-md-6 thumb">
                         <img class="img-fluid" src="../../../img/e1.jpg" alt="">
                     </div>
                     <div class="detials col-12 col-md-6">
-                        <p>5th September, 2022</p>
-                        <a href="#"><h4>Happy opening of the new school year</h4></a>
+                        <p th:text="${#dates.format(item.startDate, 'dd - MMMM - yyyy')}" ></p>
+                        <a th:href="|/events/detail/${item.id}|"><h4>[[${item.title}]]</h4></a>
                         <p>
-                            One of the most prominent educational events in the past week was the opening of the new
-                            school year 2022-2023
-                            which was held simultaneously across the country on September 5.</p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../../img/e2.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>15th September, 2022</p>
-                        <a href="#"><h4>“Mask painting – strange to be good”</h4></a>
-                        <p>
-                            The event "Mask painting - strange success" aired at FPT International Training Institute
-                            Hanoi campus on the occasion
-                            of the Mid-Autumn Festival 2022 has brought both familiar and new entertainment experiences
-                            to students.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../../img/e1.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>20th October, 2022</p>
-                        <a href="#"><h4>5SUPERHERO offers 100 100% scholarships</h4></a>
-                        <p>
-                            Celebrating their first birthday this October, 5SUPERHERO offers 100 100% scholarships to
-                            all students who enroll from now until the end of October 30, 2022.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../../img/e1.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>25th October, 2022</p>
-                        <a href="#"><h4>5SUPERHERO is applying for the second round of International Programmer
-                            major</h4></a>
-                        <p>
-                            5SUPERHERO continues to receive applications for the second batch of International
-                            Programmers (IT) from October 2022 to the end of November 2022.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../../img/e2.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>22th October, 2022</p>
-                        <a href="#"><h4>Real life experience in Can Tho</h4></a>
-                        <p>
-                            “Real-time Collab Journey” is a practical activity in the subject of Soft Skills that brings
-                            students to experience life in Can Tho.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../../img/e1.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>10th October, 2022</p>
-                        <a href="#"><h4>Celebrating the liberation of the capital</h4></a>
-                        <p>
-                            On October 10, 1954, the Vietnam People's Army liberated the capital,
-                            officially escaping the yoke of the colonial empire.
-                            Marking a great turning point in the history of our nation against foreign invaders.
+                            [[${item.description}]]
                         </p>
                     </div>
                 </div>
@@ -299,7 +229,7 @@
                 <h1>Not Yet Satisfied with our Trend?</h1>
             </div>
             <div class="col-lg-4 cta-right">
-                <a class="primary-btn wh" href="../blog_news/blog-home.html">view our blog</a>
+                <a class="primary-btn wh" href="/blog-home/list">view our blog</a>
             </div>
         </div>
     </div>
