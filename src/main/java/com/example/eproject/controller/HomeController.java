@@ -1,9 +1,6 @@
 package com.example.eproject.controller;
 
-import com.example.eproject.dto.CourseDto;
-import com.example.eproject.dto.CourseRegisterDto;
-import com.example.eproject.dto.EventsDto;
-import com.example.eproject.dto.NewsDto;
+import com.example.eproject.dto.*;
 import com.example.eproject.entity.Category;
 import com.example.eproject.service.*;
 import com.example.eproject.util.Enums;
@@ -15,9 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,14 +44,32 @@ public class HomeController {
             Page<EventsDto> eventsDto = eventsService.findAllByStatusNoDelete(Enums.EventsStatus.ACTIVE, pageable).map(EventsDto::new);
             model.addAttribute("eventsDto", eventsDto);
 
+            Page<ManagerDto> managerDto = managerService.findAllByStatus(Enums.ManagerStatus.ACTIVE, pageable).map(ManagerDto::new);
+            model.addAttribute("managerDto", managerDto);
+
+            pageable = PageRequest.of(page, 4, Sort.by("id").descending());
             Page<NewsDto> newsDtos = newsService.findAllByStatus(Enums.NewsStatus.ACTIVE, pageable).map(NewsDto::new);
             model.addAttribute("newsDtos", newsDtos);
 
             Page<Category> categories = categoryService.findAllByStatus(Enums.CategoryStatus.ACTIVE, pageable);
             model.addAttribute("categories", categories);
+
             return "/v1/index";
         } catch (Exception e) {
             return "/error/404";
         }
+    }
+
+    @PostMapping("courses/register")
+    public String register(@Valid @ModelAttribute CourseRegisterDto courseRegisterDto,
+                           BindingResult result,
+                           Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("alert", "Error");
+            return "redirect:/courses/list";
+        }
+        courseRegisterService.save(courseRegisterDto);
+        model.addAttribute("courseRegisterDto", new CourseRegisterDto());
+        return "redirect:/courses/list";
     }
 }

@@ -24,9 +24,10 @@ public class CourseRegister extends BasicEntity {
     private long id;
     @NotNull
     private String name;
-    private String email;
-    private String phoneNumber;
     @NotNull
+    private String email;
+    @NotNull
+    private String phoneNumber;
     private String courseName;
     @Enumerated(EnumType.STRING)
     private Enums.CourseRegisterStatus status = Enums.CourseRegisterStatus.PENDING;

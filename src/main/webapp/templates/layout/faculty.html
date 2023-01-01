@@ -180,14 +180,20 @@
 
 <!-- Start review Area -->
 <section class="review-area section-gap relative">
-    <div class="overlay overlay-bg"></div>
+    <div class="overlay overlay-bg">
+        <div class="title text-center">
+            <h1 class="mb-10">Popular Courses we offer</h1>
+            <p>Education is the most powerful weapon it can change the world.</p>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="active-review-carusel">
                 <div class="single-review item" th:each="item : ${managerDto}">
                     <img src="../../img/b1.jpg" alt="">
                     <div class="title justify-content-start d-flex">
-                        <a href="#" th:if="${item.position.toString() == ''}"><h4>[[${item.summary}]].[[${item.fullName}]]</h4></a>
+                        <a href="#" th:if="${item.position.toString() == ''}"><h4>
+                            [[${item.summary}]].[[${item.fullName}]]</h4></a>
                         <a href="#" th:if="${item.position.toString() != ''}"><h4>[[${item.position}]] -
                             [[${item.summary}]].[[${item.fullName}]]</h4></a>
                     </div>

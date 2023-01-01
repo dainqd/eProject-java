@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 
 <head>
     <!-- Mobile Specific Meta -->
@@ -140,7 +141,8 @@
                             <img class="img-fluid" src="../../img/p1.jpg" alt="">
                         </div>
                         <div class="meta d-flex justify-content-between">
-                            <p><span class="lnr lnr-users"></span>[[${item.reviews}]]<span class="lnr lnr-bubble"></span>[[${item.comments}]]</p>
+                            <p><span class="lnr lnr-users"></span>[[${item.reviews}]]<span
+                                    class="lnr lnr-bubble"></span>[[${item.comments}]]</p>
                             <h4>$[[${item.price}]]</h4>
                         </div>
                     </div>
@@ -202,28 +204,22 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 search-course-right section-gap">
-                <form class="form-wrap" action="#">
+                <form class="form-wrap" th:object="${courseRegisterDto}" th:action="@{/courses/register}"
+                      method="post">
                     <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>
-                    <input type="text" class="form-control" name="name" placeholder="Your Name"
+                    <input th:field="*{name}" type="text" class="form-control" name="name" placeholder="Your Name"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
-                    <input type="phone" class="form-control" name="phone" placeholder="Your Phone Number"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email Address"
+                   <input th:field="*{phoneNumber}" type="text" class="form-control" name="phone"
+                             placeholder="Your Phone Number" required=""
+                             onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
+                    <input th:field="*{email}" type="email" class="form-control" name="email" placeholder="Your Email Address"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
-                    <div class="form-select" id="service-select">
-                        <select>
-                            <option datd-display="">Choose Course</option>
-                            <option value="1">Learn Designing</option>
-                            <option value="2">Learn React js beginners</option>
-                            <option value="3">Learn Photography</option>
-                            <option value="4">Learn PHP - Laravel</option>
-                            <option value="1">Learn Java - Spring Boot</option>
-                            <option value="2">Learn Marketing</option>
-                            <option value="3">Learn Angular</option>
-                            <option value="4">Learn Surveying</option>
+                    <div class="form-select" id="service-select" >
+                        <select th:field="*{courseName}">
+                            <option th:each="item : ${courseDto}" th:value="${item.title}">[[${item.title}]]</option>
                         </select>
                     </div>
-                    <button class="primary-btn text-uppercase">Submit</button>
+                    <button type="submit" id="submit" class="primary-btn text-uppercase">Submit</button>
                 </form>
             </div>
         </div>
@@ -244,85 +240,15 @@
         </div>
         <div class="row">
             <div class="active-upcoming-event-carusel">
-                <div class="single-carusel row align-items-center">
+                <div class="single-carusel row align-items-center" th:each="item : ${eventsDto}">
                     <div class="col-12 col-md-6 thumb">
                         <img class="img-fluid" src="../../img/e1.jpg" alt="">
                     </div>
                     <div class="detials col-12 col-md-6">
-                        <p>5th September, 2022</p>
-                        <a href="#"><h4>Happy opening of the new school year</h4></a>
+                        <p th:text="${#dates.format(item.startDate, 'dd - MMMM - yyyy')}"></p>
+                        <a th:href="|/events/detail/${item.id}|"><h4>[[${item.title}]]</h4></a>
                         <p>
-                            One of the most prominent educational events in the past week was the opening of the new
-                            school year 2022-2023
-                            which was held simultaneously across the country on September 5.</p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../img/e2.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>15th September, 2022</p>
-                        <a href="#"><h4>“Mask painting – strange to be good”</h4></a>
-                        <p>
-                            The event "Mask painting - strange success" aired at FPT International Training Institute
-                            Hanoi campus on the occasion
-                            of the Mid-Autumn Festival 2022 has brought both familiar and new entertainment experiences
-                            to students.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../img/e1.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>20th October, 2022</p>
-                        <a href="#"><h4>5SUPERHERO offers 100 100% scholarships</h4></a>
-                        <p>
-                            Celebrating their first birthday this October, 5SUPERHERO offers 100 100% scholarships to
-                            all students who enroll from now until the end of October 30, 2022.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../img/e1.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>25th October, 2022</p>
-                        <a href="#"><h4>5SUPERHERO is applying for the second round of International Programmer
-                            major</h4></a>
-                        <p>
-                            5SUPERHERO continues to receive applications for the second batch of International
-                            Programmers (IT) from October 2022 to the end of November 2022.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../img/e2.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>22th October, 2022</p>
-                        <a href="#"><h4>Real life experience in Can Tho</h4></a>
-                        <p>
-                            “Real-time Collab Journey” is a practical activity in the subject of Soft Skills that brings
-                            students to experience life in Can Tho.
-                        </p>
-                    </div>
-                </div>
-                <div class="single-carusel row align-items-center">
-                    <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../img/e1.jpg" alt="">
-                    </div>
-                    <div class="detials col-12 col-md-6">
-                        <p>10th October, 2022</p>
-                        <a href="#"><h4>Celebrating the liberation of the capital</h4></a>
-                        <p>
-                            On October 10, 1954, the Vietnam People's Army liberated the capital,
-                            officially escaping the yoke of the colonial empire.
-                            Marking a great turning point in the history of our nation against foreign invaders.
+                            [[${item.description}]]
                         </p>
                     </div>
                 </div>
@@ -336,146 +262,23 @@
 <section class="review-area section-gap relative">
     <div class="overlay overlay-bg"></div>
     <div class="container">
+        <div class="menu-content pb-70 col-lg-8">
+            <div class="title text-center">
+                <h2 class="mb-10 text-center">Our Senior Team</h2>
+            </div>
+        </div>
         <div class="row">
             <div class="active-review-carusel">
-                <div class="single-review item">
+                <div class="single-review item" th:each="item : ${managerDto}">
                     <img src="../../img/b1.jpg" alt="">
                     <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Principal – Dr. Ngo Quang Dai</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
+                        <a href="#" th:if="${item.position.toString() == ''}"><h4>
+                            [[${item.summary}]].[[${item.fullName}]]</h4></a>
+                        <a href="#" th:if="${item.position.toString() != ''}"><h4>[[${item.position}]] -
+                            [[${item.summary}]].[[${item.fullName}]]</h4></a>
                     </div>
                     <p>
-                        As one of the best masters in the field of Information Technology,
-                        Dr. Ngo Quang Dai is the rector of 5SUPERHERO under the appointment of the Board of
-                        Directors of 5SUPERHERO University.
-                    </p>
-                </div>
-                <div class="single-review item">
-                    <img src="../../img/b1.jpg" alt="">
-                    <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Direction - Dr. Hoang Minh Hieu</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                    </div>
-                    <p>
-                        As one of the first lecturers, since the school was established until now,
-                        Dr. Hoang Minh Hieu has witnessed the growth of hundreds of generations of 5SUPERHERO students
-                    </p>
-                </div>
-                <div class="single-review item">
-                    <img src="../../img/b1.jpg" alt="">
-                    <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Leader - MSc. Bui Tuan Anh</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                    </div>
-                    <p>
-                        Is a department head possessing excellent communication skills and teaching skills that have
-                        made
-                        MSc. Bui Tuan Anh was selected as one of the most talented lecturers in 5SUPERHERO
-                    </p>
-                </div>
-                <div class="single-review item">
-                    <img src="../../img/b1.jpg" alt="">
-                    <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Deputy - ThS. Nguyen Ngoc Hung</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                    </div>
-                    <p>
-                        Not less than the head of the department in terms of skills and also one of the multi-talented
-                        instructors of 5SUPERHERO is
-                        MSc. Nguyen Ngoc Hung has been highly respected by students in the school
-                    </p>
-                </div>
-                <div class="single-review item">
-                    <img src="../../img/b1.jpg" alt="">
-                    <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Mr. Ngo Minh Hoang</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-                    <p>
-                        Mr. Ngo Minh Hoang is a teacher who is always strict and strict with students, but he is also
-                        one of the lecturers who is always devoted to the students' academic career.
-                    </p>
-                </div>
-                <div class="single-review item">
-                    <img src="../../img/b1.jpg" alt="">
-                    <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Trainers - ThS. Duong Cong Ke</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-                    <p>
-                        Always enthusiastic about the profession with humor and wit are the reasons
-                        why MSc's training class. Duong Cong Ke is always full, on time and especially indispensable is
-                        the laughter.
-                    </p>
-                </div>
-                <div class="single-review item">
-                    <img src="../../img/b1.jpg" alt="">
-                    <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Manager - ThS. Tran Nguyen Ngoc Linh</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                    </div>
-                    <p>
-                        MSc. Tran Nguyen Ngoc Linh is the school's excellent
-                        female lecturer when she entered the top 10 most proficient teachers in Vietnamv
-                    </p>
-                </div>
-                <div class="single-review item">
-                    <img src="../../img/b1.jpg" alt="">
-                    <div class="title justify-content-start d-flex">
-                        <a href="#"><h4>Mrs. Hoang Bao Ngoc</h4></a>
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
-                    <p>
-                        In parallel between the students' comments is the fastidiousness of
-                        Mrs. Hoang Bao Ngoc is her boundless love for her players
+                        [[${item.introduce}]]
                     </p>
                 </div>
             </div>
@@ -495,7 +298,7 @@
                     We respect freedom of speech, how do you feel?
                     We always listen and understand everything because you are the key to our success
                 </p>
-                <a class="primary-btn wh" href="blog_news/blog-home.html">Apply for the post</a>
+                <a class="primary-btn wh" href="/blog-home/list">Apply for the post</a>
             </div>
         </div>
     </div>
@@ -514,81 +317,23 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6 single-blog">
+            <div class="col-lg-3 col-md-6 single-blog " th:each="item : ${newsDtos}">
                 <div class="">
                     <div class="thumb">
                         <img class="img-fluid" src="../../img/b1.jpg" alt="">
                     </div>
-                    <p class="meta">15 September, 2022 | By <a href="#">dainqd</a></p>
-                    <a href="blog-single.html">
-                        <h5>5SUPERHERO University officially announced the list of candidates according
-                            to the selection criteria of the Ministry of Education and Training</h5>
+                    <p class="meta">
+                        22 September 2022 | By
+                        <a href="#">[[${item.author}]]</a>
+                    </p>
+                    <a th:href="|/blog-home/detail/${item.id}|">
+                        <h5>[[${item.title}]]</h5>
                     </a>
                     <p>
-                        5SUPERHERO University officially announced the list of successful candidates according
-                        to the selection criteria of the Ministry of Education and Training at 15:00 on September 15,
-                        2022.
-                        Parents and students access the link below and enter the CCCD number or ID card to register.
-                        Information lookup...
+                        [[${item.contain}]]
                     </p>
                 </div>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
-                        class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>
-            </div>
-            <div class="col-lg-3 col-md-6 single-blog">
-                <div class="">
-                    <div class="thumb">
-                        <img class="img-fluid" src="../../img/b2.jpg" alt="">
-                    </div>
-                    <p class="meta">10 April, 2022 | By <a href="#">hieuhmh</a></p>
-                    <a href="blog-single.html">
-                        <h5>Students of 5SUPERHERO University won the
-                            national award in the field of Information Technology</h5>
-                    </a>
-                    <p>
-                        It is known that this year's national IT contest received 538 products from 283 authors from 25
-                        provinces/cities who submitted products.
-                        In which, 2 products of 5SUPERHERO University students excellently surpassed products of the
-                        same category,
-                        were highly appreciated by the organizers of the contest and won the 2 biggest prizes in the
-                        field of Information Technology in Vietnam... .
-                    </p></div>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
-                        class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>
-            </div>
-            <div class="col-lg-3 col-md-6 single-blog">
-                <div class="">
-                    <div class="thumb">
-                        <img class="img-fluid" src="../../img/b3.jpg" alt="">
-                    </div>
-                    <p class="meta">25 September, 2022 | By <a href="#">anhbt</a></p>
-                    <a href="blog-single.html">
-                        <h5>SEPTEMBER DEPARTMENT IT TALENT TALENT FUN 2022</h5>
-                    </a>
-                    <p>
-                        “IT Young Talent Meeting” – The hottest event in September at 5SUPERHERO where students have the
-                        opportunity to interact with special guests with many years of experience in training and
-                        working in the programming industry....
-                    </p></div>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
-                        class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>
-            </div>
-            <div class="col-lg-3 col-md-6 single-blog">
-                <div class="">
-                    <div class="thumb">
-                        <img class="img-fluid" src="../../img/b4.jpg" alt="">
-                    </div>
-                    <p class="meta">05 October, 2022 | By <a href="#">hungnn</a></p>
-                    <a href="blog-single.html">
-                        <h5>Class "Constructive thinking" exclusively for students of 5SUPERHERO University</h5>
-                    </a>
-                    <p>
-                        Critical thinking has long been an indispensable part for students, students in general as well
-                        as those who want
-                        to develop thinking in a logical, multi-dimensional way. But, have you ever heard of
-                        Constructive Thinking...
-                    </p></div>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
+                <a th:href="|/blog-home/detail/${item.id}|" class="details-btn d-flex justify-content-center align-items-center"><span
                         class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>
             </div>
         </div>
