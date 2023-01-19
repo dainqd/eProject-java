@@ -28,7 +28,6 @@ import java.util.Optional;
 @Slf4j
 public class EventController {
     final EventsService eventsService;
-    final MessageResourceService messageResourceService;
 
     @GetMapping("list")
     public String getList(Model model, @RequestParam(value = "page", required = false, defaultValue = "0") int page,

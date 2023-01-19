@@ -6,9 +6,7 @@ Những bug nhỏ ở các trang còn tồn đọng, chưa fix được:
 4. Trang event phần startDate đang lỗi, views ra khác so với DB, chưa đúng với design
 5. Trang course list, Form register chưa có alert (Chưa cần thiết lắm)
 6. Trang course detail, form register (Chưa cần thiết lắm)
-7. Trang faculty còn các phần form chưa validate, chưa có alert, chưa làm, phần manager
-   chưa gắn, còn hard
-8. Trang Home chưa làm gì hết
+7. Trang Home lỗi date createAt
 
 Những bug ở toàn bộ các trang:
 

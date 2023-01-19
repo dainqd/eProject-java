@@ -181,37 +181,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!--                        <div class="row">-->
-                        <!--                            <div class="col-6">-->
-                        <!--                                <h5 class="primary-text title-text">City</h5>-->
-                        <!--                                <div class="input-group-icon mt-10  single-input-full">-->
-                        <!--                                    <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>-->
-                        <!--                                    <div class="form-select" id="default-select">-->
-                        <!--                                        <select>-->
-                        <!--                                            <option value="1">City</option>-->
-                        <!--                                            <option value="1">Ha Noi</option>-->
-                        <!--                                            <option value="1">Ho Chi Minh</option>-->
-                        <!--                                            <option value="1">Da Nang</option>-->
-                        <!--                                            <option value="1">Orther</option>-->
-                        <!--                                        </select>-->
-                        <!--                                    </div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                            <div class="col-6">-->
-                        <!--                                <h5 class="primary-text title-text">Country</h5>-->
-                        <!--                                <div class="input-group-icon mt-10  single-input-full">-->
-                        <!--                                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>-->
-                        <!--                                    <div class="form-select" id="default-select2">-->
-                        <!--                                        <select>-->
-                        <!--                                            <option value="1">Country</option>-->
-                        <!--                                            <option value="1">Viet Nam</option>-->
-                        <!--                                            <option value="1">Orther</option>-->
-                        <!--                                        </select>-->
-                        <!--                                    </div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
                         <h5 class="primary-text title-text">Link Facebook</h5>
                         <div class="mt-10">
                             <input th:field="*{linkFaceBook}" id="linkFacebook" type="text" name="facebook"
@@ -226,7 +195,7 @@
                                       onfocus="this.placeholder = ''"
                                       onblur="this.placeholder = 'Message'" required=""></textarea>
                         </div>
-                        <input onclick="checkFunction()" type="button" id="submit"
+                        <input onclick="checkFunction()" type="submit" id="submit"
                                class="primary-btn text-uppercase mx-auto btn-register" value="Register">
                     </form>
                 </div>
@@ -423,7 +392,7 @@
             && phoneNumber.value != null && phoneNumber.value !== ""
             && addressIp.value != null && addressIp.value !== ""
             && linkFaceBookIp.value != null && linkFaceBookIp.value !== "") {
-                alert("Success!");
+            alert("Success!");
         } else {
             alert("Error!");
         }

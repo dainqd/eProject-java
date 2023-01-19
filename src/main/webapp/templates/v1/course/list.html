@@ -173,16 +173,15 @@
                             email!
                         </div>
                     </div>
-                    <div class="form-select" id="service-select">
-                        <select id="titleName">
-                            <option datd-display="">Choose Course</option>
-                            <option th:field="*{courseName}" th:each="item : ${courseDto}" th:value="${item.title}">[[${item.title}]]</option>
+                    <div class="form-select" id="service-select" >
+                        <select id="titleName" th:field="*{courseName}">
+                            <option th:each="item : ${courseDto}" th:value="${item.title}">[[${item.title}]]</option>
                         </select>
                         <div id="js-message-stand" class="text-danger small fw-600 mt-1 fst-italic d-none">Please enter
                             the course you want to choose!
                         </div>
                     </div>
-                    <button type="button" id="submit" class="primary-btn text-uppercase">Submit</button>
+                    <button type="submit" id="submit" class="primary-btn text-uppercase">Submit</button>
                 </form>
             </div>
         </div>
@@ -208,7 +207,7 @@
                         <img class="img-fluid" src="../../../img/e1.jpg" alt="">
                     </div>
                     <div class="detials col-12 col-md-6">
-                        <p th:text="${#dates.format(item.startDate, 'dd - MMMM - yyyy')}" ></p>
+                        <p th:text="${#dates.format(item.startDate, 'dd - MMMM - yyyy')}"></p>
                         <a th:href="|/events/detail/${item.id}|"><h4>[[${item.title}]]</h4></a>
                         <p>
                             [[${item.description}]]
