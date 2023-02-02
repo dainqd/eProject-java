@@ -32,3 +32,11 @@ build/
 ### VS Code ###
 .vscode/
 /bin/
+
+### Environment ###
+.mvn
+mvnw
+mvnw.cmd
+
+### Settings ###
+src/main/resources/application.properties
