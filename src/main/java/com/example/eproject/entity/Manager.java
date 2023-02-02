@@ -32,6 +32,8 @@ public class Manager extends BasicEntity {
     @Email(message = "Incorrect email format!, Please re-enter")
     private String email;
     private String phoneNumber;
+    @Lob
+    private String avatar;
     @Enumerated(EnumType.STRING)
     private Enums.ManagerStatus status = Enums.ManagerStatus.ACTIVE;
 

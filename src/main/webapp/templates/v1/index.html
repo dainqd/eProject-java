@@ -138,7 +138,7 @@
                     <div class="thumb-wrap relative">
                         <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
-                            <img class="img-fluid" src="../../img/p1.jpg" alt="">
+                            <img th:src="${item.thumbnail}" alt="" width="263px" height="200px">
                         </div>
                         <div class="meta d-flex justify-content-between">
                             <p><span class="lnr lnr-users"></span>[[${item.reviews}]]<span
@@ -209,12 +209,13 @@
                     <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>
                     <input th:field="*{name}" type="text" class="form-control" name="name" placeholder="Your Name"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
-                   <input th:field="*{phoneNumber}" type="text" class="form-control" name="phone"
-                             placeholder="Your Phone Number" required=""
-                             onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
-                    <input th:field="*{email}" type="email" class="form-control" name="email" placeholder="Your Email Address"
+                    <input th:field="*{phoneNumber}" type="text" class="form-control" name="phone"
+                           placeholder="Your Phone Number" required=""
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
+                    <input th:field="*{email}" type="email" class="form-control" name="email"
+                           placeholder="Your Email Address"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
-                    <div class="form-select" id="service-select" >
+                    <div class="form-select" id="service-select">
                         <select th:field="*{courseName}">
                             <option th:each="item : ${courseDto}" th:value="${item.title}">[[${item.title}]]</option>
                         </select>
@@ -242,7 +243,7 @@
             <div class="active-upcoming-event-carusel">
                 <div class="single-carusel row align-items-center" th:each="item : ${eventsDto}">
                     <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../img/e1.jpg" alt="">
+                        <img th:src="${item.thumbnail}" alt="">
                     </div>
                     <div class="detials col-12 col-md-6">
                         <p th:text="${#dates.format(item.startDate, 'dd - MMMM - yyyy')}"></p>
@@ -270,7 +271,7 @@
         <div class="row">
             <div class="active-review-carusel">
                 <div class="single-review item" th:each="item : ${managerDto}">
-                    <img src="../../img/b1.jpg" alt="">
+                    <img th:src="${item.avatar}" alt="" width="263px" height="180px">
                     <div class="title justify-content-start d-flex">
                         <a href="#" th:if="${item.position.toString() == ''}"><h4>
                             [[${item.summary}]].[[${item.fullName}]]</h4></a>
@@ -320,7 +321,7 @@
             <div class="col-lg-3 col-md-6 single-blog " th:each="item : ${newsDtos}">
                 <div class="">
                     <div class="thumb">
-                        <img class="img-fluid" src="../../img/b1.jpg" alt="">
+                        <img th:src="${item.img}" alt="" width="255px" height="175px">
                     </div>
                     <p class="meta">
                         22 September 2022 | By
@@ -333,7 +334,8 @@
                         [[${item.contain}]]
                     </p>
                 </div>
-                <a th:href="|/blog-home/detail/${item.id}|" class="details-btn d-flex justify-content-center align-items-center"><span
+                <a th:href="|/blog-home/detail/${item.id}|"
+                   class="details-btn d-flex justify-content-center align-items-center"><span
                         class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>
             </div>
         </div>

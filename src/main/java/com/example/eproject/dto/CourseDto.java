@@ -23,6 +23,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class CourseDto {
     private long id;
+    private String thumbnail;
     private String title;
     private String intent;
     private String condition;

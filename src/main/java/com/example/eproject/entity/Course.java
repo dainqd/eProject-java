@@ -25,6 +25,8 @@ public class Course extends BasicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Lob
+    private String thumbnail;
     private String title;
     //    Mục tiêu
     @Lob
@@ -51,6 +53,7 @@ public class Course extends BasicEntity {
     private Date endDate;
     //    Chỗ trống
     private long free;
+    //
     @Convert(converter = StringListConverter.class)
     private List<String> outline;
     @Enumerated(EnumType.STRING)

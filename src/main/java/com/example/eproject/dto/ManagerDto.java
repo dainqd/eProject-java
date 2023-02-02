@@ -23,6 +23,7 @@ public class ManagerDto {
     private String introduce;
     private String email;
     private String phoneNumber;
+    private String avatar;
     private Enums.ManagerStatus status = Enums.ManagerStatus.ACTIVE;
 
     public ManagerDto(Manager manager) {
