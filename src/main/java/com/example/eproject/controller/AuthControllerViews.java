@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@RequestMapping("service")
+@RequestMapping("auth")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthControllerViews {

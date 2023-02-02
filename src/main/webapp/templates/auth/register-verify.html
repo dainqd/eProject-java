@@ -30,64 +30,50 @@
 </head>
 <body>
 
-<div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-login100">
-            <div class="login100-pic js-tilt" data-tilt>
-                <a href="/"><img class="image-logo" src="../../img/image/logosem2.png" alt="IMG"></a>
+<body class="img js-fullheight" style="background-image: url(../../img/image/bg.jpg);">
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Verify Account</h2>
             </div>
-
-            <form class="login100-form validate-form " th:object="${signupRequest}"
-                  th:action="@{/service/register-verify}"
-                  method="post">
-					<span>
-						<span class="login100-form-add-title">Verify Account</span>
-                        <div class="text-center p-b-36">
-                            Welcome to: <a href="#" class="fs-18">[[#{account.email}]]</a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center"> Welcome to: [[#{account.email}]]</h3>
+                    <form action="#" class="signin-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Verify Code" required>
                         </div>
-					</span>
-                <div class="wrap-input100 validate-input" data-validate="Valid username is required: abc.xyz">
-                    <input th:field="*{verifyCode}" class="input100" type="text" name="verifyCode"
-                           placeholder="Verify Code">
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-keyboard-o" aria-hidden="true"></i>
-						</span>
-                </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Submit</button>
+                        </div>
+                        <div class="form-group d-md-flex">
+                            <div class="w-50 text-md-left ml-2">
+                                <a href="/" style="color: #fff">Back to Home</a>
+                            </div>
 
-                <div class="container-login100-form-btn">
-                    <input type="submit" value="Send" class="login100-form-btn">
+                            <div class="w-50 text-md-right mr-2">
+                                <a href="/auth/login" style="color: #fff">Sign In</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="text-center p-b-25 p-t-100">
-                    Back to
-                    <a class="txt2 text-controller text-danger" href="/">
-                        Home
-                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
-
-<!--===============================================================================================-->
 <script src="../../js/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../js/vendor/bootstrap/js/popper.js"></script>
-<script src="../../js/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../js/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../js/vendor/tilt/tilt.jquery.min.js"></script>
+<script src="../../js/vendor/bootstrap/js/popper.min.js"></script>
+<script src="../../js/vendor/bootstrap.min.js"></script>
+<script src="../../js/main2.js"></script>
 <script>
     $('.js-tilt').tilt({
         scale: 1.1
     })
 </script>
-<!--===============================================================================================-->
-<script src="../../js/main1.js"></script>
 
 </body>
 </html>
