@@ -77,7 +77,7 @@
                 <div class="thumb-wrap relative">
                     <div class="thumb relative">
                         <div class="overlay overlay-bg"></div>
-                        <img class="img-fluid" src="../../../img/p2.jpg" alt="">
+                        <img th:src="${item.thumbnail}" alt="">
                     </div>
                     <div class="meta d-flex justify-content-between">
                         <p><span class="lnr lnr-users"></span>[[${item.reviews}]]<span class="lnr lnr-bubble"></span>[[${item.comments}]]
@@ -204,7 +204,7 @@
             <div class="active-upcoming-event-carusel">
                 <div class="single-carusel row align-items-center" th:each="item : ${eventsDto}">
                     <div class="col-12 col-md-6 thumb">
-                        <img class="img-fluid" src="../../../img/e1.jpg" alt="">
+                        <img class="img-fluid" th:src="${item.thumbnail}">
                     </div>
                     <div class="detials col-12 col-md-6">
                         <p th:text="${#dates.format(item.startDate, 'dd - MMMM - yyyy')}"></p>
@@ -243,9 +243,7 @@
 
 
 <script src="../../../js/vendor/jquery-2.2.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="../../../js/vendor/bootstrap.min.js"></script>
 <script src="../../../js/easing.min.js"></script>
 <script src="../../../js/hoverIntent.js"></script>

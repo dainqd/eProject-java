@@ -149,7 +149,7 @@
                     </div>
                     <div class="col-lg-9 col-md-9 ">
                         <div class="feature-img">
-                            <img class="img-fluid" src="../../../img/blog/feature-img1.jpg" alt="">
+                            <img th:src="${item.img}" alt="" width="540px" height="255px">
                         </div>
                         <a class="posts-title" th:href="|/blog-home/detail/${item.id}|"><h3>[[${item.title}]]</h3></a>
                         <p class="excert">

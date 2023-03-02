@@ -2514,10 +2514,14 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .single-popular-carusel .thumb {
-    overflow: hidden
+    overflow: hidden;
+    height: 195px;
+    aspect-ratio: 255/195;
 }
 
 .single-popular-carusel .thumb img {
+    height: 100%;
+    object-fit: cover;
     width: 100%;
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;

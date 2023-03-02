@@ -53,12 +53,9 @@ public class EventsService {
     public Events create(EventsDto eventsDto, long adminID) {
         Events events = new Events();
 
+        System.out.println(eventsDto.getStartDate());
         BeanUtils.copyProperties(eventsDto, events);
 
-        events.setStartDate(Date.valueOf(eventsDto.getStartDate()));
-        events.setEndDate(Date.valueOf(eventsDto.getEndDate()));
-
-        System.out.println(events.getStartDate() + " " + events.getEndDate());
         events.setCreatedAt(LocalDateTime.now());
         events.setCreatedBy(adminID);
         return eventsRepository.save(events);

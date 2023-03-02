@@ -323,7 +323,7 @@
                 <div class="thumb-wrap relative">
                     <div class="thumb relative">
                         <div class="overlay overlay-bg"></div>
-                        <img class="img-fluid" src="../../../img/p2.jpg" alt="">
+                        <img th:src="${item.thumbnail}" alt="">
                     </div>
                     <div class="meta d-flex justify-content-between">
                         <p><span class="lnr lnr-users"></span>[[${item.reviews}]]<span class="lnr lnr-bubble"></span>[[${item.comments}]]
@@ -342,7 +342,7 @@
                     </p>
                 </div>
             </div>
-            <a href="/courses/list" class="primary-btn text-uppercase mx-auto">Load More Courses</a>
+            <a href="#" class="primary-btn text-uppercase mx-auto">Load More Courses</a>
         </div>
     </div>
 </section>

@@ -207,19 +207,18 @@
 <section class="review-area section-gap relative">
     <div class="overlay overlay-bg"></div>
     <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h2 class="mb-10">Our Senior Team</h2>
-                </div>
+        <div class="menu-content pb-70 col-lg-8">
+            <div class="title text-center">
+                <h2 class="mb-10 text-center">Our Senior Team</h2>
             </div>
         </div>
         <div class="row">
             <div class="active-review-carusel">
                 <div class="single-review item" th:each="item : ${managerDto}">
-                    <img src="../../img/b1.jpg" alt="">
+                    <img th:src="${item.avatar}" alt="" width="263px" height="180px">
                     <div class="title justify-content-start d-flex">
-                        <a href="#" th:if="${item.position.toString() == ''}"><h4>[[${item.summary}]].[[${item.fullName}]]</h4></a>
+                        <a href="#" th:if="${item.position.toString() == ''}"><h4>
+                            [[${item.summary}]].[[${item.fullName}]]</h4></a>
                         <a href="#" th:if="${item.position.toString() != ''}"><h4>[[${item.position}]] -
                             [[${item.summary}]].[[${item.fullName}]]</h4></a>
                     </div>
