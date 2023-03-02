@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+
+    <link
+            rel="icon"
+            href="../../img/image/logosem2.png"
+            type="image/png"
+            sizes="700x700"
+    />
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Education</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+            CSS
+            ============================================= -->
+    <link rel="stylesheet" href="../../css/linearicons.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/magnific-popup.css">
+    <link rel="stylesheet" href="../../css/nice-select.css">
+    <link rel="stylesheet" href="../../css/animate.min.css">
+    <link rel="stylesheet" href="../../css/owl.carousel.css">
+    <link rel="stylesheet" href="../../css/jquery-ui.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/bass.css">
+    <link rel="stylesheet" href="../../css/response.css">
+    <link rel="stylesheet" href="../../templates/include/public.css">
+</head>
+
+<body>
+<header id="header">
+</header><!-- #header -->
+
+<!-- start banner Area -->
+<section class="banner-area relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-between">
+            <div class="banner-content col-lg-9 col-md-12">
+                <h1 class="text-uppercase">
+                    We Ensure better education
+                    for a better world
+                </h1>
+                <p class="pt-10 pb-10">
+                    WHY 500,000 STUDENTS CHOOSE 5SUPERHERO UNIVERSITY?
+                </p>
+                <a href="#" class="primary-btn text-uppercase">Get Started</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+
+<!-- Start feature Area -->
+<section class="feature-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="single-feature">
+                    <div class="title">
+                        <h4>Learn Online Courses</h4>
+                    </div>
+                    <div class="desc-wrap">
+                        <p>
+                            Online learning is known to be a fairly popular form of learning today.
+                            This is a form of online education through the internet that makes it easy for learners to
+                            learn and receive knowledge quickly and conveniently.
+                        </p>
+                        <a href="#">Join Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="single-feature">
+                    <div class="title">
+                        <h4>No.1 of universities</h4>
+                    </div>
+                    <div class="desc-wrap">
+                        <p>
+                            5SUPERHERO is known as the world's top school with an advanced curriculum and a team of
+                            qualified and reputable teachers..
+                            Above all, we are always devoted to our students even after graduation. at the same time
+                            creating job opportunities for students while still studying at school
+                        </p>
+                        <a href="#">Join Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="single-feature">
+                    <div class="title">
+                        <h4>Highest salary in the industry</h4>
+                    </div>
+                    <div class="desc-wrap">
+                        <p>
+                            For students of 5SUPERHERO, when you graduate, you will have an average salary of about $
+                            1000 - $ 1500,
+                            here, you will be paid to practice early - right after completing the first course.
+                        </p>
+                        <a href="#">Join Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End feature Area -->
+
+<!-- Start popular-course Area -->
+<section class="popular-course-area section-gap">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">Popular Courses we offer</h1>
+                    <p>Education is the most powerful weapon it can change the world.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-popular-carusel">
+                <div class="single-popular-carusel" th:each="item : ${courseDto}">
+                    <div class="thumb-wrap relative">
+                        <div class="thumb relative">
+                            <div class="overlay overlay-bg"></div>
+                            <img th:src="${item.thumbnail}" alt="" width="263px" height="200px">
+                        </div>
+                        <div class="meta d-flex justify-content-between">
+                            <p><span class="lnr lnr-users"></span>[[${item.reviews}]]<span
+                                    class="lnr lnr-bubble"></span>[[${item.comments}]]</p>
+                            <h4>$[[${item.price}]]</h4>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <a th:href="|/courses/detail/${item.id}|">
+                            <h4>
+                                [[${item.title}]]
+                            </h4>
+                        </a>
+                        <p>
+                            [[${item.content}]]
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End popular-course Area -->
+
+
+<!-- Start search-course Area -->
+<section class="search-course-area relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-lg-6 col-md-6 search-course-left">
+                <h1 class="text-white">
+                    Get reduced fee <br>
+                    during this Summer!
+                </h1>
+                <p>
+                    5SUPERHERO is accepting student applications.
+                    You can proceed to register for the academic record of 02 subjects
+                    Math + Information (HK 1 grade 12) at <a class="link-course" href="https://fivesuperhero.com">
+                    https://fivesuperhero.com </a>
+                    to know if you get a scholarship of 3,000,000 or 6,000,000 or 9,000,000 or
+                    Lucky to receive a special scholarship up to 100% of tuition fee when applying
+                    for admission at 5SUPERHERO.
+                </p>
+                <div class="row details-content">
+                    <div class="col single-detials">
+                        <span class="lnr lnr-graduation-hat"></span>
+                        <a href="#"><h4>Expert Instructors</h4></a>
+                        <p>
+                            5SUPERHERO has more than 50 years of experience training international students in Vietnam,
+                            and is always the first choice of students and employers.
+                        </p>
+                    </div>
+                    <div class="col single-detials">
+                        <span class="lnr lnr-license"></span>
+                        <a href="#"><h4>Certification</h4></a>
+                        <p>
+                            We have been continuously honored with the top Technology (CN) training award,
+                            received the 2003 Gold Cup, marking our 19-year
+                            journey as the number 1 unit in industrial education and training in Vietnam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 search-course-right section-gap">
+                <form class="form-wrap" th:object="${courseRegisterDto}" th:action="@{/courses/register}"
+                      method="post">
+                    <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>
+                    <input th:field="*{name}" type="text" class="form-control" name="name" placeholder="Your Name"
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
+                    <input th:field="*{phoneNumber}" type="text" class="form-control" name="phone"
+                           placeholder="Your Phone Number" required=""
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'">
+                    <input th:field="*{email}" type="email" class="form-control" name="email"
+                           placeholder="Your Email Address"
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
+                    <div class="form-select" id="service-select">
+                        <select th:field="*{courseName}">
+                            <option th:each="item : ${courseDto}" th:value="${item.title}">[[${item.title}]]</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submit" class="primary-btn text-uppercase">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End search-course Area -->
+
+<!-- Start upcoming-event Area -->
+<section class="upcoming-event-area section-gap">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">Upcoming Events of our Institute</h1>
+                    <p>Quality - sustainable development - integration</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-upcoming-event-carusel">
+                <div class="single-carusel row align-items-center" th:each="item : ${eventsDto}">
+                    <div class="col-12 col-md-6 thumb">
+                        <img th:src="${item.thumbnail}" alt="">
+                    </div>
+                    <div class="detials col-12 col-md-6">
+                        <p th:text="${#dates.format(item.startDate, 'dd - MMMM - yyyy')}"></p>
+                        <a th:href="|/events/detail/${item.id}|"><h4>[[${item.title}]]</h4></a>
+                        <p>
+                            [[${item.description}]]
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End upcoming-event Area -->
+
+<!-- Start review Area -->
+<section class="review-area section-gap relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="menu-content pb-70 col-lg-8">
+            <div class="title text-center">
+                <h2 class="mb-10 text-center">Our Senior Team</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-review-carusel">
+                <div class="single-review item" th:each="item : ${managerDto}">
+                    <img th:src="${item.avatar}" alt="" width="263px" height="180px">
+                    <div class="title justify-content-start d-flex">
+                        <a href="#" th:if="${item.position.toString() == ''}"><h4>
+                            [[${item.summary}]].[[${item.fullName}]]</h4></a>
+                        <a href="#" th:if="${item.position.toString() != ''}"><h4>[[${item.position}]] -
+                            [[${item.summary}]].[[${item.fullName}]]</h4></a>
+                    </div>
+                    <p>
+                        [[${item.introduce}]]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End review Area -->
+
+<!-- Start cta-one Area -->
+<section class="cta-one-area relative section-gap">
+    <div class="container">
+        <div class="overlay overlay-bg"></div>
+        <div class="row justify-content-center">
+            <div class="wrap">
+                <h1 class="text-white">Please state your thoughts?</h1>
+                <p>
+                    We respect freedom of speech, how do you feel?
+                    We always listen and understand everything because you are the key to our success
+                </p>
+                <a class="primary-btn wh" href="/blog-home/list">Apply for the post</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End cta-one Area -->
+
+<!-- Start blog Area -->
+<section class="blog-area section-gap" id="blog">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">Latest posts from our Blog</h1>
+                    <p>Always keep you up to date with the latest.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 single-blog " th:each="item : ${newsDtos}">
+                <div class="">
+                    <div class="thumb">
+                        <img th:src="${item.img}" alt="" width="255px" height="175px">
+                    </div>
+                    <p class="meta">
+                        22 September 2022 | By
+                        <a href="#">[[${item.author}]]</a>
+                    </p>
+                    <a th:href="|/blog-home/detail/${item.id}|">
+                        <h5>[[${item.title}]]</h5>
+                    </a>
+                    <p>
+                        [[${item.contain}]]
+                    </p>
+                </div>
+                <a th:href="|/blog-home/detail/${item.id}|"
+                   class="details-btn d-flex justify-content-center align-items-center"><span
+                        class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End blog Area -->
+
+
+<!-- Start cta-two Area -->
+<section class="cta-two-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 cta-left">
+                <h1>Not Yet Satisfied with our Trend?</h1>
+            </div>
+            <div class="col-lg-4 cta-right">
+                <a class="primary-btn wh" href="#">view our blog</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End cta-two Area -->
+
+<!-- start footer Area -->
+<footer class="footer-area section-gap" id="footer">
+</footer>
+<!-- End footer Area -->
+
+
+<script src="../../js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="../../js/vendor/bootstrap.min.js"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script> -->
+<script src="../../js/easing.min.js"></script>
+<script src="../../js/hoverIntent.js"></script>
+<script src="../../js/superfish.min.js"></script>
+<script src="../../js/jquery.ajaxchimp.min.js"></script>
+<script src="../../js/jquery.magnific-popup.min.js"></script>
+<script src="../../js/jquery.tabs.min.js"></script>
+<script src="../../js/jquery.nice-select.min.js"></script>
+<script src="../../js/owl.carousel.min.js"></script>
+<script src="../../js/mail-script.js"></script>
+<script>
+    $(function () {
+        $("#header").load("templates/include/header.html");
+        $("#footer").load("templates/include/footer.html");
+    });
+</script>
+<script src="../../js/main.js"></script>
+<!-- <script src="js/main2.js"></script> -->
+</body>
+</html>

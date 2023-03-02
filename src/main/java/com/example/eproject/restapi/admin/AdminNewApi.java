@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -39,13 +40,13 @@ public class AdminNewApi {
                                                @RequestParam(value = "status", required = false, defaultValue = "") Enums.NewsStatus status) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
         if (status != null) {
-            return ResponseEntity.ok(newsService.getListByStatus(status, pageable));
+            return ResponseEntity.ok(newsService.findAllByStatus(status, pageable));
         }
         return ResponseEntity.ok(newsService.findAll(pageable));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getDetails(@PathVariable Integer id) {
+    public ResponseEntity<?> getDetails(@PathVariable("id") long id) {
         Optional<News> optionalNews = newsService.findById(id);
         if (!optionalNews.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -58,13 +59,19 @@ public class AdminNewApi {
 
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody NewsDto newsDto, Authentication principal) {
-        long adminId = Long.parseLong(principal.getName());
-        newsService.create(newsDto, adminId);
+        String adminID = principal.getName();
+        Optional<User> optionalUse = userDetailsService.findByUsername(adminID);
+        if (!optionalUse.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    messageResourceService.getMessage("id.not.found"));
+        }
+        User user = optionalUse.get();
+        newsService.create(newsDto, user.getId());
         return ResponseEntity.ok(messageResourceService.getMessage("create.success"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<News> update(@PathVariable Integer id, @RequestBody News news, Authentication principal) {
+    public ResponseEntity<News> update(@PathVariable("id") long id, @RequestBody NewsDto newsDto, Authentication principal) {
         Optional<News> optionalNews = newsService.findById(id);
         if ((!optionalNews.isPresent())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -77,25 +84,11 @@ public class AdminNewApi {
                     messageResourceService.getMessage("account.not.found"));
         }
         User user = optionalUse.get();
-        System.out.println(adminID);
-
-        News existNews = optionalNews.get();
-
-        existNews.setTitle(news.getTitle());
-        existNews.setDescription(news.getDescription());
-        existNews.setImg(news.getImg());
-        existNews.setContent(news.getContent());
-        existNews.setViews(news.getViews());
-        existNews.setStatus(news.getStatus());
-        existNews.setAuthor(news.getAuthor());
-        existNews.setCategories(news.getCategories());
-        existNews.setUpdatedAt(LocalDateTime.now());
-        existNews.setUpdatedBy(user.getId());
-        return ResponseEntity.ok(newsService.save(existNews));
+        return ResponseEntity.ok(newsService.update(newsDto, user.getId()));
     }
 
     @PutMapping("/{id}/{keyword}")
-    public ResponseEntity<News> updated(@PathVariable Integer id, @PathVariable String keyword, @RequestBody News news) {
+    public ResponseEntity<News> updated(@PathVariable("id") long id, @PathVariable("keyword") String keyword, @RequestBody News news) {
         Optional<News> optionalNews = newsService.findById(id);
         if ((!optionalNews.isPresent())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -136,12 +129,20 @@ public class AdminNewApi {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id) {
+    public ResponseEntity<?> delete(@PathVariable("id") long id) {
+        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+        String adminId = principal.getName();
+        Optional<User> op = userDetailsService.findByUsername(adminId);
+        if (!op.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    messageResourceService.getMessage("id.not.found"));
+        }
+        User user = op.get();
         if ((!newsService.findById(id).isPresent())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("id.not.found"));
         }
-        newsService.deleteById(id);
-        return ResponseEntity.ok().build();
+        newsService.delete(id, user.getId());
+        return new ResponseEntity<>(messageResourceService.getMessage("delete.success"), HttpStatus.OK);
     }
 }

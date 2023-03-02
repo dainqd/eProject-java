@@ -36,6 +36,6 @@ public class FeedbacksApi {
         }
         User user = optionalUse.get();
         System.out.println(adminID);
-        return ResponseEntity.ok(feedbackService.save(feedbacksDto, user.getId()));
+        return ResponseEntity.ok(feedbackService.create(feedbacksDto, user.getId()));
     }
 }

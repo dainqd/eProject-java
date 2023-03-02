@@ -29,12 +29,12 @@ public class NewsApi {
     public ResponseEntity<Page<News>> getList(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
                                               @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-        return ResponseEntity.ok(newsService.getListByStatus(Enums.NewsStatus.ACTIVE, pageable));
+        return ResponseEntity.ok(newsService.findAllByStatus(Enums.NewsStatus.ACTIVE, pageable));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDetail(@PathVariable long id) {
-        Optional<News> optionalNews = newsService.getByIdAndStatus(id, Enums.NewsStatus.ACTIVE);
+        Optional<News> optionalNews = newsService.findByIdAndStatus(id, Enums.NewsStatus.ACTIVE);
         if (!optionalNews.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     messageResourceService.getMessage("id.not.found"));

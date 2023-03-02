@@ -33,7 +33,7 @@ public class ClassroomDto {
     private Enums.ClassroomStatus status;
 
     public ClassroomDto(Classroom classroom) {
-        String pattern = "yyyy-MM-dd";
+        String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
         String startDateAsString = df.format(classroom.getStartDate());
         String endDateAsString = df.format(classroom.getEndDate());

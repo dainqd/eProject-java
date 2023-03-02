@@ -23,6 +23,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class CourseDto {
     private long id;
+    private String thumbnail;
     private String title;
     private String intent;
     private String condition;
@@ -40,7 +41,7 @@ public class CourseDto {
     private Enums.CourseStatus status = Enums.CourseStatus.PREACTIVE;
 
     public CourseDto(Course course) {
-        String pattern = "yyyy-MM-dd";
+        String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
         String sTodayAsString = df.format(course.getStartDate());
         String eTodayAsString = df.format(course.getEndDate());
