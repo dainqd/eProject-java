@@ -62,7 +62,6 @@ public class AdminEventsApi {
         }
         User user = optionalUse.get();
         System.out.println(adminID);
-        Events course = new Events(courseDto);
         return new EventsDto(eventsService.create(courseDto, user.getId()));
     }
 

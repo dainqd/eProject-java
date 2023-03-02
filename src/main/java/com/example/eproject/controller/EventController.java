@@ -2,7 +2,6 @@ package com.example.eproject.controller;
 
 import com.example.eproject.dto.EventsDto;
 import com.example.eproject.service.EventsService;
-import com.example.eproject.service.MessageResourceService;
 import com.example.eproject.util.Enums;
 import com.example.eproject.util.Utils;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -36,12 +33,6 @@ public class EventController {
             Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
             Page<EventsDto> eventsDto = eventsService.findAllByStatusNoDelete(Enums.EventsStatus.ACTIVE, pageable).map(EventsDto::new);
             model.addAttribute("eventsDto", eventsDto);
-//            eventsDto.getContent().forEach(eventsDto1 -> {
-//                System.out.println(eventsDto1.getStartDate());
-//                String date = Utils.convertToString(eventsDto1.getStartDate());
-//                System.out.println(date);
-//                model.addAttribute("date", date);
-//            });
             return "v1/events/list";
         } catch (Exception e) {
             return "/error/404";
