@@ -59,7 +59,6 @@ public class AdmissionsController {
             model.addAttribute("course", courseDtoOptional.get());
             List<String> continents = courseDtoOptional.get().getOutline();
             model.addAttribute("continents", continents);
-            System.out.println(continents);
             CourseRegisterDto courseRegisterDto = new CourseRegisterDto();
             model.addAttribute("courseRegisterDto", courseRegisterDto);
             return "v1/course/detail";

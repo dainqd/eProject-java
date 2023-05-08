@@ -60,7 +60,7 @@ public class AdminManagerApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         return new ManagerDto(managerService.create(managerDto, user.getId()));
     }
 
@@ -73,7 +73,7 @@ public class AdminManagerApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         managerService.update(request, user.getId());
         return messageResourceService.getMessage("update.success");
     }
@@ -88,7 +88,7 @@ public class AdminManagerApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         Optional<Manager> optionalManager = managerService.findById(id);
         if (!optionalManager.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

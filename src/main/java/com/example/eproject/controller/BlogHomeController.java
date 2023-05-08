@@ -56,7 +56,6 @@ public class BlogHomeController {
             model.addAttribute("continents", continents);
             model.addAttribute("newsDtos", newsService.findByStatus(Enums.NewsStatus.ACTIVE));
             model.addAttribute("categories", categoryService.findAllByStatus(Enums.CategoryStatus.ACTIVE));
-            System.out.println(continents);
             return "v1/blog_news/detail";
         } catch (Exception e) {
             return "/error/404";

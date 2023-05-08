@@ -61,7 +61,6 @@ public class AdminFacultyApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = optionalUse.get();
-        System.out.println(adminID);
         Faculty faculty = new Faculty(facultyDto);
         return new FacultyDto(facultyService.create(facultyDto, user.getId()));
     }
@@ -75,7 +74,6 @@ public class AdminFacultyApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         Faculty faculty = new Faculty(facultyDto);
         facultyService.update(facultyDto, user.getId());
         return messageResourceService.getMessage("update.success");
@@ -91,7 +89,6 @@ public class AdminFacultyApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         Optional<Faculty> optionalFaculty = facultyService.findById(id);
         if (!optionalFaculty.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

@@ -61,7 +61,6 @@ public class AdminAdmissionsApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         Admissions admissions = new Admissions(admissionsDto);
         return new AdmissionsDto(admissionsService.save(admissionsDto, user.getId()));
     }
@@ -75,7 +74,6 @@ public class AdminAdmissionsApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         Admissions admissions = new Admissions(request);
         admissionsService.update(request, user.getId());
         return messageResourceService.getMessage("update.success");
@@ -91,7 +89,7 @@ public class AdminAdmissionsApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         Optional<Admissions> optionalAdmissions = admissionsService.findById(id);
         if (!optionalAdmissions.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

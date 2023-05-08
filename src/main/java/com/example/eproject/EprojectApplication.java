@@ -118,7 +118,7 @@ public class EprojectApplication implements CommandLineRunner {
         news.setStatus(status);
         news.setCategories(news.getCategories());
         news.setAuthor(author);
-//        newsService.save(news);
+        newsService.save(news);
     }
 
     public void generateNews() {
@@ -279,7 +279,7 @@ public class EprojectApplication implements CommandLineRunner {
         Role role = new Role();
         role.setId(id);
         role.setName(roleInput);
-//        roleService.save(role);
+        roleService.save(role);
     }
 
     public void generateRole() {
@@ -295,9 +295,7 @@ public class EprojectApplication implements CommandLineRunner {
                               String startDate, String endDate, long free, String outlineStr) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date stDate = formatter.parse(startDate);
-        System.out.println(stDate);
         Date enDate = formatter.parse(endDate);
-        System.out.println(enDate);
 // Tạo mới khóa học
         Course course = new Course();
         course.setId(id);
@@ -315,9 +313,8 @@ public class EprojectApplication implements CommandLineRunner {
         course.setFree(free);
         course.setStatus(Enums.CourseStatus.ACTIVE);
         List<String> outline = new ArrayList<String>(Arrays.asList(outlineStr.split(",")));
-        System.out.println(outline);
         course.setOutline(outline);
-//        courseService.save(course);
+        courseService.save(course);
     }
 
     public void generateCourse() throws ParseException {
@@ -390,7 +387,7 @@ public class EprojectApplication implements CommandLineRunner {
         manager.setPhoneNumber(phoneNumber);
         manager.setStatus(Enums.ManagerStatus.ACTIVE);
 
-//        managerService.save(manager);
+        managerService.save(manager);
     }
 
     public void generateManager() {
