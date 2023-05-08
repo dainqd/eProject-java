@@ -61,7 +61,6 @@ public class AdminEventsApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = optionalUse.get();
-        System.out.println(adminID);
         return new EventsDto(eventsService.create(courseDto, user.getId()));
     }
 
@@ -74,7 +73,7 @@ public class AdminEventsApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         Events course = new Events(courseDto);
         eventsService.update(courseDto, user.getId());
         return messageResourceService.getMessage("update.success");
@@ -90,7 +89,7 @@ public class AdminEventsApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         Optional<Events> optionalEvents = eventsService.findById(id);
         if (!optionalEvents.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

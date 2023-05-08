@@ -128,9 +128,6 @@ public class Utils {
 //        String todayAsString = df.format(date);
 //        String[] parts = todayAsString.split("-");
         String[] parts = date.split("/");
-        System.out.println(parts[0]);
-        System.out.println(parts[1]);
-        System.out.println(parts[2]);
         String doneDay = parts[0];
         String doneMonth = parts[1];
         int intDay = Integer.parseInt(doneDay);
@@ -138,7 +135,6 @@ public class Utils {
         int intMonth = Integer.parseInt(doneMonth);
         String monthCuoi = Utils.theMonth(intMonth - 1);
         String s = dayCuoi + ", " + monthCuoi + ", " + parts[2];
-        System.out.println(s);
         return s;
     }
 

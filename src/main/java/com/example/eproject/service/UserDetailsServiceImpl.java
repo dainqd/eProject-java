@@ -172,7 +172,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String code = generatorRandomToken(13) + "-" + time;
         String link = "http://localhost:8080/service/change-password";
         account.setVerifyCode(code);
-        System.out.println(loginFormDto.getEmail());
         emailService.forgot(account.getEmail(), link);
         save(account);
     }

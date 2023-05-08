@@ -60,7 +60,6 @@ public class AdminCourseRegisterApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         return new CourseRegisterDto(courseRegisterService.create(courseRegisterDto, user.getId()));
     }
 
@@ -73,7 +72,6 @@ public class AdminCourseRegisterApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         courseRegisterService.update(request, user.getId());
         return messageResourceService.getMessage("update.success");
     }
@@ -88,7 +86,6 @@ public class AdminCourseRegisterApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         Optional<CourseRegister> optionalCourseRegister = courseRegisterService.findById(id);
         if (!optionalCourseRegister.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

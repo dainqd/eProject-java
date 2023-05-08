@@ -35,7 +35,6 @@ public class FeedbacksApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = optionalUse.get();
-        System.out.println(adminID);
         return ResponseEntity.ok(feedbackService.create(feedbacksDto, user.getId()));
     }
 }

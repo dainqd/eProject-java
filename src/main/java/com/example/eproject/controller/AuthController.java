@@ -143,7 +143,6 @@ public class AuthController {
                     userDetails.getGender(),
                     userDetails.getAddress(),
                     roles);
-            System.out.println(jwtResponse.getToken());
             return "redirect:/";
         } else {
             result.rejectValue("password", "400", messageResourceService.getMessage("account.password.incorrect"));
@@ -216,7 +215,6 @@ public class AuthController {
             return "auth/register-verify";
         }
         model.addAttribute("account", account);
-        System.out.println(account.getEmail());
         userDetailsService.active(account);
         model.addAttribute("signupRequest", signupRequest);
 //        model.addAttribute("messageVerifySuccess", "Verify Success");

@@ -59,7 +59,7 @@ public class AdminCategoryApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = optionalUse.get();
-        System.out.println(adminID);
+        
         String[] abc = {};
         return categoryService.save(category, user.getId());
     }
@@ -73,7 +73,7 @@ public class AdminCategoryApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         categoryService.update(category, user.getId());
         return messageResourceService.getMessage("update.success");
     }
@@ -88,7 +88,7 @@ public class AdminCategoryApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
+        
         Optional<Category> optionalCategory = categoryService.findById(id);
         if (!optionalCategory.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

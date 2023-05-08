@@ -50,8 +50,6 @@ public class EmailService {
         templateResolver.setPrefix("/templates/email/");
         templateResolver.setSuffix(".html");
 
-        System.out.println("url: " + templateResolver.getPrefix());
-
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateEngine.setTemplateResolver(templateResolver);
         thymeleafContext.setVariables(templateModel);
@@ -115,9 +113,7 @@ public class EmailService {
     public void userRegisterMail(String email, String code) {
         Map<String, Object> templateModel = new HashMap<String, Object>();
         templateModel.put("email", email);
-        System.out.println(email);
         templateModel.put("code", code);
-        System.out.println(code);
         String subject = "Đăng ký tài khoản!";
         sendMessageUsingThymeleafTemplate(email, subject, "userRegisterEmail", templateModel);
     }

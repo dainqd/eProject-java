@@ -63,7 +63,6 @@ public class AdminFeedbackApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = optionalUse.get();
-        System.out.println(adminID);
         return ResponseEntity.ok(feedbackService.create(feedbacksDto, user.getId()));
     }
 
@@ -95,7 +94,6 @@ public class AdminFeedbackApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         Optional<Feedbacks> optionalFeedbacks = feedbackService.findById(id);
         if (!optionalFeedbacks.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

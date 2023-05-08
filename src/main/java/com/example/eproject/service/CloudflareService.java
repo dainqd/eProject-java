@@ -54,7 +54,6 @@ public class CloudflareService {
                     headers);
 
             String url = endpoint + "/accounts/" + account + "/images/v1";
-            System.out.println("url: " + url);
 
             ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class);
             return response;

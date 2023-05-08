@@ -73,7 +73,6 @@ public class AdminMarkReportApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         return new MarkReportDto(markReportService.save(markReportDto, user.getId()));
     }
 
@@ -86,7 +85,6 @@ public class AdminMarkReportApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         MarkReport admissions = new MarkReport(request);
         markReportService.update(request, user.getId());
         return messageResourceService.getMessage("update.success");
@@ -102,7 +100,6 @@ public class AdminMarkReportApi {
                     messageResourceService.getMessage("id.not.found"));
         }
         User user = op.get();
-        System.out.println(adminId);
         Optional<MarkReport> optionalMarkReport = markReportService.findById(id);
         if (!optionalMarkReport.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,

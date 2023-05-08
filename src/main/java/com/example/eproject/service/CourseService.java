@@ -49,7 +49,6 @@ public class CourseService {
         course.setStartDate(Date.valueOf(courseDto.getStartDate()));
         course.setEndDate(Date.valueOf(courseDto.getEndDate()));
 
-        System.out.println(course.getStartDate() + " " + course.getEndDate());
         course.setCreatedAt(LocalDateTime.now());
         course.setCreatedBy(adminID);
         return courseRepository.save(course);

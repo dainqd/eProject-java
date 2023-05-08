@@ -42,7 +42,6 @@ public class AdmissionsService {
         BeanUtils.copyProperties(admissionsDto, admissions);
 
         admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
-        System.out.println(admissions.getBirthday());
         admissions.setCreatedAt(LocalDateTime.now());
         admissions.setCreatedBy(adminId);
         return admissionsRepository.save(admissions);
@@ -54,7 +53,6 @@ public class AdmissionsService {
         BeanUtils.copyProperties(admissionsDto, admissions);
 
         admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
-        System.out.println(admissions.getBirthday());
         admissions.setCreatedAt(LocalDateTime.now());
         return admissionsRepository.save(admissions);
     }
@@ -77,7 +75,6 @@ public class AdmissionsService {
             BeanUtils.copyProperties(admissionsDto, admissions);
 
             admissions.setBirthday(Date.valueOf(admissionsDto.getBirthday()));
-            System.out.println(admissions.getBirthday());
             admissions.setUpdatedAt(LocalDateTime.now());
             admissions.setUpdatedBy(id);
             return admissionsRepository.save(admissions);
