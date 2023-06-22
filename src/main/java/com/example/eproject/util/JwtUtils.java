@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -23,9 +25,39 @@ public class JwtUtils {
     public String jwtSecret;
 
     @Value("${bezkoder.app.jwtExpirationMs}")
-    public int jwtExpirationsMs;
+    public static int jwtExpirationsMs;
+    // lớp này dùng để ký (là hoạt động mã hóa tạo ra chữ ký) và xác nhận (verify) token
+    public static Algorithm algorithm;
+    // giữ phương thức xác minh đúng định dạng  JWT và đúng chữ ký
+    private static JWTVerifier verifier;
+    public static String JWT_SECRET_KEY = "secret-changed";
+    public static final int ONE_SECOND = 1000;
+    public static final int ONE_MINUTE = ONE_SECOND * 60;
+    public static final int ONE_HOUR = ONE_MINUTE * 60;
+    public static final int ONE_DAY = ONE_HOUR * 24;
+    public static final String ROLE_CLAIM_KEY = "role";
+    private static final String DEFAULT_ISSUER = "E_ProjectT2108E";
 
-    private static String SECRET_KEY = "xxx";
+    public static Algorithm getAlgorithm() {
+        if (algorithm == null) {
+            algorithm = Algorithm.HMAC256(JWT_SECRET_KEY.getBytes());
+        }
+        return algorithm;
+    }
+
+    static int time = ONE_DAY * 3;
+
+    public static JWTVerifier getVerifier() {
+        if (verifier == null) {
+            verifier = JWT.require(getAlgorithm()).build();
+        }
+        return verifier;
+    }
+
+    public static DecodedJWT getDecodedJwt(String token) {
+        DecodedJWT verify = getVerifier().verify(token);
+        return verify;
+    }
 
     public String generateToken(Authentication authentication) {
         UserDetailsIpmpl userPrincipal = (UserDetailsIpmpl) authentication.getPrincipal();
@@ -38,24 +70,35 @@ public class JwtUtils {
                 .compact();
     }
 
-    public DecodedJWT getDecodedJwt(String token) {
-        return getVerifier().verify(token);
+    public static String generateToken(String subject, String role, String issuer) {
+        if (role == null || role.length() == 0) {
+            return JWT.create()
+                    .withSubject(subject)
+                    .withExpiresAt(new Date(System.currentTimeMillis() + jwtExpirationsMs))
+                    .withIssuer(issuer)
+                    .sign(getAlgorithm());
+        }
+        return JWT.create()
+                .withSubject(subject)
+                .withExpiresAt(new Date(System.currentTimeMillis() + time))
+                .withIssuer(issuer)
+                .withClaim(JwtUtils.ROLE_CLAIM_KEY, role) //get first role in Authorities
+                .sign(getAlgorithm());
     }
 
-    public JWTVerifier getVerifier() {
-        return JWT.require(getAlgorithm()).build();
-    }
-
-//    public String generateToken(Authentication authentication) {
-//        UserDetailsIpmpl userPrincipal = (UserDetailsIpmpl) authentication.getPrincipal();
-//        return JWT.create()
-//                .withSubject(String.valueOf(userPrincipal.getId()))
-//                .withExpiresAt(new Date((new Date()).getTime() + jwtExpirationsMs))
-//                .sign(getAlgorithm());
-//    }
-
-    public Algorithm getAlgorithm() {
-        return Algorithm.HMAC256(SECRET_KEY.getBytes());
+    public static String generateTokenByAccount(Authentication authentication, User account, int expireAfter) {
+        UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+        return JWT.create()
+                .withSubject(String.valueOf(account.getId()))
+                .withSubject(String.valueOf(account.getUsername()))
+                .withExpiresAt(new Date(System.currentTimeMillis() + time))
+                .withIssuer(DEFAULT_ISSUER)
+                .withClaim(JwtUtils.ROLE_CLAIM_KEY, account.getRole() == Enums.Role.ADMIN ? "ADMIN" : "USER" )
+                .withClaim("username", account.getUsername())
+                .sign(getAlgorithm());
     }
 
     public String getUserNameFromJwtToken(String token) {

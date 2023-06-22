@@ -1,5 +1,6 @@
 package com.example.eproject.restapi.admin;
 
+import com.example.eproject.dto.UserDto;
 import com.example.eproject.entity.User;
 import com.example.eproject.repository.RoleRepository;
 import com.example.eproject.service.MessageResourceService;
@@ -45,9 +46,9 @@ public class AdminUserApi {
     }
 
     @PostMapping()
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<User> create(@RequestBody UserDto user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        return ResponseEntity.ok(userDetailsServiceimpl.save(user));
+        return ResponseEntity.ok(userDetailsServiceimpl.create(user));
     }
 
     @PutMapping("/{id}")
@@ -68,7 +69,7 @@ public class AdminUserApi {
         existUser.setGender(user.getGender());
         existUser.setAddress(user.getAddress());
         existUser.setPassword(encoder.encode(user.getPassword()));
-        existUser.setRoles(user.getRoles());
+        existUser.setRole(user.getRole());
         return ResponseEntity.ok(userDetailsServiceimpl.save(existUser));
     }
 
@@ -101,7 +102,7 @@ public class AdminUserApi {
         } else if (keyword.equals("password")) {
             existUser.setPassword(encoder.encode(user.getPassword()));
         } else if (keyword.equals("roles")) {
-            existUser.setRoles(user.getRoles());
+            existUser.setRole(user.getRole());
         } else {
             ResponseEntity.badRequest();
             new RuntimeException("Error: keyword not true");

@@ -14,9 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JwtResponse extends BasicEntity {
-    private String message;
     private String token;
-    private String type = "Bearer";
     private Long id;
     private String avt;
     private String firstName;
@@ -31,7 +29,6 @@ public class JwtResponse extends BasicEntity {
 
     public JwtResponse(String message, String accessToken, Long id, String avt, String firstName, String lastName, String username, String email,
                        String phoneNumber, Date birthday, String gender, String address, List<String> roles) {
-        this.message = message;
         this.token = accessToken;
         this.id = id;
         this.avt = avt;

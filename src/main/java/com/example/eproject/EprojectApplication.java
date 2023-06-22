@@ -419,9 +419,9 @@ public class EprojectApplication implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
-        generateNews();
-        generateRole();
-        generateCourse();
-        generateManager();
+//        generateNews();
+//        generateRole();
+//        generateCourse();
+//        generateManager();
     }
 }

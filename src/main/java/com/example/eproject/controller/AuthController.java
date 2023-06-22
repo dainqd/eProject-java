@@ -126,23 +126,23 @@ public class AuthController {
 
             String jwt = jwtUtils.generateToken(authentication);
 
-            UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
-            List<String> roles = userDetails.getAuthorities().stream()
-                    .map(item -> item.getAuthority())
-                    .collect(Collectors.toList());
-            JwtResponse jwtResponse = new JwtResponse("success",
-                    jwt,
-                    userDetails.getId(),
-                    userDetails.getAvt(),
-                    userDetails.getFirstname(),
-                    userDetails.getLastName(),
-                    userDetails.getUsername(),
-                    userDetails.getEmail(),
-                    userDetails.getPhoneNumber(),
-                    userDetails.getBirthday(),
-                    userDetails.getGender(),
-                    userDetails.getAddress(),
-                    roles);
+//            UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
+//            List<String> roles = userDetails.getAuthorities().stream()
+//                    .map(item -> item.getAuthority())
+//                    .collect(Collectors.toList());
+//            JwtResponse jwtResponse = new JwtResponse("success",
+//                    jwt,
+//                    userDetails.getId(),
+//                    userDetails.getAvt(),
+//                    userDetails.getFirstname(),
+//                    userDetails.getLastName(),
+//                    userDetails.getUsername(),
+//                    userDetails.getEmail(),
+//                    userDetails.getPhoneNumber(),
+//                    userDetails.getBirthday(),
+//                    userDetails.getGender(),
+//                    userDetails.getAddress(),
+//                    roles);
             return "redirect:/";
         } else {
             result.rejectValue("password", "400", messageResourceService.getMessage("account.password.incorrect"));
@@ -180,7 +180,7 @@ public class AuthController {
         }
         // Xử lý create account
         String verifyCode = Utils.generatorVerifyCode(6);
-        userDetailsService.create(signupRequest, verifyCode);
+        userDetailsService.signup(signupRequest, verifyCode);
         emailService.userRegisterMail(signupRequest.getEmail(), verifyCode);
         model.addAttribute("signupRequest", signupRequest);
         return "redirect:/service/register-verify";

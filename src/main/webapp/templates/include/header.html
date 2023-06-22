@@ -34,7 +34,8 @@
                 <li><a href="/events/list">Events</a></li>
                 <li><a href="/views/gallery">Gallery</a></li>
                 <li><a href="/blog-home/list">Blog</a></li>
-                <li class="menu-has-children"><a href="#">Pages</a>
+                <li class="menu-has-children">
+                    <a href="#">Pages</a>
                     <ul>
                         <!-- <li><a href="/elements.html">Elements</a></li> -->
                         <li><a href="/views/about">About</a></li>
@@ -44,14 +45,29 @@
                 <li><a href="/admissions/list">Admissions</a></li>
             </ul>
             <ul class="nav-menu tablet-mobile">
-                <li><a href="/auth/login"><i class="fa fa-user"></i>Login</a></li>
+                <li>
+                    <a href="/auth/login">
+                        <i class="fa fa-user"></i>
+                        Login
+                    </a>
+<!--                    <a th:if="${teacher.gender == 'F'}" href="/auth/login">-->
+<!--                        <i class="fa fa-user"></i>-->
+<!--                        Login-->
+<!--                    </a>-->
+<!--                    <a th:unless="${teacher.gender == 'F'}" href="/auth/login">-->
+<!--                        Username-->
+<!--                    </a>-->
+                </li>
             </ul>
         </nav>
-        <nav id="nav-menu-container">
-
+        <nav >
             <ul class="nav-menu laptop">
-                <li><a href="/auth/login"><i class="fa fa-user"></i>
-                    Login</a></li>
+                <li>
+                    <a href="/auth/login">
+                        <i class="fa fa-user"></i>
+                    Login
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -101,4 +117,8 @@
         $("#mobile-nav, #mobile-nav-toggle").hide();
     }
 
+</script>
+<script th:inline="javascript">
+    let username = localStorage.getItem('username');
+    console.log(username)
 </script>

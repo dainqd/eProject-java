@@ -15,7 +15,6 @@ public class SignupRequest {
     private String password;
     private String verifyCode;
     private String passwordConfirm;
-    private Set<String> role;
 
     public SignupRequest() {
         this.username = "";

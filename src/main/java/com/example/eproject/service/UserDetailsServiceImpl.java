@@ -1,15 +1,18 @@
 package com.example.eproject.service;
 
+import com.example.eproject.dto.UserDto;
 import com.example.eproject.dto.request.ForgotPasswordRequest;
 import com.example.eproject.dto.request.SignupRequest;
-import com.example.eproject.entity.Role;
-import com.example.eproject.entity.User;
+import com.example.eproject.entity.*;
 import com.example.eproject.repository.RoleRepository;
 import com.example.eproject.repository.UserRepository;
 import com.example.eproject.util.Enums;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,8 +37,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     RoleRepository roleRepository;
     final EmailService emailService;
-//    @Autowired
-//    EmailService emailService;
 
     public static final String ACCESS_TOKEN_KEY = "accessToken";
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -61,6 +62,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public User save(User user) {
+        user.setCreatedAt(LocalDateTime.now());
+        user.setCreatedBy(1L);
         return userRepository.save(user);
     }
 
@@ -75,10 +78,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-
-        return UserDetailsIpmpl.build(user);
+        Optional<User> optionalAccount = userRepository.findByUsername(username);
+        if(!optionalAccount.isPresent()){
+            throw  new UsernameNotFoundException("Username is not found");
+        }
+        User account = optionalAccount.get();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        SimpleGrantedAuthority simpleGrantedAuthority =
+                new SimpleGrantedAuthority(account.getRole() == Enums.Role.ADMIN ? "ADMIN" : "USER");
+        authorities.add(simpleGrantedAuthority);
+        return new UserDetailsIpmpl(account.getUsername(),account.getPassword(), authorities);
     }
 
     public void createReferralCode(User account) {
@@ -87,49 +96,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userRepository.save(account);
     }
 
-    public User create(SignupRequest request, String verifyCode) {
+    public User create(UserDto userDto) {
+        User user = new User();
+        BeanUtils.copyProperties(userDto, user);
+        user.setCreatedAt(LocalDateTime.now());
+        user.setCreatedBy(1L);
+        return userRepository.save(user);
+    }
+
+    public User signup(SignupRequest request, String verifyCode) {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setVerifyCode(verifyCode);
-        Set<String> strRoles = request.getRole();
-        Set<Role> roles = new HashSet<>();
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(Enums.Role.USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(Enums.Role.ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(Enums.Role.MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-                        break;
-                    case "teach":
-                        Role teachRole = roleRepository.findByName(Enums.Role.TEACHER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(teachRole);
-                        break;
-                    case "student":
-                        Role studentRole = roleRepository.findByName(Enums.Role.STUDENT)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(studentRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(Enums.Role.USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
-        user.setRoles(roles);
+        user.setRole(Enums.Role.USER);
         user = userRepository.save(user);
         createReferralCode(user);
         return user;
@@ -146,12 +127,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         response.addCookie(accessCookie);
     }
 
-    public User active(User account) {
-        account.setVerified(true);
-        account.setVerifyCode(null);
-        account.setUpdatedAt(LocalDateTime.now());
-        account.setUpdatedBy(account.getId());
-        return this.save(account);
+    public User active(User user) {
+        user.setVerified(true);
+        user.setVerifyCode(null);
+        return this.save(user);
     }
 
     public boolean checkVerifyCode(User account, String verifyCode) {
@@ -167,13 +146,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 
-    public void forgotPassword(User account, ForgotPasswordRequest loginFormDto) {
+    public void forgotPassword(User user, ForgotPasswordRequest forgotPasswordRequest) {
         long time = new Date().getTime();
         String code = generatorRandomToken(13) + "-" + time;
         String link = "http://localhost:8080/service/change-password";
-        account.setVerifyCode(code);
-        emailService.forgot(account.getEmail(), link);
-        save(account);
+        user.setVerifyCode(code);
+        emailService.forgot(user.getEmail(), link);
+        save(user);
     }
 }
 

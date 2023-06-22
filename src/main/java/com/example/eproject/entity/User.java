@@ -1,8 +1,11 @@
 package com.example.eproject.entity;
 
+import com.example.eproject.dto.EventsDto;
+import com.example.eproject.dto.UserDto;
 import com.example.eproject.entity.basic.BasicEntity;
 import com.example.eproject.util.Enums;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -38,15 +41,17 @@ public class User extends BasicEntity {
     private boolean verified = false;
     @NotNull
     private String password;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id")
-            , inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    private Enums.Role role = Enums.Role.USER;
     @Enumerated(EnumType.STRING)
     private Enums.AccountStatus status;
     public User(String username, String email,String password) {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(UserDto userDto) {
+        BeanUtils.copyProperties(userDto, this);
     }
 }
