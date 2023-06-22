@@ -126,23 +126,6 @@ public class AuthController {
 
             String jwt = jwtUtils.generateToken(authentication);
 
-//            UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
-//            List<String> roles = userDetails.getAuthorities().stream()
-//                    .map(item -> item.getAuthority())
-//                    .collect(Collectors.toList());
-//            JwtResponse jwtResponse = new JwtResponse("success",
-//                    jwt,
-//                    userDetails.getId(),
-//                    userDetails.getAvt(),
-//                    userDetails.getFirstname(),
-//                    userDetails.getLastName(),
-//                    userDetails.getUsername(),
-//                    userDetails.getEmail(),
-//                    userDetails.getPhoneNumber(),
-//                    userDetails.getBirthday(),
-//                    userDetails.getGender(),
-//                    userDetails.getAddress(),
-//                    roles);
             return "redirect:/";
         } else {
             result.rejectValue("password", "400", messageResourceService.getMessage("account.password.incorrect"));

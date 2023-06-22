@@ -175,11 +175,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers(IGNORE_PATHS).permitAll()
-                .antMatchers(STUDENT_PATHS).hasAuthority("STUDENT")
-                .antMatchers(TEACHER_PATHS).hasAuthority("TEACHER")
-                .antMatchers(USER_PATHS).hasAuthority("USER")
-                .antMatchers(MOD_PATHS).hasAuthority("MODERATOR")
-                .antMatchers(ADMIN_PATHS).hasAuthority("ADMIN")
+                .antMatchers(STUDENT_PATHS).hasRole("STUDENT")
+                .antMatchers(TEACHER_PATHS).hasRole("TEACHER")
+                .antMatchers(USER_PATHS).hasRole("USER")
+                .antMatchers(MOD_PATHS).hasRole("MODERATOR")
+                .antMatchers(ADMIN_PATHS).authenticated()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

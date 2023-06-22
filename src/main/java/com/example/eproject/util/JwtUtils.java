@@ -70,7 +70,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public static String generateToken(String subject, String role, String issuer) {
+    public static String generateToken(String subject, String role, String issuer, int expireAfter) {
         if (role == null || role.length() == 0) {
             return JWT.create()
                     .withSubject(subject)
