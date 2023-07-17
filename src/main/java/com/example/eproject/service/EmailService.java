@@ -22,8 +22,8 @@ import java.util.Properties;
 
 @Service
 public class EmailService {
-    @Autowired
-    private JavaMailSender emailSender;
+//    @Autowired
+//    private JavaMailSender emailSender;
     @Autowired
     SpringTemplateEngine templateEngine;
     //  @Autowired NoticeRegisterRepository noticeRegisterRepository;

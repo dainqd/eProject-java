@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
-    final EmailService emailService;
+//    final EmailService emailService;
 //    @Autowired
 //    EmailService emailService;
 
@@ -172,7 +172,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String code = generatorRandomToken(13) + "-" + time;
         String link = "http://localhost:8080/service/change-password";
         account.setVerifyCode(code);
-        emailService.forgot(account.getEmail(), link);
+//        emailService.forgot(account.getEmail(), link);
         save(account);
     }
 }
