@@ -43,7 +43,7 @@ public class AuthController {
     final MessageResourceService messageResourceService;
     final HttpServletRequest request;
     final AuthenticationManager authenticationManager;
-    final JwtUtils jwtUtils;
+     JwtUtils jwtUtils;
     final EmailService emailService;
 
     @GetMapping("login")
@@ -124,7 +124,7 @@ public class AuthController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            String jwt = jwtUtils.generateToken(authentication);
+            String jwt = jwtUtils.generateToken(account);
 
             UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
             List<String> roles = userDetails.getAuthorities().stream()

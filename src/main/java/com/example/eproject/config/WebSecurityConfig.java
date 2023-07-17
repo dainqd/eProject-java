@@ -1,6 +1,7 @@
 package com.example.eproject.config;
 
 import com.example.eproject.service.UserDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ import java.io.InputStream;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] IGNORE_PATHS = {
             "/", "/css/**", "/img/**", "/favicon.ico",
@@ -102,55 +104,52 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
-    @Bean
-    public com.example.eproject.config.AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
-    }
+    final AuthTokenFilter authenticationJwtTokenFilter;
 
-    @Bean
-    public JavaMailSender javaMailSender() {
-        return new JavaMailSender() {
-            @Override
-            public void send(SimpleMailMessage simpleMessage) throws MailException {
-
-            }
-
-            @Override
-            public void send(SimpleMailMessage... simpleMessages) throws MailException {
-
-            }
-
-            @Override
-            public MimeMessage createMimeMessage() {
-                return null;
-            }
-
-            @Override
-            public MimeMessage createMimeMessage(InputStream contentStream) throws MailException {
-                return null;
-            }
-
-            @Override
-            public void send(MimeMessage mimeMessage) throws MailException {
-
-            }
-
-            @Override
-            public void send(MimeMessage... mimeMessages) throws MailException {
-
-            }
-
-            @Override
-            public void send(MimeMessagePreparator mimeMessagePreparator) throws MailException {
-
-            }
-
-            @Override
-            public void send(MimeMessagePreparator... mimeMessagePreparators) throws MailException {
-
-            }
-        };
-    }
+//    @Bean
+//    public JavaMailSender javaMailSender() {
+//        return new JavaMailSender() {
+//            @Override
+//            public void send(SimpleMailMessage simpleMessage) throws MailException {
+//
+//            }
+//
+//            @Override
+//            public void send(SimpleMailMessage... simpleMessages) throws MailException {
+//
+//            }
+//
+//            @Override
+//            public MimeMessage createMimeMessage() {
+//                return null;
+//            }
+//
+//            @Override
+//            public MimeMessage createMimeMessage(InputStream contentStream) throws MailException {
+//                return null;
+//            }
+//
+//            @Override
+//            public void send(MimeMessage mimeMessage) throws MailException {
+//
+//            }
+//
+//            @Override
+//            public void send(MimeMessage... mimeMessages) throws MailException {
+//
+//            }
+//
+//            @Override
+//            public void send(MimeMessagePreparator mimeMessagePreparator) throws MailException {
+//
+//            }
+//
+//            @Override
+//            public void send(MimeMessagePreparator... mimeMessagePreparators) throws MailException {
+//
+//            }
+//        };
+//    }
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -182,6 +181,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ADMIN_PATHS).hasAuthority("ADMIN")
                 .anyRequest().authenticated();
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -11,6 +11,8 @@ import com.example.eproject.service.UserDetailsIpmpl;
 import com.example.eproject.service.UserDetailsServiceImpl;
 import com.example.eproject.util.Enums;
 import com.example.eproject.util.JwtUtils;
+import com.google.gson.Gson;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/auth")
+@RequiredArgsConstructor
 public class AuthApi {
     public static final String MESS_ERR_ROLE = "messageResourceService.getMessage(\"role.not.found\")";
     @Autowired
@@ -46,11 +49,11 @@ public class AuthApi {
     @Autowired
     PasswordEncoder encoder;
 
-    @Autowired
-    JwtUtils jwtUtils;
+    final JwtUtils jwtUtils;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
+        System.out.println("aaaaaaaaaaaa");
         Optional<User> optionalUser = userDetailsService.findByUsername(loginRequest.getUsername());
         if (!optionalUser.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.not.found"));
@@ -73,8 +76,8 @@ public class AuthApi {
                         , loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = jwtUtils.generateToken(authentication);
+        System.out.println(new Gson().toJson(account));
+        String jwt = jwtUtils.generateToken(account);
 
         UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
