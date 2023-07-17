@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -43,7 +44,7 @@ public class AuthController {
     final MessageResourceService messageResourceService;
     final HttpServletRequest request;
     final AuthenticationManager authenticationManager;
-     JwtUtils jwtUtils;
+    JwtUtils jwtUtils;
     final EmailService emailService;
 
     @GetMapping("login")
@@ -87,11 +88,13 @@ public class AuthController {
             BindingResult result,
             Model model,
             HttpServletRequest request,
+            HttpSession session,
             HttpServletResponse response) {
         Optional<User> optionalUser = userDetailsService.findByUsername(loginRequest.getUsername());
         if (!optionalUser.isPresent()) {
             result.rejectValue("username", "400", messageResourceService.getMessage("account.not.found"));
             model.addAttribute("loginRequest", loginRequest);
+            session.setAttribute("username", messageResourceService.getMessage("account.not.found"));
             return "auth/login";
         }
         User account = optionalUser.get();
@@ -123,26 +126,12 @@ public class AuthController {
                             , loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
+            System.out.println(account);
             String jwt = jwtUtils.generateToken(account);
-
-            UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
-            List<String> roles = userDetails.getAuthorities().stream()
-                    .map(item -> item.getAuthority())
-                    .collect(Collectors.toList());
-            JwtResponse jwtResponse = new JwtResponse("success",
-                    jwt,
-                    userDetails.getId(),
-                    userDetails.getAvt(),
-                    userDetails.getFirstname(),
-                    userDetails.getLastName(),
-                    userDetails.getUsername(),
-                    userDetails.getEmail(),
-                    userDetails.getPhoneNumber(),
-                    userDetails.getBirthday(),
-                    userDetails.getGender(),
-                    userDetails.getAddress(),
-                    roles);
+            System.out.println(jwt);
+            userDetailsService.saveAccessCookie(response, jwt);
+            Cookie username = new Cookie("username", loginRequest.getUsername());
+            response.addCookie(username);
             return "redirect:/";
         } else {
             result.rejectValue("password", "400", messageResourceService.getMessage("account.password.incorrect"));
@@ -159,6 +148,7 @@ public class AuthController {
         Optional<User> optionalUser = userDetailsService.findByUsername(signupRequest.getUsername());
         if (optionalUser.isPresent()) {
             result.rejectValue("username", "400", messageResourceService.getMessage("account.username.exist"));
+
             model.addAttribute("signupRequest", signupRequest);
             return "auth/register";
         }

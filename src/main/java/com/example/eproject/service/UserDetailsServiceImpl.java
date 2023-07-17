@@ -135,11 +135,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 
-    public void responseCookieToEverySubdomain(HttpServletResponse response, String accessToken) {
-        // add access token to cookie for every subdomain of gometaworld.io
-        saveAccessCookie(response, accessToken);
-    }
-
     public void saveAccessCookie(HttpServletResponse response, String accessToken) {
         Cookie accessCookie = new Cookie(ACCESS_TOKEN_KEY, accessToken);
         accessCookie.setSecure(true);

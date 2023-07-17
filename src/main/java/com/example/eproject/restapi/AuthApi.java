@@ -25,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.Cookie;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,6 @@ public class AuthApi {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
-        System.out.println("aaaaaaaaaaaa");
         Optional<User> optionalUser = userDetailsService.findByUsername(loginRequest.getUsername());
         if (!optionalUser.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.not.found"));
@@ -71,32 +71,39 @@ public class AuthApi {
         if (account.getStatus() == Enums.AccountStatus.DELETED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.deleted"));
         }
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername()
-                        , loginRequest.getPassword()));
+        // Xử lý check mật khẩu, add login history, update last login.
+        boolean isMatch = userDetailsService.checkPasswordMatch(loginRequest.getPassword(), account);
+        if (isMatch) {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername()
+                            , loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println(new Gson().toJson(account));
-        String jwt = jwtUtils.generateToken(account);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-        String message = "Success";
-        return ResponseEntity.ok(new JwtResponse(message,
-                jwt,
-                userDetails.getId(),
-                userDetails.getAvt(),
-                userDetails.getFirstname(),
-                userDetails.getLastName(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                userDetails.getPhoneNumber(),
-                userDetails.getBirthday(),
-                userDetails.getGender(),
-                userDetails.getAddress(),
-                roles));
+            String jwt = jwtUtils.generateToken(account);
+
+            UserDetailsIpmpl userDetails = (UserDetailsIpmpl) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
+            String message = "Success";
+            return ResponseEntity.ok(new JwtResponse(message,
+                    jwt,
+                    userDetails.getId(),
+                    userDetails.getAvt(),
+                    userDetails.getFirstname(),
+                    userDetails.getLastName(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    userDetails.getPhoneNumber(),
+                    userDetails.getBirthday(),
+                    userDetails.getGender(),
+                    userDetails.getAddress(),
+                    roles));
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.password.incorrect"));
+        }
+
     }
 
     @PostMapping("/signup")
