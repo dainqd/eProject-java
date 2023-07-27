@@ -112,6 +112,7 @@ public class EmailService {
 
     public void userRegisterMail(String email, String code) {
         Map<String, Object> templateModel = new HashMap<String, Object>();
+        System.out.println("fffdfdfd");
         templateModel.put("email", email);
         templateModel.put("code", code);
         String subject = "Đăng ký tài khoản!";

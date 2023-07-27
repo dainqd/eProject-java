@@ -39,12 +39,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
-    final EmailService usernameService;
     final UserDetailsServiceImpl userDetailsService;
     final MessageResourceService messageResourceService;
     final HttpServletRequest request;
     final AuthenticationManager authenticationManager;
-    JwtUtils jwtUtils;
+    final JwtUtils jwtUtils;
     final EmailService emailService;
 
     @GetMapping("login")
@@ -126,9 +125,7 @@ public class AuthController {
                             , loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println(account);
             String jwt = jwtUtils.generateToken(account);
-            System.out.println(jwt);
             userDetailsService.saveAccessCookie(response, jwt);
             Cookie username = new Cookie("username", loginRequest.getUsername());
             response.addCookie(username);

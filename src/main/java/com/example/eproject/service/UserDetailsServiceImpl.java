@@ -23,6 +23,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static com.example.eproject.restapi.AuthApi.MESS_ERR_ROLE;
 import static com.example.eproject.util.Utils.*;
 
 @Service
@@ -32,10 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    RoleRepository roleRepository;
-//    final EmailService emailService;
-//    @Autowired
-//    EmailService emailService;
+    RoleService roleService;
 
     public static final String ACCESS_TOKEN_KEY = "accessToken";
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -89,47 +87,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public User create(SignupRequest request, String verifyCode) {
         User user = new User();
+
+        Set<Role> roles = new HashSet<>();
+
+        Role userRole = roleService.findByName(Enums.Role.USER)
+                .orElseThrow(() -> new RuntimeException(MESS_ERR_ROLE));
+        roles.add(userRole);
+
+        user.setRoles(roles);
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setVerifyCode(verifyCode);
-        Set<String> strRoles = request.getRole();
-        Set<Role> roles = new HashSet<>();
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(Enums.Role.USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(Enums.Role.ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(Enums.Role.MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-                        break;
-                    case "teach":
-                        Role teachRole = roleRepository.findByName(Enums.Role.TEACHER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(teachRole);
-                        break;
-                    case "student":
-                        Role studentRole = roleRepository.findByName(Enums.Role.STUDENT)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(studentRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(Enums.Role.USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
-        user.setRoles(roles);
+        user.setStatus(Enums.AccountStatus.DEACTIVE);
         user = userRepository.save(user);
         createReferralCode(user);
         return user;
@@ -144,6 +114,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public User active(User account) {
         account.setVerified(true);
         account.setVerifyCode(null);
+        account.setStatus(Enums.AccountStatus.ACTIVE);
         account.setUpdatedAt(LocalDateTime.now());
         account.setUpdatedBy(account.getId());
         return this.save(account);

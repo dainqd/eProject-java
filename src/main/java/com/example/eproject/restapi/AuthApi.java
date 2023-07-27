@@ -3,15 +3,11 @@ package com.example.eproject.restapi;
 import com.example.eproject.dto.reponse.JwtResponse;
 import com.example.eproject.dto.request.LoginRequest;
 import com.example.eproject.dto.request.SignupRequest;
-import com.example.eproject.entity.Role;
 import com.example.eproject.entity.User;
-import com.example.eproject.service.MessageResourceService;
-import com.example.eproject.service.RoleService;
-import com.example.eproject.service.UserDetailsIpmpl;
-import com.example.eproject.service.UserDetailsServiceImpl;
+import com.example.eproject.service.*;
 import com.example.eproject.util.Enums;
 import com.example.eproject.util.JwtUtils;
-import com.google.gson.Gson;
+import com.example.eproject.util.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,6 +47,7 @@ public class AuthApi {
     PasswordEncoder encoder;
 
     final JwtUtils jwtUtils;
+    final EmailService emailService;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
@@ -122,49 +119,30 @@ public class AuthApi {
         if (!Objects.equals(signupRequest.getPassword(), signupRequest.getPasswordConfirm())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.password.incorrect"));
         }
-        User user = new User(signupRequest.getUsername(),
-                signupRequest.getEmail(),
-                encoder.encode(signupRequest.getPassword()));
-        Set<String> strRoles = signupRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-        if (strRoles == null) {
-            Role userRole = roleService.findByName(Enums.Role.USER)
-                    .orElseThrow(() -> new RuntimeException(MESS_ERR_ROLE));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleService.findByName(Enums.Role.ADMIN)
-                                .orElseThrow(() -> new RuntimeException(MESS_ERR_ROLE));
-                        roles.add(adminRole);
-                        break;
-                    case "mod":
-                        Role modRole = roleService.findByName(Enums.Role.MODERATOR)
-                                .orElseThrow(() -> new RuntimeException(MESS_ERR_ROLE));
-                        roles.add(modRole);
-                        break;
-                    case "teach":
-                        Role teachRole = roleService.findByName(Enums.Role.TEACHER)
-                                .orElseThrow(() -> new RuntimeException(MESS_ERR_ROLE));
-                        roles.add(teachRole);
-                        break;
-                    case "student":
-                        Role studentRole = roleService.findByName(Enums.Role.STUDENT)
-                                .orElseThrow(() -> new RuntimeException(MESS_ERR_ROLE));
-                        roles.add(studentRole);
-                        break;
-                    default:
-                        Role userRole = roleService.findByName(Enums.Role.USER)
-                                .orElseThrow(() -> new RuntimeException(MESS_ERR_ROLE));
-                        roles.add(userRole);
-                }
-            });
+        String verifyCode = Utils.generatorVerifyCode(6);
+        userDetailsService.create(signupRequest, verifyCode);
+        emailService.userRegisterMail(signupRequest.getEmail(), verifyCode);
+
+        return ResponseEntity.ok(messageResourceService.getMessage("account.verify"));
+    }
+
+    @PostMapping("/verify-signup")
+    public ResponseEntity<?> verifySignUp(@Validated @RequestBody SignupRequest signupRequest) {
+        Optional<User> optionalUser = userDetailsService.findByUsername(signupRequest.getUsername());
+        if (signupRequest.getVerifyCode().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.verify.empty"));
         }
-        user.setRoles(roles);
-        user.setVerified(false);
-        user.setStatus(Enums.AccountStatus.DEACTIVE);
-        userDetailsService.save(user);
+        if (!optionalUser.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.not.found"));
+        }
+        User account = optionalUser.get();
+        if (account.isVerified()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.verified"));
+        }
+        if (!userDetailsService.checkVerifyCode(account, signupRequest.getVerifyCode())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, messageResourceService.getMessage("account.verifycode.incorrect"));
+        }
+        userDetailsService.active(account);
         return ResponseEntity.ok(messageResourceService.getMessage("register.success"));
     }
 }
